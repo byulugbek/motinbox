@@ -10,7 +10,19 @@ a {
   color: inherit;
   text-decoration: none;
 }
-
+@font-face {
+  font-family: Bold;
+  src: url(../public/fonts/SFProDisplay/SFProDisplay-Bold.ttf);
+}
+@font-face {
+  font-family: Bold;
+  src: url(../public/fonts/SFProDisplay/SFProDisplay-Medium.ttf);
+}
+@font-face {
+  font-family: Bold;
+  src: url(../public/fonts/SFProDisplay/SFProDisplay-Regular.ttf);
+}
 * {
+
   box-sizing: border-box;
 }
