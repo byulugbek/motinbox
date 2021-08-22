@@ -30,3 +30,12 @@ export function Phone () {
         </svg>
     )
 };
+export function Strelka () {
+    return (
+        <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect width="30" height="30" rx="15" fill="white" fill-opacity="0.5"/>
+            <path d="M3.75 15C3.75 21.2109 8.78906 26.25 15 26.25C21.2109 26.25 26.25 21.2109 26.25 15C26.25 8.78906 21.2109 3.75 15 3.75C8.78906 3.75 3.75 8.78906 3.75 15Z" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10"/>
+            <path d="M12.6562 20.625L18.2812 15L12.6562 9.375" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    )
+};

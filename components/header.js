@@ -3,6 +3,7 @@ import Button from './button'
 import { Logo } from './icons'
 
 const Header_style = styled.div`
+    z-index: 100;
     display:flex;
     width: 100%;
     align-items: center;
