@@ -9,8 +9,6 @@ const Title_style = styled.p`
     text-align: center;
     align-items: center;
     justify-content: center;
-    margin-bottom: 30px;
-
 `
 
 export default function Title(props) {

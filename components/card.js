@@ -1,4 +1,4 @@
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import Image from 'next/image'
 import { Strelka } from './icons'
 
@@ -30,40 +30,84 @@ const Card_style = styled.div`
             padding: 50px;
             .info{
                 display: grid;
+                grid-template-columns: 1fr;
                 gap: 30px;
                 grid-auto-flow: column;
                 align-items: flex-end;
                 justify-content: space-between;
+                height: 100%;
                 .textBox{
                     display: grid;
                     gap: 30px;
-                    width: 250px;
+                    width: 100%;
                     .title{
                         font-family: Bold;
                         font-size: 24px;
+                        max-width: 250px;
                     }
-                    .descript{
-                        color: var(--black80);
+                    .correct{
+                        display: grid;
+                        gap: 30px;
+                        grid-auto-flow: column;
+                        align-items: flex-end;
+                        justify-content: space-between;
+                        width: 100%;
+                        .descript{
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-line-clamp: 3;
+                            -webkit-box-orient: vertical;
+                            overflow: hidden;
+                            color: var(--black80);
+                            max-width: 250px;
+                        }
                     }
                 }
             }
         }
+    ${props => props.portfolio && css`
+        padding-top: 100%;
+        .filter{
+            color: var(--white100);
+            background: linear-gradient(0deg, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.01) 100%);
+            }
+            .info{
+                .textBox{
+                    .title{
+                        font-family: Bold;
+                        color: var(--white100) !important;
+                        width: 100% !important;
+                    }
+                    .correct{
+                        .descript{
+                            color: var(--white100) !important;
+                            width: 100% !important;
+                        }
+                    }
+                }
+            }
+        }
+    
+    `}
 `
 
-export default function Button(props) {
+export default function Card(props) {
     return (
-        <Card_style>
+        <Card_style {...props}>
             <div className='filter'>
-                <p>Korzinka</p>
+                <p>{props.theme}</p>
                 <div className='info'>
                     <div className='textBox'>
-                        <p className='title'>Преврвщаем Смелые идеи</p>
-                        <p className='descript'>Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости</p>
+                        <p className='title'>{props.title}</p>
+                        <div className='correct'>
+                            <p className='descript'>{props.descript}</p>
+                            <a><Strelka/></a>
+                        </div> 
                     </div>
-                    <a><Strelka/></a>
+
                 </div>
             </div>
-            <Image src={require('../public/cardPhoto.png')} layout="fill"/>
+            <Image src={`/${props.img}`} layout="fill"/>
         </Card_style> 
     )
 };

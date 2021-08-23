@@ -8,8 +8,8 @@ export function Logo (props) {
 export function Location () {
     return (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M20 3.75C13.7891 3.75 8.75 8.54609 8.75 14.4531C8.75 21.25 16.25 32.0211 19.0039 35.7414C19.1182 35.8985 19.268 36.0262 19.4412 36.1144C19.6143 36.2025 19.8058 36.2484 20 36.2484C20.1942 36.2484 20.3857 36.2025 20.5588 36.1144C20.732 36.0262 20.8818 35.8985 20.9961 35.7414C23.75 32.0227 31.25 21.2555 31.25 14.4531C31.25 8.54609 26.2109 3.75 20 3.75Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M20 18.75C22.0711 18.75 23.75 17.0711 23.75 15C23.75 12.9289 22.0711 11.25 20 11.25C17.9289 11.25 16.25 12.9289 16.25 15C16.25 17.0711 17.9289 18.75 20 18.75Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M20 3.75C13.7891 3.75 8.75 8.54609 8.75 14.4531C8.75 21.25 16.25 32.0211 19.0039 35.7414C19.1182 35.8985 19.268 36.0262 19.4412 36.1144C19.6143 36.2025 19.8058 36.2484 20 36.2484C20.1942 36.2484 20.3857 36.2025 20.5588 36.1144C20.732 36.0262 20.8818 35.8985 20.9961 35.7414C23.75 32.0227 31.25 21.2555 31.25 14.4531C31.25 8.54609 26.2109 3.75 20 3.75Z" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M20 18.75C22.0711 18.75 23.75 17.0711 23.75 15C23.75 12.9289 22.0711 11.25 20 11.25C17.9289 11.25 16.25 12.9289 16.25 15C16.25 17.0711 17.9289 18.75 20 18.75Z" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
 
     )
@@ -17,25 +17,25 @@ export function Location () {
 export function Mail () {
     return (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M33.125 7.5H6.875C5.14911 7.5 3.75 8.89911 3.75 10.625V29.375C3.75 31.1009 5.14911 32.5 6.875 32.5H33.125C34.8509 32.5 36.25 31.1009 36.25 29.375V10.625C36.25 8.89911 34.8509 7.5 33.125 7.5Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M8.75 12.5L20 21.25L31.25 12.5" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M33.125 7.5H6.875C5.14911 7.5 3.75 8.89911 3.75 10.625V29.375C3.75 31.1009 5.14911 32.5 6.875 32.5H33.125C34.8509 32.5 36.25 31.1009 36.25 29.375V10.625C36.25 8.89911 34.8509 7.5 33.125 7.5Z" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M8.75 12.5L20 21.25L31.25 12.5" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     )
 };
 export function Phone () {
     return (
         <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M26.25 1.25H13.75C11.6789 1.25 10 2.92893 10 5V35C10 37.0711 11.6789 38.75 13.75 38.75H26.25C28.3211 38.75 30 37.0711 30 35V5C30 2.92893 28.3211 1.25 26.25 1.25Z" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-            <path d="M13.75 1.25H15.625C15.7908 1.25 15.9497 1.31585 16.0669 1.43306C16.1842 1.55027 16.25 1.70924 16.25 1.875C16.25 2.20652 16.3817 2.52446 16.6161 2.75888C16.8505 2.9933 17.1685 3.125 17.5 3.125H22.5C22.8315 3.125 23.1495 2.9933 23.3839 2.75888C23.6183 2.52446 23.75 2.20652 23.75 1.875C23.75 1.70924 23.8158 1.55027 23.9331 1.43306C24.0503 1.31585 24.2092 1.25 24.375 1.25H26.25" stroke="white" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M26.25 1.25H13.75C11.6789 1.25 10 2.92893 10 5V35C10 37.0711 11.6789 38.75 13.75 38.75H26.25C28.3211 38.75 30 37.0711 30 35V5C30 2.92893 28.3211 1.25 26.25 1.25Z" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+            <path d="M13.75 1.25H15.625C15.7908 1.25 15.9497 1.31585 16.0669 1.43306C16.1842 1.55027 16.25 1.70924 16.25 1.875C16.25 2.20652 16.3817 2.52446 16.6161 2.75888C16.8505 2.9933 17.1685 3.125 17.5 3.125H22.5C22.8315 3.125 23.1495 2.9933 23.3839 2.75888C23.6183 2.52446 23.75 2.20652 23.75 1.875C23.75 1.70924 23.8158 1.55027 23.9331 1.43306C24.0503 1.31585 24.2092 1.25 24.375 1.25H26.25" stroke="white" strokeOpacity="0.5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     )
 };
 export function Strelka () {
     return (
         <svg width="30" height="30" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <rect width="30" height="30" rx="15" fill="white" fill-opacity="0.5"/>
-            <path d="M3.75 15C3.75 21.2109 8.78906 26.25 15 26.25C21.2109 26.25 26.25 21.2109 26.25 15C26.25 8.78906 21.2109 3.75 15 3.75C8.78906 3.75 3.75 8.78906 3.75 15Z" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-miterlimit="10"/>
-            <path d="M12.6562 20.625L18.2812 15L12.6562 9.375" stroke="black" stroke-opacity="0.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+            <rect width="30" height="30" rx="15" fill="white" fillOpacity="1"/>
+            <path d="M3.75 15C3.75 21.2109 8.78906 26.25 15 26.25C21.2109 26.25 26.25 21.2109 26.25 15C26.25 8.78906 21.2109 3.75 15 3.75C8.78906 3.75 3.75 8.78906 3.75 15Z" stroke="black" strokeOpacity="0.5" strokeWidth="1.5" strokeMiterlimit="10"/>
+            <path d="M12.6562 20.625L18.2812 15L12.6562 9.375" stroke="black" strokeOpacity="1" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
         </svg>
     )
 };
