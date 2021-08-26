@@ -1,16 +1,18 @@
 import styled, { css } from 'styled-components'
 
 const Button_style = styled.button`
-    width: fit-content;
-    border-radius: 100px;
-    padding: 0 20px;
-    height: 40px;
     font-family: Medium;
     font-size: 16px;
-    transition: 0.3s;
+    height: 40px;
+    padding: 0 20px;
+    width: fit-content;
+    border-radius: 100px;
+    transition: 0.5s;
+    white-space: nowrap;
     color: var(--white100);
     background-color: var(--black100);
     :hover{
+        transform: scale(1.1);
         background-color: var(--black50); 
     }
     ${props => props.lite && css`
@@ -20,7 +22,6 @@ const Button_style = styled.button`
             background-color: var(--white50); 
         } 
     `}
-
 `
 
 export default function Button(props) {

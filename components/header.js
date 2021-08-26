@@ -1,55 +1,101 @@
 import styled from 'styled-components'
-import Button from './button'
-import { Logo } from './icons'
+import Link from 'next/link'
+import Button from '../components/button'
+import { Logo, Burger } from '../components/icons'
 
 const Header_style = styled.div`
-    z-index: 100;
-    display:flex;
-    width: 100%;
-    align-items: center;
-    justify-content: center;
+    display: grid; 
+    grid-auto-flow: column;
+    gap: 30px;
     position: sticky;
+    align-items: center;
+    justify-self: center;
+    justify-content: space-between;       
+    
+    z-index: 100;
+    width: calc(100% - 80px);
     top: 30px;
-    .headerBox{
-        display: grid;
-        grid-auto-flow: column;
-        width: 100%;
-        height: 60px;
-        background-color: var(--white50);
-        color: var(--black100);
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 10px 10px 20px;
-        border-radius: 100px;
-        box-shadow: var(--shadow);
-        backdrop-filter: blur(30px);
-        margin: 0 100px;
-        .navigation{
-            display: grid;
-            grid-auto-flow: column;
-            gap: 60px;
+    padding: 20px;
+    margin-bottom: 30px;
+    max-width: 920px;
+ 
+    border-radius: 100px;
+    color: var(--black100);
+    box-shadow: var(--shadow);
+    background-color: var(--white50);
+    backdrop-filter: blur(30px);    
+    .burger{
+        justify-content: left;
+        display: none;
+        transition: 0.5s;
+        cursor: pointer;
+        :hover{
+            opacity: 50%;
         }
     }
-`
+    .logo{
+        margin-left: 10px;
+        transition: 0.5s;
+        cursor: pointer;
+        :hover{
+            transform: scale(1.1);
+        }
+    }
+    .navigation{
+        display: grid;
+        grid-auto-flow: column;
+        gap: 60px;
+        transition: 0.5s;
 
+        .navigationItem{
+            white-space: nowrap;
+            font-size: 18px;
+            color: var(--black100);
+            cursor: pointer;
+            transition: 0.5s;
+            :hover{
+                transform: scale(1.1);
+                color: var(--black50);
+            }
+        }
+    }
+    @media only screen and (max-width: 1000px) {
+        gap: 20px;
+        .logo{ 
+            width: 140px;
+            margin-left: 10px; 
+        }
+        .burger{
+            display: block;
+        }
+        .navigation{
+            display: none;
+        }
+    }
+    @media only screen and (max-width: 500px) {
+        top: 0px;
+        gap: 20px;
+        width: 100%;
+        border-radius: 0;  
+        margin-bottom: 0;      
+        .logo{ display: none; }
+    }
+`
 export default function Header() {
     return (
-        <Header_style>
-            <div className='headerBox'>
-                
-                <Logo fill='#000'/>
+        <>
+            <Header_style> 
+                    <Burger className='burger'/>
+                    
+                    <Link href='/'><Logo className='logo' fill='#000'/></Link>
 
-                <div className='navigation'>
-                    <a className='navigationItem'>Кто мы такие</a>
-                    <a className='navigationItem'>Наши проекты</a>
-                    <a className='navigationItem'>Портфолио</a>
-                </div>
-
-                <Button
-                    text='БЫТЬ С НАМИ'
-                />
-                
-            </div>                
-        </Header_style> 
+                    <ul className='navigation'>
+                        <li className='navigationItem'><Link href='/screens/aboutUs'><a>Кто мы такие</a></Link></li>
+                        <li className='navigationItem'><Link href='/screens/project'><a>Наши проекты</a></Link></li>
+                        <li className='navigationItem'><Link href='/screens/portfolio'><a>Портфолио</a></Link></li>
+                    </ul>
+                    <Button text='БЫТЬ С НАМИ'/>
+            </Header_style> 
+        </>
     )
 };
