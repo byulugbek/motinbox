@@ -1,8 +1,8 @@
 import styled from 'styled-components'
 import Image from 'next/image'
-import { Instagram } from '../../../components/icons'
-import Button from '../../../components/button'
-import MainLayer from '../../mainLayer'
+import { Instagram } from '../../components/icons'
+import Button from '../../components/button'
+import MainLayer from '../mainLayer'
 
 const PostWrap = styled.div`
     display: grid;

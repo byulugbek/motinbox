@@ -152,16 +152,16 @@ export default function Card(props) {
     return (
         <Card_style {...props}>
             <div className='filter'>
-                <p>{data.theme}</p>
+                <p>{data?.theme}</p>
                 <div className='info'>
                     <div className='textBox'>
-                        <p className='title'>{data.title}</p>
+                        <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
-                            <p className='descript'>{data.descript}</p>
-                            <Link href={`${data.link}`}>
-                                <a className='strelka' target="_blank"><Strelka/></a>
+                            <p className='descript'>{data?.descript}</p>
+                            <Link href={data.type === 'portfolio' ? `portfolio/${data?.id}` : `projects/${data?.id}`}>
+                                <a className='strelka'><Strelka/></a>
                             </Link>
-                            <Link href={`${data.url}`}>
+                            <Link href={`${data?.url}`}>
                                 <a className='instagram' target="_blank"><Instagram fill='#fff'/></a>
                             </Link>
                             
@@ -170,7 +170,7 @@ export default function Card(props) {
 
                 </div>
             </div>
-            <Image src={`/${data.img}`} layout="fill"/>
+            <Image src={`/${data?.img}`} layout="fill"/>
         </Card_style> 
     )
 };

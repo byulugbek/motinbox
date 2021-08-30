@@ -1,6 +1,6 @@
 import Head from 'next/head'
 import MainLayer from './mainLayer'
-import HomePage from './screens/home'
+import HomePage from './home'
 export default function Index() {
     return (
         <MainLayer>

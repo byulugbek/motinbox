@@ -1,8 +1,9 @@
 import styled from 'styled-components'
-import Card from '../../components/card'
-import Title from '../../components/title'
-import DoingCard from '../../components/doingCard'
-import { Logo } from '../../components/icons'
+import Card from '../components/card'
+import Title from '../components/title'
+import DoingCard from '../components/doingCard'
+import Image from 'next/image'
+import Link from 'next/link'
 
 const Projects = styled.div`
     display: grid;
@@ -22,7 +23,6 @@ const CanDo = styled(Projects)`
         background-color: var(--black20);
     }
 `
-
 const InHeard = styled(Projects)`
     grid-template-columns: repeat(4, 1fr);
     .heardItem{
@@ -43,7 +43,6 @@ const InHeard = styled(Projects)`
         }
     }
 `
-
 const Portfolio_Style = styled(Projects)`
     grid-template-columns: repeat(3, 1fr);
     @media only screen and (max-width: 1000px) {
@@ -54,55 +53,61 @@ const Portfolio_Style = styled(Projects)`
     }
 `
 
+
 const projectCard = [
     {
         id: 1,
+        type: 'project',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-        link: '/'
     },
     {
         id: 2,
+        type: 'project',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-        link: '/'
     },
     {
         id: 3,
+        type: 'project',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-        link: '/'
     },
     {
         id: 4,
+        type: 'project',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-        link: '/'
     },
 ]
 const portfolioCard = [
     {
         id: 1,
+        type: 'portfolio',
         img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
     },
     {
         id: 2,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
         descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
     },
     {
         id: 3,
+        type: 'portfolio',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -110,6 +115,7 @@ const portfolioCard = [
     },
     {
         id: 4,
+        type: 'portfolio',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -143,6 +149,28 @@ const doingCard = [
         descript: 'Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором.',
     },
 ]
+const inHeardCard = [
+    {
+        id: 1,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 2,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 3,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 4,
+        img: 'logo.png',
+        link: '/'
+    },
+]
 
 
 export default function HomePage() {
@@ -174,6 +202,14 @@ export default function HomePage() {
         )
     })
 
+    const mapInHeardCards = inHeardCard.map((post)=> {
+        return(
+            <Link key={post.id} href={post.link}>
+                <a className='heardItem'><Image src={`/${post.img}`} width='250px' height='100px'/></a>
+            </Link>
+        )
+    })
+
     return (
         <>
             <Projects>
@@ -186,15 +222,7 @@ export default function HomePage() {
             </CanDo>
             <Title text='В НАШИХ СЕРДЦАХ'/>
             <InHeard>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-                <a className='heardItem'><Logo fill='#000'/></a>
-
+                {mapInHeardCards}
             </InHeard>
             <Title text='ПОСЛЕДНИЕ РАБОТЫ'/>
             <Portfolio_Style>

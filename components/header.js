@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import Link from 'next/link'
-import Button from '../components/button'
-import { Logo, Burger } from '../components/icons'
+import Button from './button'
+import { Logo, Burger } from './icons'
 
 const Header_style = styled.div`
     display: grid; 
@@ -34,6 +34,7 @@ const Header_style = styled.div`
         }
     }
     .logo{
+        background-color: transparent;
         margin-left: 10px;
         transition: 0.5s;
         cursor: pointer;
@@ -87,12 +88,12 @@ export default function Header() {
             <Header_style> 
                     <Burger className='burger'/>
                     
-                    <Link href='/'><Logo className='logo' fill='#000'/></Link>
+                    <Link href='/'><a className='logo'><Logo fill='#000'/></a></Link>
 
                     <ul className='navigation'>
-                        <li className='navigationItem'><Link href='/screens/aboutUs'><a>Кто мы такие</a></Link></li>
-                        <li className='navigationItem'><Link href='/screens/project'><a>Наши проекты</a></Link></li>
-                        <li className='navigationItem'><Link href='/screens/portfolio'><a>Портфолио</a></Link></li>
+                        <li className='navigationItem'><Link href='/aboutUs'><a>Кто мы такие</a></Link></li>
+                        <li className='navigationItem'><Link href='/projects'><a>Наши проекты</a></Link></li>
+                        <li className='navigationItem'><Link href='/portfolio'><a>Портфолио</a></Link></li>
                     </ul>
                     <Button text='БЫТЬ С НАМИ'/>
             </Header_style> 

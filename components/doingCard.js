@@ -44,8 +44,8 @@ export default function DoingCard(props) {
     return(
         <>
             <Card_style>
-                <div className='title'>{data.title}</div>
-                <div className='descript'> <p>{data.descript}</p>
+                <div className='title'>{data?.title}</div>
+                <div className='descript'> <p>{data?.descript}</p>
                     <Button text='ХОЧУ ЭТО'/>
                 </div>
             </Card_style>

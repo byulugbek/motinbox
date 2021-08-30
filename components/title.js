@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Title_style = styled.p`
+const Title_style = styled.h1`
     display: grid;
     grid-template-columns: 1fr;
     align-content: stretch;

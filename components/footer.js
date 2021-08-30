@@ -1,5 +1,5 @@
 import styled from 'styled-components'
-import { Logo, Location, Mail, Phone, Instagram } from '../components/icons'
+import { Logo, Location, Mail, Phone, Instagram } from './icons'
 
 const Footer_style = styled.div`
     display: grid; 
