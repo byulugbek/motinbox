@@ -2,6 +2,9 @@ import styled from 'styled-components'
 import Link from 'next/link'
 import Button from './button'
 import { Logo, Burger } from './icons'
+import ModalLayer from './modalLayer'
+import BurgerModal from './burgerModal'
+import { useState } from 'react'
 
 const Header_style = styled.div`
     display: grid; 
@@ -34,7 +37,6 @@ const Header_style = styled.div`
         }
     }
     .logo{
-        background-color: transparent;
         margin-left: 10px;
         transition: 0.5s;
         cursor: pointer;
@@ -68,6 +70,12 @@ const Header_style = styled.div`
         }
         .burger{
             display: block;
+            :hover{
+                opacity: 100%;
+            }
+            :active{
+                opacity: 50%;
+            }
         }
         .navigation{
             display: none;
@@ -83,20 +91,39 @@ const Header_style = styled.div`
     }
 `
 export default function Header() {
+    
+    const [isBurger, setBurger] = useState(false);
+
     return (
         <>
             <Header_style> 
-                    <Burger className='burger'/>
+                    
+                    <button onClick={()=> setBurger(true)}><Burger className='burger'/></button>
                     
                     <Link href='/'><a className='logo'><Logo fill='#000'/></a></Link>
 
                     <ul className='navigation'>
-                        <li className='navigationItem'><Link href='/aboutUs'><a>Кто мы такие</a></Link></li>
-                        <li className='navigationItem'><Link href='/projects'><a>Наши проекты</a></Link></li>
-                        <li className='navigationItem'><Link href='/portfolio'><a>Портфолио</a></Link></li>
+                        <li className='navigationItem'>
+                            <Link href='/aboutUs'>
+                                <a>Кто мы такие</a>
+                            </Link>    
+                        </li>
+                        <li className='navigationItem'>
+                            <Link href='/projects'>
+                                <a>Наши проекты</a>
+                            </Link>
+                        </li>
+                        <li className='navigationItem'>
+                            <Link href='/portfolio'>
+                                <a>Портфолио</a>
+                            </Link>
+                        </li>
                     </ul>
                     <Button text='БЫТЬ С НАМИ'/>
             </Header_style> 
+
+            {isBurger && <BurgerModal isBurger={isBurger} setBurger={setBurger}/>}
         </>
     )
 };
+

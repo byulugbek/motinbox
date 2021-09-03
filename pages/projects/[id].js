@@ -82,7 +82,7 @@ const PostWrap = styled.div`
         gap: 30px;
         border-radius: 20px;
         padding: 20px;
-        font-size: 14px;
+        font-size: 16px;
         .imageBox{
             gap: 10px;
             .calaje{

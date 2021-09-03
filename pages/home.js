@@ -57,7 +57,7 @@ const Portfolio_Style = styled(Projects)`
 const projectCard = [
     {
         id: 1,
-        type: 'project',
+        type: 'projects',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -65,7 +65,7 @@ const projectCard = [
     },
     {
         id: 2,
-        type: 'project',
+        type: 'projects',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -73,7 +73,7 @@ const projectCard = [
     },
     {
         id: 3,
-        type: 'project',
+        type: 'projects',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -81,7 +81,7 @@ const projectCard = [
     },
     {
         id: 4,
-        type: 'project',
+        type: 'projects',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
         title: 'Мы создали выставку "DOSTUP" для МТС.',
@@ -115,6 +115,46 @@ const portfolioCard = [
     },
     {
         id: 4,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
+        title: 'Мы создали выставку "DOSTUP" для МТС.',
+        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
+    },
+    {
+        id: 5,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
+        title: 'Мы создали выставку "DOSTUP" для МТС.',
+        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
+    },
+    {
+        id: 6,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
+        title: 'Мы создали выставку "DOSTUP" для МТС.',
+        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
+    },
+    {
+        id: 7,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
+        title: 'Мы создали выставку "DOSTUP" для МТС.',
+        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
+    },
+    {
+        id: 8,
+        type: 'portfolio',
+        img: 'cardPhoto2.webp',
+        theme: 'Мобильное приложение',
+        title: 'Мы создали выставку "DOSTUP" для МТС.',
+        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
+    },
+    {
+        id: 9,
         type: 'portfolio',
         img: 'cardPhoto2.webp',
         theme: 'Мобильное приложение',
@@ -167,6 +207,26 @@ const inHeardCard = [
     },
     {
         id: 4,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 5,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 6,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 7,
+        img: 'logo.png',
+        link: '/'
+    },
+    {
+        id: 8,
         img: 'logo.png',
         link: '/'
     },

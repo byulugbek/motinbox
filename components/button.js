@@ -22,6 +22,21 @@ const Button_style = styled.button`
             background-color: var(--white50); 
         } 
     `}
+    @media only screen and (max-width: 500px) {
+        :hover{
+            transform: scale(1);
+            background-color: var(--black100); 
+        }
+        :active{
+            transform: scale(1.1);
+            background-color: var(--black50);  
+        }
+        ${props => props.lite && css`
+            :hover{
+                background-color: var(--white100); 
+            } 
+        `}
+    }
 `
 
 export default function Button(props) {

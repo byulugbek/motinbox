@@ -5,9 +5,10 @@ import Link from 'next/link'
 
 const Card_style = styled.div`
         width: 100%;
-        padding-top: 60%; /* 16:9 Aspect Ratio (divide 9 by 16 = 0.5625) */
-        position: relative; /* If you want text inside of it */
-        height: fit-content;
+        height: 400px;
+        /* padding-top: 60%; */
+        position: relative;
+        /* height: fit-content; */
         border-radius: 40px;
         overflow: hidden;
 
@@ -57,7 +58,7 @@ const Card_style = styled.div`
                         .descript{
                             text-overflow: ellipsis;
                             display: -webkit-box;
-                            -webkit-line-clamp: 3;
+                            -webkit-line-clamp: 6;
                             -webkit-box-orient: vertical;
                             overflow: hidden;
                             color: var(--black80);
@@ -129,14 +130,18 @@ const Card_style = styled.div`
     `}
     @media only screen and (max-width: 500px) {
         padding-top: 100%;
-        border-radius: 20px;
+        border-radius: 30px;
         .filter{
-            padding: 20px;
+            padding: 30px;
             .info{
                 .textBox{
-                    gap: 10px; 
                     .title{
-                        font-size: 14px;
+                        max-width: 100%;
+                    }
+                    .correct{
+                        .descript{
+                            max-width: 100%;
+                        }
                     }
                 }
             }
@@ -158,13 +163,14 @@ export default function Card(props) {
                         <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
                             <p className='descript'>{data?.descript}</p>
-                            <Link href={data.type === 'portfolio' ? `portfolio/${data?.id}` : `projects/${data?.id}`}>
-                                <a className='strelka'><Strelka/></a>
-                            </Link>
-                            <Link href={`${data?.url}`}>
-                                <a className='instagram' target="_blank"><Instagram fill='#fff'/></a>
-                            </Link>
-                            
+                                <Link href={data.type !== 'teamItem' ? `/${data.type}/${data?.id}` : `${data?.url}`}>
+                                    {data.type === 'teamItem'
+                                    ?
+                                        <a className='instagram' target="_blank"><Instagram fill='#fff'/></a>  
+                                    :
+                                        <a className='strelka'><Strelka/></a>
+                                    }
+                                </Link>                            
                         </div> 
                     </div>
 

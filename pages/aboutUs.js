@@ -80,6 +80,7 @@ const Team = styled.div`
 const teamCard = [
     {
         id: 1,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -87,6 +88,7 @@ const teamCard = [
     },
     {
         id: 2,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -94,6 +96,7 @@ const teamCard = [
     },
     {
         id: 3,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -101,6 +104,7 @@ const teamCard = [
     },
     {
         id: 4,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -108,6 +112,7 @@ const teamCard = [
     },
     {
         id: 5,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -115,6 +120,7 @@ const teamCard = [
     },
     {
         id: 6,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -122,6 +128,7 @@ const teamCard = [
     },
     {
         id: 7,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',
@@ -129,6 +136,7 @@ const teamCard = [
     },
     {
         id: 8,
+        type: 'teamItem',
         img: 'Team.png',
         title: 'Улугбек Алимов',
         descript: 'CEO, Основатель',

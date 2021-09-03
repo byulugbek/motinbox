@@ -30,7 +30,7 @@ export default class MyDocument extends Document {
 
   render() {
     return (
-      <Html lang="uz">
+      <Html lang="ru">
         <Head>
           <meta name="charset" content="utf-8" />
           <meta name="referrer" content="always" />
@@ -40,6 +40,7 @@ export default class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
+          <div id='__modal'/>
         </body>
       </Html>
     )

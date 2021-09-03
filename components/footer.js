@@ -6,7 +6,7 @@ const Footer_style = styled.div`
     grid-auto-flow: row;
     justify-self: center;
     justify-content: stretch;   
-    width: calc(100% - 60px);
+    width: calc(100% - 100px);
     
     border-radius: 40px;
     font-size: 18px;
@@ -86,7 +86,7 @@ const Footer_style = styled.div`
         }
     }
     @media only screen and (max-width: 1000px) {
-        
+        width: calc(100% - 60px);
         .upBox{
             padding: 30px;
             gap: 30px;
