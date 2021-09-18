@@ -1,9 +1,6 @@
-import { useState } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
-import Button from './button';
-import { Logo, Burger } from './icons';
-import BurgerModal from './burgerModal';
+import { Burger, Logo } from '../components/icons';
 
 const Header_style = styled.div`
     display: grid; 
@@ -88,44 +85,40 @@ const Header_style = styled.div`
         margin-bottom: 0;      
         .logo{ display: none; }
     }
+
 `
-export default function Header() {
-    const [isBurger, setBurger] = useState(false);
 
+export default function AHeader() {
     return (
-        <>
-            <Header_style>
+        <Header_style>
+            <button onClick={() => console.log('burger')}><Burger className='burger' /></button>
 
-                <button onClick={() => setBurger(true)}><Burger className='burger' /></button>
+            <Link href='/admin'><a className='logo'><Logo fill='#000' /></a></Link>
 
-                <Link href='/'><a className='logo'><Logo fill='#000' /></a></Link>
+            <ul className='navigation'>
+                <li className='navigationItem'>
+                    <Link href='/admin/team'>
+                        <a>Команда</a>
+                    </Link>
+                </li>
+                <li className='navigationItem'>
+                    <Link href='/admin/projects'>
+                        <a>Проекты</a>
+                    </Link>
+                </li>
+                <li className='navigationItem'>
+                    <Link href='/admin/portfolio'>
+                        <a>Портфолио</a>
+                    </Link>
+                </li>
+                <li className='navigationItem'>
+                    <Link href='/admin/others'>
+                        <a>Другие</a>
+                    </Link>
+                </li>
+            </ul>
 
-                <ul className='navigation'>
-                    <li className='navigationItem'>
-                        <Link href='/aboutUs'>
-                            <a>Кто мы такие</a>
-                        </Link>
-                    </li>
-                    <li className='navigationItem'>
-                        <Link href='/projects'>
-                            <a>Наши проекты</a>
-                        </Link>
-                    </li>
-                    <li className='navigationItem'>
-                        <Link href='/portfolio'>
-                            <a>Портфолио</a>
-                        </Link>
-                    </li>
-                </ul>
-                <Link href='/makeOrder'>
-                    <a>
-                        <Button text='БЫТЬ С НАМИ' />
-                    </a>
-                </Link>
-            </Header_style>
-
-            {isBurger && <BurgerModal isBurger={isBurger} setBurger={setBurger} />}
-        </>
+            <div />
+        </Header_style>
     )
-};
-
+}

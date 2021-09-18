@@ -1,7 +1,7 @@
 import styled from 'styled-components'
-import Card from '../components/card'
-import Title from '../components/title'
-import DoingCard from '../components/doingCard'
+import Card from './card'
+import Title from './title'
+import DoingCard from './doingCard'
 import Image from 'next/image'
 import Link from 'next/link'
 
@@ -235,8 +235,8 @@ const inHeardCard = [
 
 export default function HomePage() {
 
-    const mapProjectCards = projectCard.map((post)=> {
-        return(
+    const mapProjectCards = projectCard.map((post) => {
+        return (
             <Card
                 key={post.id}
                 data={post}
@@ -244,8 +244,8 @@ export default function HomePage() {
         )
     })
 
-    const mapPortfolioCards = portfolioCard.map((post)=> {
-        return(
+    const mapPortfolioCards = portfolioCard.map((post) => {
+        return (
             <Card portfolio
                 key={post.id}
                 data={post}
@@ -253,8 +253,8 @@ export default function HomePage() {
         )
     })
 
-    const mapDoingCards = doingCard.map((post)=> {
-        return(
+    const mapDoingCards = doingCard.map((post) => {
+        return (
             <DoingCard
                 key={post.id}
                 data={post}
@@ -262,10 +262,10 @@ export default function HomePage() {
         )
     })
 
-    const mapInHeardCards = inHeardCard.map((post)=> {
-        return(
+    const mapInHeardCards = inHeardCard.map((post) => {
+        return (
             <Link key={post.id} href={post.link}>
-                <a className='heardItem'><Image src={`/${post.img}`} width='250px' height='100px'/></a>
+                <a className='heardItem'><Image src={`/${post.img}`} width='250px' height='100px' /></a>
             </Link>
         )
     })
@@ -275,19 +275,19 @@ export default function HomePage() {
             <Projects>
                 {mapProjectCards}
             </Projects>
-            <Title text='ЧТО МЫ МОЖЕМ СОТВОРИТЬ'/>
+            <Title text='ЧТО МЫ МОЖЕМ СОТВОРИТЬ' />
             <CanDo>
-                <hr className='line'/>
+                <hr className='line' />
                 {mapDoingCards}
             </CanDo>
-            <Title text='В НАШИХ СЕРДЦАХ'/>
+            <Title text='В НАШИХ СЕРДЦАХ' />
             <InHeard>
                 {mapInHeardCards}
             </InHeard>
-            <Title text='ПОСЛЕДНИЕ РАБОТЫ'/>
+            <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>
                 {mapPortfolioCards}
-            </Portfolio_Style>    
+            </Portfolio_Style>
         </>
     )
 };

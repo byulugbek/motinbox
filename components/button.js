@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components'
+import styled, { css } from 'styled-components';
 
 const Button_style = styled.button`
     font-family: Medium;
@@ -43,6 +43,6 @@ export default function Button(props) {
     return (
         <Button_style {...props}>
             {props.text}
-        </Button_style> 
+        </Button_style>
     )
 };

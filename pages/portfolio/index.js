@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import Card from '../../components/card'
-import Title from '../../components/title'
-import MainLayer from '../mainLayer'
+import styled from 'styled-components';
+import Card from '../../components/card';
+import Title from '../../components/title';
+import MainLayer from '../../components/mainLayer';
 
 const portfolioLink = [
     {
@@ -60,16 +60,16 @@ const Portfolio_Style = styled.div`
 export default function PortfolioPage() {
     return (
         <MainLayer>
-            <Title text='ПОСЛЕДНИЕ РАБОТЫ'/>
+            <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>
-            {portfolioLink.map((post)=> {
-                return(
-                    <Card portfolio 
-                        key={post.id}
-                        data={post}
-                    />
-                )
-            })}
+                {portfolioLink.map((post) => {
+                    return (
+                        <Card portfolio
+                            key={post.id}
+                            data={post}
+                        />
+                    )
+                })}
             </Portfolio_Style>
         </MainLayer>
     )

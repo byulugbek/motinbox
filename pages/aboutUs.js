@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Title from '../components/title'
 import Button from '../components/button'
 import Card from '../components/card'
-import MainLayer from './mainLayer'
+import MainLayer from '../components/mainLayer'
 
 const Animatin_screen = styled.div`
     display: grid;
@@ -145,8 +145,8 @@ const teamCard = [
 ]
 export default function AboutUs() {
 
-    const mapTeamCards = teamCard.map((post)=> {
-        return(
+    const mapTeamCards = teamCard.map((post) => {
+        return (
             <Card teamItem
                 key={post.id}
                 data={post}
@@ -158,23 +158,23 @@ export default function AboutUs() {
         <MainLayer>
             <Animatin_screen>
                 <div className='upBox'>
-                    <h1 className='slogan'>Преврвщаем<br/>Смелые идеи в <br/>Чистый дизайн</h1>
+                    <h1 className='slogan'>Преврвщаем<br />Смелые идеи в <br />Чистый дизайн</h1>
                     <p >Мы основаны:<span className='boldText'>2021</span></p>
                 </div>
                 <div className='bottomBox'>
                     <p className='about'>Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором. Мы верим, что компания реализует свой потенциал, если каждый человек в компании реализует свой потенциал. Свой талант. Творческий, стратегический, финансовый, управленческий, предпринимательский, любой.</p>
                     <div className='story'>
-                        <Button lite text='Наши проекты'/>
+                        <Button lite text='Наши проекты' />
                         <p className='creater'> Основатель:<span className='boldText'>Ulugbek Alimov</span></p>
                     </div>
                 </div>
             </Animatin_screen>
-            <Title 
+            <Title
                 text='Наша семья'
             />
             <Team>
                 {mapTeamCards}
             </Team>
-        </MainLayer>    
+        </MainLayer>
     )
 };

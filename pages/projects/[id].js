@@ -2,7 +2,7 @@ import styled from 'styled-components'
 import Image from 'next/image'
 import { Instagram } from '../../components/icons'
 import Button from '../../components/button'
-import MainLayer from '../mainLayer'
+import MainLayer from '../../components/mainLayer'
 
 const PostWrap = styled.div`
     display: grid;
@@ -106,28 +106,28 @@ export default function Post() {
                 <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
                 <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
                 <div className='imageBox'>
-                <div className='picture'><Image src={`/cardPhoto2.webp`} layout='fill'/></div>
-                <div className='calaje'>
-                    <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill'/></div>
-                    <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill'/></div>
-                    <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill'/></div>
-                </div>
+                    <div className='picture'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
+                    <div className='calaje'>
+                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
+                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
+                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
+                    </div>
                 </div>
                 <p className='descript'>A brand that has gone far beyond sports, affecting the absolute diversity of the audience. </p>
                 <p className='descript'>This pattern refers to a variety of subcultures, and even those sections of society that are not related to art and culture.</p>
-                <hr className='line'/>
+                <hr className='line' />
                 <div className='feedback'>
                     <div className='social'>
-                        <a><Instagram fill='#000000'/></a>
-                        <a><Instagram fill='#000000'/></a>
-                        <a><Instagram fill='#000000'/></a>
+                        <a><Instagram fill='#000000' /></a>
+                        <a><Instagram fill='#000000' /></a>
+                        <a><Instagram fill='#000000' /></a>
                     </div>
                     <Button
                         text='Лайкнуть'
                     />
                 </div>
-                <hr className='line'/>
-            </PostWrap> 
-        </MainLayer>   
+                <hr className='line' />
+            </PostWrap>
+        </MainLayer>
     )
 };

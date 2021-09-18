@@ -40,16 +40,17 @@ const Card_style = styled.div`
 `
 
 export default function DoingCard(props) {
-    const {data} = props;
-    return(
+    const { data } = props;
+    return (
         <>
             <Card_style>
                 <div className='title'>{data?.title}</div>
-                <div className='descript'> <p>{data?.descript}</p>
-                    <Button text='ХОЧУ ЭТО'/>
+                <div className='descript'>
+                    <p>{data?.descript}</p>
+                    <Button text='ХОЧУ ЭТО' />
                 </div>
             </Card_style>
-            <hr className='line'/>
+            <hr className='line' />
         </>
     )
 }

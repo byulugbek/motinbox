@@ -1,7 +1,7 @@
-import styled from 'styled-components'
-import Card from '../../components/card'
-import Title from '../../components/title'
-import MainLayer from '../mainLayer'
+import styled from 'styled-components';
+import Card from '../../components/card';
+import Title from '../../components/title';
+import MainLayer from '../../components/mainLayer';
 
 const Projects = styled.div`
     display: grid;
@@ -48,8 +48,8 @@ const projectCard = [
 ]
 
 export default function ProjectsPage() {
-    const mapProjectCards = projectCard.map((post)=> {
-        return(
+    const mapProjectCards = projectCard.map((post) => {
+        return (
             <Card
                 key={post.id}
                 data={post}
@@ -58,7 +58,7 @@ export default function ProjectsPage() {
     })
     return (
         <MainLayer>
-            <Title text='ЭТО НАШИ ПРОЕКТЫ'/>
+            <Title text='ЭТО НАШИ ПРОЕКТЫ' />
             <Projects>
                 {mapProjectCards}
             </Projects>

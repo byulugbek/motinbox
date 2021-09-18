@@ -51,35 +51,35 @@ const BurgerWrap = styled.div`
 `
 
 export default function burgerModal(props) {
-    const {isBurger, setBurger} = props;
-    
-    useEffect(()=> {
+    const { isBurger, setBurger } = props;
+
+    useEffect(() => {
         window.addEventListener('resize', handleResize)
-        return ()=> {
+        return () => {
             window.removeEventListener('resize', handleResize)
         }
     }, [])
 
-    const handleResize = (e)=> {
-        if (e.target.innerWidth > 1000) 
-        setBurger(false)
+    const handleResize = (e) => {
+        if (e.target.innerWidth > 1000)
+            setBurger(false)
     }
 
     const buttonPressed = () => {
         setBurger(false)
-    } 
+    }
 
 
     return (
         <ModalLayer isModal={isBurger} setModal={setBurger}>
             <BurgerWrap>
-                <Link href='/'><a className='logo'><Logo fill='#000'/></a></Link>
+                <Link href='/'><a className='logo'><Logo fill='#000' /></a></Link>
 
                 <ul className='navigation'>
                     <li className='navigationItem'>
                         <Link onClick={buttonPressed} href='/aboutUs'>
                             <a>Кто мы такие</a>
-                        </Link>    
+                        </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link onClick={buttonPressed} href='/projects'>
@@ -93,7 +93,7 @@ export default function burgerModal(props) {
                     </li>
                 </ul>
 
-                <Button onClick={buttonPressed} text='Закрыть'/>
+                <Button onClick={buttonPressed} text='Закрыть' />
             </BurgerWrap>
         </ModalLayer>
     )
