@@ -8,6 +8,8 @@ import fetch from 'isomorphic-unfetch';
 
 const Screen_Style = styled.div`
     display: grid;
+    width: 100%;
+    max-width: 1000px;
     gap: 30px;
     border-radius: 40px;
     border: 1px solid var(--black20);

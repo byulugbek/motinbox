@@ -22,7 +22,7 @@ const Header_style = styled.div`
     color: var(--black100);
     box-shadow: var(--shadow);
     background-color: var(--white50);
-    backdrop-filter: blur(30px);    
+    backdrop-filter: blur(30px);
     .burger{
         justify-content: left;
         display: none;

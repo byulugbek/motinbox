@@ -8,25 +8,29 @@ export default function Index({ abilities, socials }) {
     const router = useRouter();
 
     const abilityDelete = async (id) => {
-        const res = await fetch(`http://localhost:3000/api/abilities/${id}`, {
-            method: 'DELETE'
-        })
+        if (confirm('Вы уверены что хотите удалить?')) {
+            const res = await fetch(`http://localhost:3000/api/abilities/${id}`, {
+                method: 'DELETE'
+            })
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (data.statusCode === 200) {
-            router.push('/admin/others');
+            if (data.statusCode === 200) {
+                router.push('/admin/others');
+            }
         }
     }
     const socialDelete = async (id, type) => {
-        const res = await fetch(`http://localhost:3000/api/socials/${id}`, {
-            method: 'DELETE'
-        })
+        if (confirm('Вы уверены что хотите удалить?')) {
+            const res = await fetch(`http://localhost:3000/api/socials/${id}`, {
+                method: 'DELETE'
+            })
 
-        const data = await res.json();
+            const data = await res.json();
 
-        if (data.statusCode === 200) {
-            router.push('/admin/others');
+            if (data.statusCode === 200) {
+                router.push('/admin/others');
+            }
         }
     }
     return (

@@ -20,6 +20,5 @@ Id.getInitialProps = async (ctx) => {
 
     const { data } = await res.json();
 
-
     return { ability: data };
 }

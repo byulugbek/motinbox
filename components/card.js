@@ -1,7 +1,7 @@
-import styled, { css } from 'styled-components'
-import Image from 'next/image'
-import { Strelka, Instagram } from './icons'
-import Link from 'next/link'
+import styled, { css } from 'styled-components';
+import Image from 'next/image';
+import { Strelka, Instagram } from './icons';
+import Link from 'next/link';
 
 const Card_style = styled.div`
         width: 100%;
@@ -153,7 +153,7 @@ const Card_style = styled.div`
 `
 
 export default function Card(props) {
-    const {data} = props;
+    const { data } = props;
     return (
         <Card_style {...props}>
             <div className='filter'>
@@ -163,20 +163,20 @@ export default function Card(props) {
                         <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
                             <p className='descript'>{data?.descript}</p>
-                                <Link href={data.type !== 'teamItem' ? `/${data.type}/${data?.id}` : `${data?.url}`}>
-                                    {data.type === 'teamItem'
+                            <Link href={data.type !== 'teamItem' ? `/${data.type}/${data?.id}` : `${data?.url}`}>
+                                {data.type === 'teamItem'
                                     ?
-                                        <a className='instagram' target="_blank"><Instagram fill='#fff'/></a>  
+                                    <a className='instagram' target="_blank"><Instagram fill='#fff' /></a>
                                     :
-                                        <a className='strelka'><Strelka/></a>
-                                    }
-                                </Link>                            
-                        </div> 
+                                    <a className='strelka'><Strelka /></a>
+                                }
+                            </Link>
+                        </div>
                     </div>
 
                 </div>
             </div>
-            <Image src={`/${data?.img}`} layout="fill"/>
-        </Card_style> 
+            <Image src={`/${data?.img}`} layout="fill" />
+        </Card_style>
     )
 };

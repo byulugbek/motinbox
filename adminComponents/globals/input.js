@@ -23,7 +23,8 @@ const Input_style = styled.div`
     }
 `
 
-export default function Input({ title, text, setText }) {
+export default function Input(props) {
+    const { title, text, setText } = props;
 
     return (
         <Input_style>
@@ -31,7 +32,7 @@ export default function Input({ title, text, setText }) {
             <textarea
                 defaultValue={text}
                 placeholder={'Далеко, далеко ...'}
-                onBlur={(text) => setText(text.target.value)}
+                onChange={(text) => setText(text.target.value)}
             />
         </Input_style>
     )

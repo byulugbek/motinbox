@@ -1,39 +1,42 @@
 import AdminLayer from '../../../adminComponents/adminLayer';
 import Table from '../../../adminComponents/Table';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
-const data = [
-    {
-        _id: 0,
-        title: 'Мобильное приложение',
-        description: 'Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором.'
-    },
-    {
-        _id: 1,
-        title: 'Мобильное приложение',
-        description: 'Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором.'
-    },
-    {
-        _id: 2,
-        title: 'Мобильное приложение',
-        description: 'Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором.'
-    }
-]
-
-export default function index() {
-
+export default function Index({ projects }) {
+    const router = useRouter();
     const onDeletePressed = (id) => {
-        console.log('Pressed', id)
+        if (confirm('Вы уверены что хотите удалить?')) {
+            axios.delete(`api/projects/${id}`).then(res => {
+                console.log(res);
+                if (res.data.statusCode === 200) {
+                    router.push(`/admin/projects`);
+                } else {
+                    alert('Ошибка');
+                }
+            }).catch(function (error) {
+                alert('Ошибка', error);
+            })
+        }
     }
 
     return (
         <AdminLayer>
             <Table
                 title={'Все проекты'}
-                data={data}
+                data={projects}
                 editable
                 linkParam={'projects'}
                 onDelete={onDeletePressed}
             />
         </AdminLayer>
     )
+}
+
+Index.getInitialProps = async () => {
+    const res = await fetch('http://localhost:3000/api/projects');
+
+    const { data } = await res.json();
+
+    return { projects: data };
 }

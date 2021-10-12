@@ -6,6 +6,8 @@ import { Edit, Plus, Trash } from '../components/icons';
 const Table_style = styled.div`
     display: grid;
     grid-auto-flow: row;
+    width: 100%;
+    max-width: 1000px;
     gap: 30px;
     padding: 50px;
     border-radius: 40px;
@@ -58,6 +60,18 @@ const Table_style = styled.div`
             justify-content: space-between;
             grid-auto-flow: column;
             grid-template-columns: 1fr auto auto;
+            grid-template-areas: 
+                "text button1 button2";
+
+            .text {
+                grid-area: text;
+            }
+            .button1 {
+                grid-area: button1; 
+            }
+            .button2 {
+                grid-area: button2; 
+            }
         }
         @media only screen and (max-width: 700px) {
             grid-template-columns: 1fr;
@@ -71,6 +85,9 @@ const Table_style = styled.div`
                 height:100%;
                 grid-area: auto;
                 grid-auto-flow: row;
+                grid-template-areas: 
+                "text text"
+                "button1 button2";
             }
         }
     }
@@ -93,12 +110,10 @@ export default function Table(props) {
                         {item.title}
                     </span>
                     <div className='descript'>
-                        <p>
-                            {item.description}
-                        </p>
+                        <div className='text' dangerouslySetInnerHTML={{ __html: item.description }}></div>
                         {editable &&
                             <Link href={`/admin/${linkParam}/edit/${item._id}`}>
-                                <a>
+                                <a className='button1'>
                                     <Button
                                         text={<Edit fill={'#fff'} />}
                                     />
@@ -106,7 +121,8 @@ export default function Table(props) {
                             </Link>
                         }
                         <Button
-                            text={<Trash fill={'#fff'} />}
+                            className='button2'
+                            text={<Trash />}
                             onClick={() => onDelete && onDelete(item._id)}
                         />
                     </div>

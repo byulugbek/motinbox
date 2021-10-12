@@ -1,6 +1,6 @@
-import Select from 'react-select';
+import { useRef, useEffect, useState } from 'react';
+import Select, { OnChangeValue } from 'react-select';
 import styled from "styled-components";
-import { useRef } from 'react';
 
 const Selector_style = styled.div`
     display: grid;
@@ -21,31 +21,58 @@ const Selector_style = styled.div`
         padding: 15px;
     }
 `
-
-const data = [
-    { value: 'p1', label: 'Top level - P1' },
-    { value: 'p2', label: 'Mid level - P2' },
-    { value: 'p3', label: 'Low level - P3' }
-]
-
+let changed = false;
 export default function Selector(props) {
-    const { title, data, choosenData, isMulti } = props;
+    const { title, data, choosenData, setChoosenData, isMulti } = props;
     const ref = useRef();
+    const [values, setValues] = useState();
+
+    useEffect(() => {
+        if (choosenData && data) {
+            if (!isMulti) {
+                const value = data.find((item) => {
+                    return item._id === choosenData
+                });
+                setValues(value);
+                changed = true;
+            } else {
+                const mapedValues = choosenData.map((i) => {
+                    return data.find((item) => {
+                        return item._id === i;
+                    })
+                });
+                setValues(mapedValues);
+                changed = true;
+            }
+        }
+    }, [choosenData, data]);
+
+    const onChange = (selectedOptions) => {
+        if (!isMulti) {
+            setChoosenData(selectedOptions._id);
+            return;
+        }
+        let ids = selectedOptions.map((item) => {
+            return item._id;
+        })
+        setChoosenData(ids);
+    }
 
     return (
         <Selector_style>
             <span>{title}</span>
-            <Select
+            {data && <Select
                 ref={ref}
+                value={values}
                 isMulti={isMulti}
-                onChange={(items) => choosenData(items)}
+                onChange={onChange}
                 placeholder='Выберите из меню'
                 options={data}
                 className="basic-multi-select"
                 id="long-value-select"
                 instanceId="long-value-select"
                 classNamePrefix="select"
-            />
+            />}
         </Selector_style>
     )
 }

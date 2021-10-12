@@ -8,6 +8,7 @@ const VideoBlock_style = styled.div`
     grid-auto-flow: row;
     gap: 30px;
     padding: 50px;
+    max-width: 1000px;
     border-radius: 40px;
     border: 1px solid var(--black20);
 

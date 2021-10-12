@@ -3,9 +3,10 @@ import AHeader from '../adminComponents/aHeader';
 
 const Wrap = styled.div`
     display: grid;
+    grid-template-columns: 1fr;
     gap: 30px;
     padding: 0 50px;
-    justify-content: stretch;
+    justify-items: center;
     @media only screen and (max-width: 1000px) {
         padding: 0 30px; 
     }

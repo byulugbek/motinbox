@@ -20,9 +20,8 @@ const TextEditor_style = styled.div`
 `
 
 export default function TextEditor(props) {
-    const { title, setText } = props;
+    const { title, text, setText } = props;
     const editor = useRef(null)
-    // const [content, setContent] = useState('')
 
     const config = {
         readonly: false
@@ -33,7 +32,7 @@ export default function TextEditor(props) {
             <span>{title}</span>
             <JoditEditor
                 ref={editor}
-                // value={content}
+                value={text}
                 config={config}
                 tabIndex={1} // tabIndex of textarea
                 onBlur={newContent => setText(newContent)}
