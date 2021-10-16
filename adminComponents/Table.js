@@ -12,6 +12,9 @@ const Table_style = styled.div`
     padding: 50px;
     border-radius: 40px;
     border: 1px solid var(--black20);
+    @media only screen and (max-width: 700px) {
+        padding: 30px;
+    }
 
     .title {
         height: 40px;
@@ -112,19 +115,21 @@ export default function Table(props) {
                     <div className='descript'>
                         <div className='text' dangerouslySetInnerHTML={{ __html: item.description }}></div>
                         {editable &&
-                            <Link href={`/admin/${linkParam}/edit/${item._id}`}>
-                                <a className='button1'>
-                                    <Button
-                                        text={<Edit fill={'#fff'} />}
-                                    />
-                                </a>
-                            </Link>
+                            <>
+                                <Link href={`/admin/${linkParam}/edit/${item._id}`}>
+                                    <a className='button1'>
+                                        <Button
+                                            text={<Edit fill={'#fff'} />}
+                                        />
+                                    </a>
+                                </Link>
+                                <Button
+                                    className='button2'
+                                    text={<Trash />}
+                                    onClick={() => onDelete && onDelete(item._id)}
+                                />
+                            </>
                         }
-                        <Button
-                            className='button2'
-                            text={<Trash />}
-                            onClick={() => onDelete && onDelete(item._id)}
-                        />
                     </div>
                 </div>
                 <hr className='line' />

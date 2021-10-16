@@ -1,13 +1,15 @@
 import AdminLayer from "../../../adminComponents/adminLayer";
-import InputsContainer from '../../../adminComponents/screens/inputsContainer';
+import ProjectScreen from '../../../adminComponents/screens/projectScreen';
+import Head from 'next/head';
 
 
 export default function New() {
     return (
         <AdminLayer>
-            <InputsContainer
-                header={'Добавление проекта в наши проекты'}
-            />
+            <Head>
+                <title>MotionBox | Добавление проекта</title>
+            </Head>
+            <ProjectScreen />
         </AdminLayer>
     )
 }

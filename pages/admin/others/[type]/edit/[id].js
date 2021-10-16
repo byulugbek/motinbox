@@ -1,10 +1,35 @@
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/router';
+import ErrorPage from 'next/error';
 import AdminLayer from "../../../../../adminComponents/adminLayer";
-import AbilityScreen from '../../../../../adminComponents/screens/abilityScreen';
+import OtherScreen from "../../../../../adminComponents/screens/otherScreen";
+import Head from 'next/head';
 
-export default function Id({ ability }) {
+export default function Id({ data }) {
+    const router = useRouter();
+    const { type, id } = router.query;
+    const [headData, setHeadData] = useState('');
+
+    useEffect(() => {
+        if (type === 'abilities') {
+            setHeadData('способности');
+        } else if (type === 'headings') {
+            setHeadData('заглавия проекта');
+        } else {
+            setHeadData('соц. сети');
+        }
+    }, [])
+
+    if (type !== 'abilities' && type !== 'headings' && type !== 'socials')
+        return <ErrorPage statusCode={404} />
+
     return (
         <AdminLayer>
-            <AbilityScreen data={ability} />
+            <Head>
+                <title>MotionBox | Изменение: "{data.title}"</title>
+            </Head>
+
+            <OtherScreen type={type} headData={headData} data={data} />
         </AdminLayer>
     )
 }
@@ -12,7 +37,7 @@ export default function Id({ ability }) {
 Id.getInitialProps = async (ctx) => {
     const { type, id } = ctx.query;
 
-    if (type !== 'abilities' && type !== 'socials') {
+    if (type !== 'abilities' && type !== 'headings' && type !== 'socials') {
         return {};
     };
 
@@ -20,5 +45,5 @@ Id.getInitialProps = async (ctx) => {
 
     const { data } = await res.json();
 
-    return { ability: data };
+    return { data: data };
 }

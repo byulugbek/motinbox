@@ -7,12 +7,13 @@ const ImageImporter_style = styled.div`
     display: grid;
     grid-auto-flow: row;
     gap: 5px;
-
+    
     span {
         color: var(--black50);
     }
-
+    
     div {
+        justify-content: center;
         display: flex;
         justify-content: center;
         align-items: center;
@@ -77,7 +78,7 @@ const ImageImporter_style = styled.div`
 
 
 export default function ImageImporter(props) {
-    const { title, content, setContent } = props;
+    const { title, folder, content, setContent } = props;
     const [url, setUrl] = useState();
     const [preImage, setPreImage] = useState();
     const ref = useRef();
@@ -87,7 +88,6 @@ export default function ImageImporter(props) {
             setPreImage(null);
             return;
         }
-        console.log(content);
         if (content) {
             setPreImage(content);
         }
@@ -116,7 +116,7 @@ export default function ImageImporter(props) {
             <div>
                 {preImage ?
                     <>
-                        <Image src={`/uploads/team/${preImage}`} layout='fill' />
+                        <Image src={`/uploads/${folder}/${preImage}`} layout='fill' />
                         <button onClick={clear}>
                             <div>
                                 <Trash />
@@ -144,10 +144,8 @@ export default function ImageImporter(props) {
             <input
                 ref={ref}
                 type='file'
-                // name={'images'}
                 onChange={item => onChange(item)}
-                multiple
-                accept='image/jpeg, image/png, image/webp'
+                accept='image/gif image/jpeg, image/png, image/webp'
             />
         </ImageImporter_style>
     )

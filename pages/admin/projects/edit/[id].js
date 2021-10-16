@@ -1,9 +1,8 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayer from "../../../../adminComponents/adminLayer";
-import InputsContainer from '../../../../adminComponents/screens/inputsContainer';
-
-
+import ProjectScreen from '../../../../adminComponents/screens/projectScreen';
+import Head from 'next/head';
 export default function Id({ data, statusCode }) {
     const router = useRouter();
     useEffect(() => {
@@ -15,8 +14,11 @@ export default function Id({ data, statusCode }) {
 
     return (
         <AdminLayer>
-            <InputsContainer
-                header={'Добавление проекта в наши проекты'}
+            <Head>
+                <title>MotionBox | Изменение: "{data.title}"</title>
+            </Head>
+
+            <ProjectScreen
                 data={data}
             />
         </AdminLayer>

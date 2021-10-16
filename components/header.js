@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Link from 'next/link';
 import Button from './button';
@@ -90,13 +90,39 @@ const Header_style = styled.div`
     }
 `
 export default function Header() {
+    const [isMobile, setMobile] = useState(false);
     const [isBurger, setBurger] = useState(false);
+
+    useEffect(() => {
+        if (window.innerWidth > 1000) {
+            setMobile(false);
+        } else {
+            setMobile(true);
+        }
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
+    const handleResize = (e) => {
+        if (e.target.innerWidth > 1000) {
+            setBurger(false);
+            setMobile(false);
+        } else if (e.target.innerWidth < 1000) {
+            setMobile(true);
+        }
+    }
+
+    const buttonPressed = () => {
+        setBurger(false)
+    }
 
     return (
         <>
             <Header_style>
 
-                <button onClick={() => setBurger(true)}><Burger className='burger' /></button>
+                {isMobile && <button onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
                 <Link href='/'><a className='logo'><Logo fill='#000' /></a></Link>
 
@@ -124,7 +150,7 @@ export default function Header() {
                 </Link>
             </Header_style>
 
-            {isBurger && <BurgerModal isBurger={isBurger} setBurger={setBurger} />}
+            {isBurger && <BurgerModal isBurger={isBurger} setBurger={setBurger} onClick={buttonPressed} />}
         </>
     )
 };

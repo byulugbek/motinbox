@@ -1,13 +1,18 @@
 import styled from "styled-components";
-import Button from "../../components/button";
 import Link from "next/link";
-import { Edit } from '../../components/icons';
+import { Edit, Plus, Trash } from '../../components/icons';
+import Button from '../../components/button';
+import axios from 'axios';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
+import { AuthCheck } from '../../utils/functions/authCheck';
 
 const VideoBlock_style = styled.div`
     display: grid;
     grid-auto-flow: row;
     gap: 30px;
     padding: 50px;
+    width: 100%;
     max-width: 1000px;
     border-radius: 40px;
     border: 1px solid var(--black20);
@@ -58,6 +63,19 @@ const VideoBlock_style = styled.div`
             gap: 20px;
             justify-content: space-between;
             grid-auto-flow: column;
+            grid-template-columns: 1fr auto auto;
+            grid-template-areas: 
+                "text button1 button2";
+
+            .text {
+                grid-area: text;
+            }
+            .button1 {
+                grid-area: button1; 
+            }
+            .button2 {
+                grid-area: button2; 
+            }
         }
         @media only screen and (max-width: 700px) {
             grid-template-columns: 1fr;
@@ -71,16 +89,49 @@ const VideoBlock_style = styled.div`
                 height:100%;
                 grid-area: auto;
                 grid-auto-flow: row;
+                grid-template-areas: 
+                "text text"
+                "button1 button2";
             }
         }
     }
 `
 
 export default function VideoBlock(props) {
+    const router = useRouter();
     const {
         title,
-        data,
+        data
     } = props;
+    const [token, setToken] = useState();
+
+    useEffect(() => {
+        const isLoginned = AuthCheck();
+        if (isLoginned === 'error') {
+            router.replace('/admin/login');
+        } else {
+            setToken(isLoginned)
+        }
+    }, [])
+
+    const onDelete = () => {
+        const config = {
+            headers: {
+                'authorization': token
+            },
+        }
+        if (confirm('Вы уверены что хотите удалить?')) {
+            axios.delete(`api/video/${data._id}`, config).then(res => {
+                if (res.data.statusCode === 200) {
+                    router.push(`/admin/team`);
+                } else {
+                    alert('Ошибка: Что-то пошло не так');
+                }
+            }).catch(function (error) {
+                alert(`Ошибка: ${error.response.data.message}`);
+            })
+        }
+    }
 
     return (
         <VideoBlock_style>
@@ -88,29 +139,42 @@ export default function VideoBlock(props) {
                 <span>
                     {title}
                 </span>
-                <Link href={`#`}>
+                <Link href={`/admin/team/video`}>
                     <button>
-                        <Edit fill={'#000'} />
+                        {!data &&
+                            <Plus fill={'#000'} />
+                        }
                     </button>
                 </Link>
             </div>
             <hr className='line' />
-            <div className='item'>
-                <span>
-                    {data.name}
-                </span>
-                <div className='descript'>
-                    <p>
-                        {data.description}
-                    </p>
-                    <a href='https://google.com' target='_blank'>
-                        <Button
-                            text='Видео'
-                        />
-                    </a>
-                </div>
-            </div>
-            <hr className='line' />
+            {data &&
+                <>
+                    <div className='item'>
+                        <span>
+                            {data.title}
+                        </span>
+                        <div className='descript'>
+                            <p>
+                                {data.description}
+                            </p>
+                            <Link href={`/admin/team/video/`}>
+                                <a className='button1'>
+                                    <Button
+                                        text={<Edit fill={'#fff'} />}
+                                    />
+                                </a>
+                            </Link>
+                            <Button
+                                className='button2'
+                                text={<Trash />}
+                                onClick={() => onDelete && onDelete(data._id)}
+                            />
+                        </div>
+                    </div>
+                    <hr className='line' />
+                </>
+            }
         </VideoBlock_style>
     )
 }

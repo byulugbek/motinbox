@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useRouter } from 'next/router';
 import AdminLayer from "../../../../adminComponents/adminLayer";
 import TeamScreen from '../../../../adminComponents/screens/teamScreen';
+import Head from 'next/head';
 
 export default function Id({ data, statusCode }) {
     const router = useRouter();
@@ -13,6 +14,9 @@ export default function Id({ data, statusCode }) {
     }, [])
     return (
         <AdminLayer>
+            <Head>
+                <title>MotionBox | Изменение: "{data.name}"</title>
+            </Head>
             <TeamScreen data={data} />
         </AdminLayer>
     )

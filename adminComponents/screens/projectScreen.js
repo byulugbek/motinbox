@@ -1,5 +1,5 @@
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import Input from '../globals/input';
 import TextEditor from '../globals/textEditor';
@@ -8,7 +8,10 @@ import Button from '../../components/button';
 import { GetSelectorData } from '../../utils/functions/getData';
 import axios from 'axios';
 import { useRouter } from 'next/router';
-
+import ImageImporter from '../globals/imageImporter';
+import Switcher from '../globals/switcher';
+import CustomDatePicker from '../globals/customDatePicker';
+import { AuthCheck } from '../../utils/functions/authCheck';
 
 const Container = styled.div`
     display: grid;
@@ -31,31 +34,8 @@ const Container = styled.div`
     
     .bottom {
         width: 100%;
-    display: grid;
-    justify-content: center;
-    }
-
-    input {
-        color: var(--black50);
-        text-overflow: ellipsis;
-        overflow: hidden; 
-        white-space: nowrap;
-        width: fit-content;
-    }
-    input[type=file]::file-selector-button {
-        height: 40px;
-        border-radius: 20px;
-        margin-right: 15px;
-        padding: 0 20px;
-        outline: none;
-        background-color: var(--black100);
-        color: white;
-        border: none;
-        cursor: pointer;
-        transition: 0.3s;
-    }
-    input[type=file]::file-selector-button:hover {
-        background-color: var(--black50);
+        display: grid;
+        justify-content: center;
     }
 
     @media only screen and (max-width: 500px) {
@@ -63,34 +43,10 @@ const Container = styled.div`
     }
 `
 
-const ImageImport_style = styled.div`
-    display: grid;
-    grid-auto-flow: row;
-    gap: 5px;
-    overflow: hidden;
-    span {
-        color: var(--black50);
-    }
-    input {
-        color: var(--black50);
-        width: fit-content;
-    }
-    input[type=file]::file-selector-button {
-        height: 40px;
-        border-radius: 20px;
-        margin-right: 15px;
-        padding: 0 20px;
-        outline: none;
-        background-color: var(--black100);
-        color: white;
-        border: none;
-    }
-`
-
-export default function InputsContainer(props) {
-    const { header, data } = props;
+export default function ProjectScreen(props) {
+    const { data } = props;
     const router = useRouter();
-    const projType = router.asPath.split('/');
+    const [headData, setHeadData] = useState('');
 
     // post abilities
     const [abilities, setAbilities] = useState([]);
@@ -99,25 +55,45 @@ export default function InputsContainer(props) {
     const [title, setTitle] = useState('');
     // post description
     const [desc, setDesc] = useState('');
-    // post images
-    const imagesRef = useRef(null);
     // post socials
     const [socials, setSocials] = useState([]);
     const [chosenSocials, setChosenSocials] = useState();
     // post conclusion
     const [final, setFinal] = useState('');
 
+    const [cover, setCover] = useState();
+    const [image, setImage] = useState();
+    const [url, setUrl] = useState('');
+    const [onMain, setOnMain] = useState(false);
+    const [date, setDate] = useState();
+    const [token, setToken] = useState();
+
     // get data (abilities/socials)
     useEffect(() => {
-        getData('abilities', setAbilities);
+        const isLoginned = AuthCheck();
+        if (isLoginned === 'error') {
+            router.replace('/admin/login');
+        } else {
+            setToken(isLoginned);
+        }
+
+        getData('headings', setAbilities);
         getData('socials', setSocials);
 
         if (data) {
+            setHeadData('Изменение данных проекта');
             setChosenAbility(data.type);
             setTitle(data.title);
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
+            setCover(data.cover);
+            setImage(data.image);
+            setUrl(data.url);
+            setOnMain(data.onMain);
+            setDate(new Date(data.date));
+        } else {
+            setHeadData('Добавление проекта');
         }
     }, [])
 
@@ -143,7 +119,8 @@ export default function InputsContainer(props) {
         if (data) {
             if (
                 chosenAbility && title && desc &&
-                final && chosenSocials.length > 0
+                final && date && cover && image &&
+                chosenSocials.length > 0
             ) {
                 collectAllData();
             }
@@ -153,7 +130,7 @@ export default function InputsContainer(props) {
         } else {
             if (chosenAbility && title && desc &&
                 final && chosenSocials.length > 0 &&
-                imagesRef.current.files.length > 0
+                cover && image && date
             ) {
                 collectAllData();
             }
@@ -171,36 +148,41 @@ export default function InputsContainer(props) {
         formData.append('description', desc);
         formData.append('conclusion', final);
         formData.append('socials', chosenSocials);
-        Array.from(imagesRef.current.files).forEach((file) => {
-            formData.append(imagesRef.current.name, file);
-        });
+        formData.append('cover', cover);
+        formData.append('image', image);
+        formData.append('url', url);
+        formData.append('onMain', onMain);
+        formData.append('date', date);
 
         sendData(formData);
     }
 
     const sendData = (formData) => {
         const config = {
-            headers: { 'content-type': 'multipart/form-data' },
+            headers: {
+                'content-type': 'multipart/form-data',
+                'authorization': token
+            },
         }
         if (!data) {
-            axios.post(`api/${projType[2]}`, formData, config).then(res => {
+            axios.post(`api/projects`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
-                    router.push(`/admin/${projType[2]}`);
+                    router.push(`/admin/projects`);
                 } else {
-                    alert('Ошибка')
+                    alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
-                console.log(error);
+                alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/${projType[2]}/${data._id}`, formData, config).then(res => {
+            axios.put(`api/projects/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
-                    router.push(`/admin/${projType[2]}`);
+                    router.push(`/admin/projects`);
                 } else {
-                    alert('Ошибка')
+                    alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
-                console.log(error);
+                alert(`Ошибка: ${error.response.data.message}`);
             })
         }
     }
@@ -209,7 +191,7 @@ export default function InputsContainer(props) {
         <Container>
             <form onSubmit={checkAllData}>
                 <span className='title'>
-                    {header}
+                    {headData}
                 </span>
 
                 <Selector
@@ -230,16 +212,28 @@ export default function InputsContainer(props) {
                     text={desc}
                     setText={setDesc}
                 />
-                <ImageImport_style>
-                    <span>Загрузите фотографии:</span>
-                    <input
-                        ref={imagesRef}
-                        type='file'
-                        name={'images'}
-                        multiple
-                        accept='image/jpeg, image/png, image/webp'
-                    />
-                </ImageImport_style>
+
+                <ImageImporter
+                    name='cover'
+                    title='Загрузите обложку'
+                    folder='projects'
+                    content={cover}
+                    setContent={setCover}
+                />
+
+                <ImageImporter
+                    name='image'
+                    title='Загрузите фотографию'
+                    folder='projects'
+                    content={image}
+                    setContent={setImage}
+                />
+
+                <Input
+                    title='Введите ссылку на вебсайт'
+                    text={url}
+                    setText={setUrl}
+                />
 
                 <TextEditor
                     title='Введите заключение'
@@ -254,6 +248,13 @@ export default function InputsContainer(props) {
                     setChoosenData={setChosenSocials}
                     isMulti={true}
                 />
+
+                <Switcher
+                    state={onMain}
+                    setState={setOnMain}
+                />
+
+                <CustomDatePicker date={date} setDate={setDate} />
 
                 <div className='bottom'>
                     <Button text='Отправить' />

@@ -1,6 +1,12 @@
+import { useEffect, useState } from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import Link from 'next/link';
 import { Burger, Logo } from '../components/icons';
+import Button from '../components/button';
+import { AuthCheck } from '../utils/functions/authCheck';
+import { useRouter } from 'next/router';
+import ABurgerModal from './aBurgerModal';
 
 const Header_style = styled.div`
     display: grid; 
@@ -47,6 +53,8 @@ const Header_style = styled.div`
         transition: 0.5s;
 
         .navigationItem{
+            display: flex;
+            align-items: center;
             white-space: nowrap;
             font-size: 18px;
             color: var(--black100);
@@ -89,36 +97,90 @@ const Header_style = styled.div`
 `
 
 export default function AHeader() {
+    const router = useRouter();
+    const [token, setToken] = useState();
+    const [isMobile, setMobile] = useState(false);
+    const [isBurger, setBurger] = useState(false);
+
+    useEffect(() => {
+        const isLoginned = AuthCheck();
+        if (isLoginned === 'error') {
+            router.replace('/admin/login');
+        } else {
+            setToken(isLoginned);
+        }
+
+        if (window.innerWidth > 1000) {
+            setMobile(false);
+        } else {
+            setMobile(true);
+        }
+        window.addEventListener('resize', handleResize)
+        return () => {
+            window.removeEventListener('resize', handleResize)
+        }
+    }, [])
+
+    const logout = async () => {
+        const config = {
+            headers: {
+                'authorization': token
+            }
+        }
+        if (confirm('Вы уверены что хотите выйти?')) {
+            const res = await axios.get('/api/login', config);
+            window.localStorage.removeItem('token');
+            router.replace('admin/login');
+            console.log(res.data);
+        }
+    }
+
+    const handleResize = (e) => {
+        if (e.target.innerWidth > 1000) {
+            setBurger(false);
+            setMobile(false);
+        }
+        else if (e.target.innerWidth < 1000)
+            setMobile(true);
+    }
+
+    const buttonPressed = () => {
+        setBurger(false)
+    }
+
     return (
-        <Header_style>
-            <button onClick={() => console.log('burger')}><Burger className='burger' /></button>
+        <>
+            <Header_style>
+                {isMobile && <button onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
-            <Link href='/admin'><a className='logo'><Logo fill='#000' /></a></Link>
+                <Link href='/admin'><a className='logo'><Logo fill='#000' /></a></Link>
 
-            <ul className='navigation'>
-                <li className='navigationItem'>
-                    <Link href='/admin/team'>
-                        <a>Команда</a>
-                    </Link>
-                </li>
-                <li className='navigationItem'>
-                    <Link href='/admin/projects'>
-                        <a>Проекты</a>
-                    </Link>
-                </li>
-                <li className='navigationItem'>
-                    <Link href='/admin/portfolio'>
-                        <a>Портфолио</a>
-                    </Link>
-                </li>
-                <li className='navigationItem'>
-                    <Link href='/admin/others'>
-                        <a>Другие</a>
-                    </Link>
-                </li>
-            </ul>
+                <ul className='navigation'>
+                    <li className='navigationItem'>
+                        <Link href='/admin/team'>
+                            <a>Команда</a>
+                        </Link>
+                    </li>
+                    <li className='navigationItem'>
+                        <Link href='/admin/projects'>
+                            <a>Проекты</a>
+                        </Link>
+                    </li>
+                    <li className='navigationItem'>
+                        <Link href='/admin/portfolio'>
+                            <a>Портфолио</a>
+                        </Link>
+                    </li>
+                    <li className='navigationItem'>
+                        <Link href='/admin/others'>
+                            <a>Другие</a>
+                        </Link>
+                    </li>
+                </ul>
 
-            <div />
-        </Header_style>
+                <Button text='Выход' onClick={logout} />
+            </Header_style>
+            {isBurger && <ABurgerModal isBurger={isBurger} setBurger={setBurger} onClick={buttonPressed} />}
+        </>
     )
 }

@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect';
-import Abilities from '../../../models/Abilities';
+import Headings from '../../../models/Headings';
 import Admins from '../../../models/Admins';
 
 dbConnect();
@@ -7,20 +7,19 @@ dbConnect();
 export default async (req, res) => {
     const {
         query: { id },
-        method,
-        headers
+        method
     } = req;
 
     switch (method) {
         case 'GET':
             try {
-                const ability = await Abilities.findById(id);
+                const heading = await Headings.findById(id);
 
-                if (!ability) {
-                    res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+                if (!heading) {
+                    return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
                 }
 
-                res.status(200).json({ statusCode: 200, data: ability });
+                res.status(200).json({ statusCode: 200, data: heading });
 
             } catch (error) {
                 res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
@@ -33,16 +32,16 @@ export default async (req, res) => {
                 if (isAdmin.length <= 0)
                     return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
 
-                const ability = await Abilities.findByIdAndUpdate(id, req.body, {
+                const heading = await Headings.findByIdAndUpdate(id, req.body, {
                     new: true,
                     runValidators: true,
                 })
 
-                if (!ability) {
+                if (!heading) {
                     return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
                 }
 
-                res.status(200).json({ statusCode: 200, data: ability });
+                res.status(200).json({ statusCode: 200, data: heading });
 
             } catch (error) {
                 res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
@@ -55,13 +54,13 @@ export default async (req, res) => {
                 if (isAdmin.length <= 0)
                     return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
 
-                const deleteAbility = await Abilities.deleteOne({ _id: id });
+                const deleteHeading = await Headings.deleteOne({ _id: id });
 
-                if (!deleteAbility) {
+                if (!deleteHeading) {
                     return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
                 }
 
-                res.status(200).json({ statusCode: 200, data: deleteAbility });
+                res.status(200).json({ statusCode: 200, data: deleteHeading });
 
             } catch (error) {
                 res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });

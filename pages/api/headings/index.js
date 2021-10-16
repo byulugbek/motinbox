@@ -1,5 +1,5 @@
 import dbConnect from '../../../utils/dbConnect';
-import Socials from '../../../models/Socials';
+import Headings from '../../../models/Headings';
 import Admins from '../../../models/Admins';
 
 dbConnect();
@@ -10,11 +10,15 @@ export default async (req, res) => {
     switch (method) {
         case 'GET':
             try {
-                const socials = await Socials.find({});
+                const headings = await Headings.find({});
 
-                res.status(200).json({ statusCode: 200, data: socials });
+                if (!headings) {
+                    return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+                }
+
+                res.status(200).json({ statusCode: 200, data: headings });
             } catch (error) {
-                res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+                res.status(400).json({ statusCode: 400 });
             }
             break;
 
@@ -24,13 +28,13 @@ export default async (req, res) => {
                 if (isAdmin.length <= 0)
                     return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
 
-                const social = await Socials.create(req.body);
+                const heading = await Headings.create(req.body);
 
-                if (!social) {
+                if (!heading) {
                     return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
                 }
 
-                res.status(200).json({ statusCode: 200, data: social });
+                res.status(200).json({ statusCode: 200, data: heading });
             } catch (error) {
                 res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
             }

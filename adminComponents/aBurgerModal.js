@@ -1,8 +1,8 @@
-import ModalLayer from './modalLayer'
-import Button from './button'
 import Link from 'next/link'
-import { Logo } from './icons'
 import styled from 'styled-components'
+import ModalLayer from '../components/modalLayer'
+import Button from '../components/button'
+import { Logo } from '../components/icons'
 
 const BurgerWrap = styled.div`
     display: grid;
@@ -49,7 +49,7 @@ const BurgerWrap = styled.div`
     }
 `
 
-export default function burgerModal(props) {
+export default function ABurgerModal(props) {
     const { isBurger, setBurger, onClick } = props;
 
     return (
@@ -59,18 +59,23 @@ export default function burgerModal(props) {
 
                 <ul className='navigation'>
                     <li className='navigationItem'>
-                        <Link onClick={onClick} href='/aboutUs'>
-                            <a>Кто мы такие</a>
+                        <Link onClick={onClick} href='/admin/team'>
+                            <a>Команда</a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
-                        <Link onClick={onClick} href='/projects'>
-                            <a>Наши проекты</a>
+                        <Link onClick={onClick} href='/admin/projects'>
+                            <a>Проекты</a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
-                        <Link onClick={onClick} href='/portfolio'>
+                        <Link onClick={onClick} href='/admin/portfolio'>
                             <a>Портфолио</a>
+                        </Link>
+                    </li>
+                    <li className='navigationItem'>
+                        <Link onClick={onClick} href='/admin/others'>
+                            <a>Другие</a>
                         </Link>
                     </li>
                 </ul>

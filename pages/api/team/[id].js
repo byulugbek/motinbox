@@ -2,6 +2,7 @@ import dbConnect from '../../../utils/dbConnect';
 import Team from '../../../models/Team';
 import * as fs from 'fs';
 import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
+import Admins from '../../../models/Admins';
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
@@ -21,6 +22,12 @@ apiRoute.put(async (req, res) => {
         name, position, social, image
     }
 
+    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+    if (isAdmin.length <= 0) {
+        req.file && fs.unlinkSync(`./public/uploads/team/${req.file.filename}`);
+        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
+    }
+
     if (req.file) {
         const memberById = await Team.findById(id);
         fs.unlinkSync(`./public/uploads/team/${memberById.image}`);
@@ -33,13 +40,14 @@ apiRoute.put(async (req, res) => {
         })
 
         if (!member) {
-            return res.status(400).json({ statusCode: 400 });
+            return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
         }
 
         res.status(200).json({ statusCode: 200, data: member })
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400 });
+        console.log(error);
+        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
     }
 })
 
@@ -62,6 +70,10 @@ apiRoute.delete(async (req, res) => {
     const {
         query: { id }
     } = req;
+
+    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+    if (isAdmin.length <= 0)
+        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
 
     const memberById = await Team.findById(id);
     fs.unlinkSync(`./public/uploads/team/${memberById.image}`);

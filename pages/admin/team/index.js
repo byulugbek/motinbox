@@ -4,21 +4,26 @@ import axios from 'axios';
 import AdminLayer from '../../../adminComponents/adminLayer';
 import Table from '../../../adminComponents/Table';
 import VideoBlock from '../../../adminComponents/globals/videoBlock';
+import Head from 'next/head';
+import { AuthCheck } from '../../../utils/functions/authCheck';
 
-const video_data = {
-    _id: 0,
-    name: 'Преврвщаем\nСмелые идеи в\nЧистый дизайн',
-    description: 'Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором. Мы верим, что компания реализует свой потенциал, если каждый человек в компании реализует свой потенциал. Свой талант. Творческий, стратегический, финансовый, управленческий, предпринимательский, любой.'
-}
-
-export default function Index({ data }) {
+export default function Index({ teamData, videoData }) {
     const router = useRouter();
+    const [video, setVideo] = useState();
     const [team, setTeam] = useState([]);
+    const [token, setToken] = useState();
 
     useEffect(() => {
-        if (data.length <= 0) return;
+        const isLoginned = AuthCheck();
+        if (isLoginned === 'error') {
+            router.replace('/admin/login');
+        } else {
+            setToken(isLoginned);
+        }
+    }, [])
 
-        const newArrayOfObj = data.map(({
+    useEffect(() => {
+        const newArrayOfObj = teamData.data.map(({
             name: title,
             position: description,
             ...rest
@@ -28,28 +33,36 @@ export default function Index({ data }) {
             ...rest
         }));
         setTeam(newArrayOfObj);
-    }, [data])
+    }, [teamData])
 
     const onDeletePressed = (id) => {
+        const config = {
+            headers: {
+                'authorization': token
+            }
+        }
         if (confirm('Вы уверены что хотите удалить?')) {
-            axios.delete(`api/team/${id}`).then(res => {
-                console.log(res);
+            axios.delete(`api/team/${id}`, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
-                    alert('Ошибка');
+                    alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
-                alert('Ошибка', error);
+                alert(`Ошибка: ${error.response.data.message}`);
             })
         }
     }
 
     return (
         <AdminLayer>
+            <Head>
+                <title>MotionBox | Команда</title>
+            </Head>
+
             <VideoBlock
                 title={'Видео блок'}
-                data={video_data}
+                data={videoData.data[0]}
             />
             <Table
                 title={'Вся команда'}
@@ -63,9 +76,11 @@ export default function Index({ data }) {
 }
 
 Index.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/team');
+    const teamRes = await fetch('http://localhost:3000/api/team');
+    const teamData = await teamRes.json();
 
-    const { data } = await res.json();
+    const videoRes = await fetch('http://localhost:3000/api/video');
+    const videoData = await videoRes.json();
 
-    return { data };
+    return { teamData: teamData, videoData: videoData };
 }

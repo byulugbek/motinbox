@@ -5,6 +5,7 @@ import axios from 'axios';
 import Button from '../../components/button';
 import Input from "../globals/input";
 import ImageImporter from '../globals/imageImporter';
+import { AuthCheck } from '../../utils/functions/authCheck';
 
 const Team_style = styled.div`
     width: 100%;
@@ -44,14 +45,23 @@ export default function TeamScreen(props) {
     const [position, setPosition] = useState('');
     const [image, setImage] = useState();
     const [social, setSocial] = useState('');
+    const [token, setToken] = useState();
 
     useEffect(() => {
+        const isLoginned = AuthCheck();
+        if (isLoginned === 'error') {
+            router.replace('/admin/login');
+        } else {
+            setToken(isLoginned)
+        }
+
         if (data) {
             setName(data.name);
             setPosition(data.position);
             setImage(data.image);
             setSocial(data.social);
         }
+
     }, [])
 
     const checkAllData = (e) => {
@@ -76,7 +86,10 @@ export default function TeamScreen(props) {
 
     const sendData = (formData) => {
         const config = {
-            headers: { 'content-type': 'multipart/form-data' },
+            headers: {
+                'content-type': 'multipart/form-data',
+                'authorization': token
+            },
         }
 
         if (!data) {
@@ -85,22 +98,20 @@ export default function TeamScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
-                    alert('Ошибка');
+                    alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
-                alert('Ошибка');
-                console.log(error);
+                alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
             axios.put(`api/team/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
-                    alert('Ошибка');
+                    alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
-                alert('Ошибка');
-                console.log(error);
+                alert(`Ошибка: ${error.response.data.message}`);
             })
         }
     }
@@ -127,6 +138,7 @@ export default function TeamScreen(props) {
 
                 <ImageImporter
                     name='image'
+                    folder='team'
                     title='Загрузите портрет'
                     content={image}
                     setContent={setImage}
