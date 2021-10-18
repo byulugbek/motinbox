@@ -146,6 +146,7 @@ export default function PortfolioScreen(props) {
         formData.append('url', url);
         formData.append('onMain', onMain);
         formData.append('date', date);
+        formData.append('postType', 'portfolio');
 
         sendData(formData);
     }

@@ -1,8 +1,14 @@
+import { useEffect, useState } from "react";
 import styled from "styled-components";
+import axios from 'axios';
+import { useRouter } from 'next/router';
 import Button from "../components/button";
+import { Plus } from "../components/icons";
 import MainLayer from '../components/mainLayer';
+import ModalLayer from "../components/modalLayer";
+import Modal from "../components/modal";
 
-const FormWrap = styled.div`
+const FormWrap = styled.form`
     display: grid;
     gap: 30px;
     grid-auto-flow: row;
@@ -42,11 +48,20 @@ const FormWrap = styled.div`
             }
         }
         .selected{
-            display: grid;
-            height: 50px;
+            height: fit-content;
+            min-height: 50px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            align-items: center;
             border-radius: 10px;
             border: 0;
             background-color: var(--black05);
+            padding: 10px;
+            
+            .placeholder {
+                color: var(--black50);
+            }
         }
         input{
             padding: 10px;
@@ -67,38 +82,216 @@ const FormWrap = styled.div`
         }
     }
 `
+const Abilities = styled.div`
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
 
-const Input = styled.div`
-
+    span {
+        font-size: 16px;
+        line-height: 30px;
+        color: var(--black50);
+    }
+`
+const Item = styled.div`
+    width: fit-content;
+    height: fit-content;
+    padding: 1.5px 10px;
+    border: 1px solid var(--black100);
+    border-radius: 5px;
+    display: grid;
+    grid-auto-flow: column;
+    gap: 12px;
+    align-items: center;
+    cursor: pointer;
+    background-color: ${props => props.selected ? 'var(--black100)' : 'var(--white100)'};
+    user-select: none;
+    
+    span {
+        color: ${props => props.selected ? 'var(--white100)' : 'var(--black100)'};
+        line-height: 25px;
+    }
+    
+    p {
+        width: 16px;
+        height: 16px;
+        transform: ${props => props.selected ? 'rotate(45deg)' : 'rotate(0deg)'};
+        svg {
+            fill: var(--white100);
+        }
+    }
 `
 
-export default function MakeOrder() {
+let arrayAdd = [];
+export default function MakeOrder({ data }) {
+    const router = useRouter();
+
+    const [isModal, setModal] = useState(false);
+
+    const [abilities, setAbilities] = useState([]);
+    const [selected, setSelected] = useState([]);
+    const [organization, setOrganization] = useState();
+    const [name, setName] = useState();
+    const [contact, setContact] = useState();
+    const [note, setNote] = useState();
+    const [phone, setPhone] = useState();
+
+    useEffect(() => {
+        setAbilities(data.data);
+    }, [])
+
+    const onClick = (id) => {
+        const res = data.data.find(i => i._id === id);
+        arrayAdd.push(res);
+        setSelected(arrayAdd);
+
+        const afterClick = abilities.filter(i => i._id !== id);
+        setAbilities(afterClick);
+    }
+    const deleteItem = (id) => {
+        const afterClick = selected.filter(i => i._id !== id);
+        setSelected(afterClick);
+        arrayAdd = afterClick;
+
+        let ability = abilities;
+        const res = data.data.find(i => i._id === id);
+        ability.push(res);
+        setAbilities(ability);
+    }
+
+    const mapAbilities = abilities.map(item => {
+        return (
+            <div key={item._id}>
+                <Item onClick={() => onClick(item._id)}>
+                    <span>{item.title}</span>
+                    <p><Plus fill='#000' /></p>
+                </Item>
+            </div>
+        )
+    })
+
+    const mapSelectedAbilities = selected.map(item => {
+        return (
+            <div key={item._id} onClick={() => deleteItem(item._id)}>
+                <Item selected >
+                    <span>{item.title}</span>
+                    <p><Plus fill='#000' /></p>
+                </Item>
+            </div>
+        )
+    })
+
+    const chekAllData = async (e) => {
+        e.preventDefault();
+        if (selected.length > 0) {
+            const body = {
+                organization, name, note, selected, contact, phone
+            };
+            const res = await axios.post('api/order', body);
+
+            console.log(res.data);
+            if (res.data.statusCode === 200) {
+                setModal(true);
+                setTimeout(() => {
+                    router.push('/');
+                    setModal(false);
+                }, 4000);
+            }
+        } else {
+            alert('Выберите услуги')
+        }
+    }
+
     return (
         <MainLayer>
-            <FormWrap>
+            <FormWrap onSubmit={chekAllData}>
                 <p className='theme'>Выбери нужную услугу</p>
-
+                <Abilities>
+                    {abilities.length > 0 ?
+                        <>{mapAbilities}</>
+                        :
+                        <span>Большего мы пока не умеем ...</span>
+                    }
+                </Abilities>
                 <div className='input'>
                     <label htmlFor="name">Выбранные услуги</label>
                     <div className='selected'>
-
+                        {selected.length > 0 ?
+                            <>{mapSelectedAbilities}</>
+                            :
+                            <span className='placeholder'>Выбранные</span>
+                        }
                     </div>
                 </div>
                 <div className='input'>
                     <label htmlFor="name">Какая организация</label>
-                    <input placeholder='Например, OOO "MOTION BOX"' id="organization" type="text" autoComplete="name" required />
+                    <input
+                        placeholder='Например, OOO "MOTION BOX"'
+                        id="organization"
+                        type="text"
+                        autoComplete="name"
+                        onChange={(text) => setOrganization(text.target.value)}
+                        required
+                    />
                 </div>
                 <div className='input'>
                     <label htmlFor="name">Твое имя</label>
-                    <input placeholder='Например, Улугбек Алимов' id="name" type="text" autoComplete="name" required />
+                    <input
+                        placeholder='Например, Улугбек Алимов'
+                        id="name"
+                        type="text"
+                        autoComplete="name"
+                        onChange={(text) => setName(text.target.value)}
+                        required
+                    />
+                </div>
+                <div className='input'>
+                    <label htmlFor="name">Твой телеграм</label>
+                    <input
+                        placeholder='Например, @motionbox'
+                        id="contact"
+                        type="text"
+                        onChange={(text) => setContact(text.target.value)}
+                        required
+                    />
+                </div>
+                <div className='input'>
+                    <label htmlFor="name">Твой телефон</label>
+                    <input
+                        placeholder='Например, +998 90 123 45 67'
+                        id="phone"
+                        type="text"
+                        onChange={(text) => setPhone(text.target.value)}
+                        required
+                    />
                 </div>
                 <div className='input'>
                     <label htmlFor="name">Заметка</label>
-                    <textarea placeholder='Напиши свои пожелания' id="note" type="text" maxLength='450' />
+                    <textarea
+                        placeholder='Напиши свои пожелания'
+                        id="note"
+                        type="text"
+                        maxLength='450'
+                        onChange={(text) => setNote(text.target.value)}
+                    // required
+                    />
                 </div>
                 <Button text='ОТПРАВИТЬ' />
             </FormWrap>
 
+            <ModalLayer isModal={isModal}>
+                <Modal isModal={isModal} setModal={setModal} />
+            </ModalLayer>
+
         </MainLayer>
     )
+}
+
+MakeOrder.getInitialProps = async () => {
+    const res = await fetch('http://localhost:3000/api/abilities');
+    const data = await res.json();
+    return {
+        data,
+    }
 }

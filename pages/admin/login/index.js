@@ -47,8 +47,6 @@ export default function Index() {
     const [password, setPassword] = useState();
 
     const submit = async (e) => {
-        console.log('username', username);
-        console.log('pass', password);
         e.preventDefault();
 
         const config = {
@@ -57,7 +55,7 @@ export default function Index() {
             },
         }
 
-        if (username.length > 3 && password.length > 3) {
+        if (username.length > 0 && password.length > 0) {
             const body = JSON.stringify({ username, password });
 
             try {
@@ -66,10 +64,12 @@ export default function Index() {
                 if (res.data.statusCode === 200) {
                     window.localStorage.setItem('token', res.data.data.token);
                     rounter.replace('/admin');
+                } else {
+                    alert('Ошибка: что-то пошло не так');
                 }
 
             } catch (error) {
-                console.log(error);
+                alert(`Ошибка: ${error.response.data.message}`);
             }
         } else {
             alert('Заполните поля');
@@ -106,12 +106,3 @@ export default function Index() {
         </Container>
     )
 }
-
-
-// Index.getInitialProps = async () => {
-    // const res = await fetch('http://localhost:3000/api/main');
-
-    // const { data } = await res.json();
-
-    // return { data };
-// }

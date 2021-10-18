@@ -80,7 +80,6 @@ export default function OtherScreen(props) {
             })
         } else {
             axios.put(`api/${type}/${data._id}`, body, config).then(res => {
-                console.log(res);
                 if (res.data.statusCode === 200) {
                     router.push('/admin/others');
                 } else {

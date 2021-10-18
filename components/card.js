@@ -153,18 +153,18 @@ const Card_style = styled.div`
 `
 
 export default function Card(props) {
-    const { data } = props;
+    const { data, type } = props;
     return (
         <Card_style {...props}>
             <div className='filter'>
-                <p>{data?.theme}</p>
+                <p>{data?.type}</p>
                 <div className='info'>
                     <div className='textBox'>
                         <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
-                            <p className='descript'>{data?.descript}</p>
-                            <Link href={data.type !== 'teamItem' ? `/${data.type}/${data?.id}` : `${data?.url}`}>
-                                {data.type === 'teamItem'
+                            <p className='descript'>{data?.description}</p>
+                            <Link href={data?.postType !== 'team' ? `/${data?.postType}/${data?._id}` : `${data?.url}`}>
+                                {data?.postType === 'team'
                                     ?
                                     <a className='instagram' target="_blank"><Instagram fill='#fff' /></a>
                                     :
@@ -176,7 +176,7 @@ export default function Card(props) {
 
                 </div>
             </div>
-            <Image src={`/${data?.img}`} layout="fill" />
+            <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} />
         </Card_style>
     )
 };

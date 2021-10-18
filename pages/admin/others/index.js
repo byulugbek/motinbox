@@ -6,9 +6,10 @@ import fetch from 'isomorphic-unfetch';
 import { useRouter } from 'next/router';
 import Head from 'next/head';
 import { AuthCheck } from '../../../utils/functions/authCheck';
+import PartnersTable from '../../../adminComponents/partnersTable';
 
 
-export default function Index({ abilities, headings, socials }) {
+export default function Index({ partners, abilities, headings, socials }) {
     const router = useRouter();
     const [token, setToken] = useState();
 
@@ -22,6 +23,9 @@ export default function Index({ abilities, headings, socials }) {
     }, [])
 
 
+    const partnersDelete = async (id) => {
+        deleteMethood('partners', id);
+    }
     const abilityDelete = async (id) => {
         deleteMethood('abilities', id);
     }
@@ -38,7 +42,6 @@ export default function Index({ abilities, headings, socials }) {
         }
         if (confirm('Вы уверены что хотите удалить?')) {
             axios.delete(`api/${type}/${id}`, config).then(res => {
-                console.log(res);
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {
@@ -55,6 +58,11 @@ export default function Index({ abilities, headings, socials }) {
             <Head>
                 <title>MotionBox | Другое</title>
             </Head>
+
+            <PartnersTable
+                data={partners}
+                onDelete={partnersDelete}
+            />
 
             <Table
                 title={'Все способности'}
@@ -82,17 +90,22 @@ export default function Index({ abilities, headings, socials }) {
 }
 
 Index.getInitialProps = async () => {
-    const resAbility = await fetch('http://localhost:3000/api/abilities');
+    const resPartner = await fetch('http://localhost:3000/api/partners');
+    const dataPartner = await resPartner.json();
 
+    const resAbility = await fetch('http://localhost:3000/api/abilities');
     const dataAbility = await resAbility.json();
 
     const resHeading = await fetch('http://localhost:3000/api/headings');
-
     const dataHeading = await resHeading.json();
 
     const resSocial = await fetch('http://localhost:3000/api/socials');
-
     const dataSocial = await resSocial.json();
 
-    return { abilities: dataAbility.data, headings: dataHeading.data, socials: dataSocial.data };
+    return {
+        partners: dataPartner.data,
+        abilities: dataAbility.data,
+        headings: dataHeading.data,
+        socials: dataSocial.data
+    };
 }

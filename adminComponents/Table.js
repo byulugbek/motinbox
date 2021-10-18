@@ -56,7 +56,7 @@ const Table_style = styled.div`
             font-size: 24px;
         }
         .descript{
-            height:100%;
+            height:100%;            
             grid-area: descript;
             display: grid;
             gap: 20px;
@@ -68,6 +68,8 @@ const Table_style = styled.div`
 
             .text {
                 grid-area: text;
+                max-height: 150px;
+                overflow: hidden;
             }
             .button1 {
                 grid-area: button1; 

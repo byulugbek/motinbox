@@ -31,6 +31,7 @@ apiRoute.put(async (req, res) => {
     const url = req.body.url;
     const onMain = req.body.onMain;
     const date = req.body.date;
+    const postType = req.body.postType;
     const imageOne = req.files.imageOne ? req.files.imageOne[0].filename : req.body.imageOne;
     const imageTwo = req.files.imageTwo ? req.files.imageTwo[0].filename : req.body.imageTwo;
     const imageThree = req.files.imageThree ? req.files.imageThree[0].filename : req.body.imageThree;
@@ -57,7 +58,8 @@ apiRoute.put(async (req, res) => {
         type, title, description,
         conclusion, socials, url,
         onMain, date, imageOne,
-        imageTwo, imageThree, imageFour
+        imageTwo, imageThree, imageFour,
+        postType
     }
 
     try {

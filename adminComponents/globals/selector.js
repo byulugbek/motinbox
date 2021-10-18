@@ -31,7 +31,7 @@ export default function Selector(props) {
         if (choosenData && data) {
             if (!isMulti) {
                 const value = data.find((item) => {
-                    return item._id === choosenData
+                    return item.value === choosenData
                 });
                 setValues(value);
                 changed = true;
@@ -49,7 +49,7 @@ export default function Selector(props) {
 
     const onChange = (selectedOptions) => {
         if (!isMulti) {
-            setChoosenData(selectedOptions._id);
+            setChoosenData(selectedOptions.value);
             return;
         }
         let ids = selectedOptions.map((item) => {

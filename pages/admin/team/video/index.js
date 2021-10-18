@@ -6,10 +6,10 @@ export default function Index({ data }) {
     return (
         <AdminLayer>
             <Head>
-                <title>{`MotionBox | ${data.length > 0 ? 'Изменение видео' : 'Добавление видео'}`}</title>
+                <title>{`MotionBox | ${data ? 'Изменение видео' : 'Добавление видео'}`}</title>
             </Head>
 
-            <VideoScreen data={data.length > 0 ? data[0] : null} />
+            <VideoScreen data={data ? data : null} />
         </AdminLayer>
     )
 }

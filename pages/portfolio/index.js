@@ -3,49 +3,6 @@ import Card from '../../components/card';
 import Title from '../../components/title';
 import MainLayer from '../../components/mainLayer';
 
-const portfolioLink = [
-    {
-        id: 1,
-        type: 'portfolio',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 2,
-        type: 'portfolio',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 3,
-        type: 'portfolio',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 4,
-        type: 'portfolio',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 5,
-        type: 'portfolio',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-]
-
 const Portfolio_Style = styled.div`
     display: grid;
     gap: 20px;
@@ -57,15 +14,15 @@ const Portfolio_Style = styled.div`
         grid-template-columns: repeat(1, 1fr);
     }
 `
-export default function PortfolioPage() {
+export default function PortfolioPage({ portfolio }) {
     return (
         <MainLayer>
             <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>
-                {portfolioLink.map((post) => {
+                {portfolio.data.map((post) => {
                     return (
                         <Card portfolio
-                            key={post.id}
+                            key={post._id}
                             data={post}
                         />
                     )
@@ -73,4 +30,13 @@ export default function PortfolioPage() {
             </Portfolio_Style>
         </MainLayer>
     )
+}
+
+PortfolioPage.getInitialProps = async () => {
+    const res = await fetch('http://localhost:3000/api/portfolio');
+    const data = await res.json();
+
+    return {
+        portfolio: data,
+    }
 }

@@ -1,15 +1,16 @@
 const mongoose = require('mongoose');
 
-const srtingReq = {
+const reqString = {
     type: String,
     required: true
 }
 
 const TeamSchema = new mongoose.Schema({
-    name: srtingReq,
-    position: srtingReq,
-    social: srtingReq,
-    image: srtingReq,
+    title: reqString,
+    description: reqString,
+    url: reqString,
+    imageOne: reqString,
+    postType: reqString,
 })
 
 module.exports = mongoose.models.Team || mongoose.model('Team', TeamSchema);

@@ -26,6 +26,7 @@ apiRoute.post(async (req, res) => {
     const url = req.body.url;
     const onMain = req.body.onMain;
     const date = req.body.date;
+    const postType = req.body.postType;
     const imageOne = req.files.imageOne[0].filename;
     const imageTwo = req.files.imageTwo[0].filename;
     const imageThree = req.files.imageThree[0].filename;
@@ -44,7 +45,8 @@ apiRoute.post(async (req, res) => {
         type, title, description,
         conclusion, socials, url,
         onMain, date, imageOne,
-        imageTwo, imageThree, imageFour
+        imageTwo, imageThree, imageFour,
+        postType
     }
     try {
         const portfolio = await Portfolio.create(body);
@@ -63,7 +65,7 @@ apiRoute.post(async (req, res) => {
 
 apiRoute.get(async (req, res) => {
     try {
-        const portfolio = await Portfolio.find({});
+        const portfolio = await Portfolio.find({}).sort({ date: -1 });
 
         if (!portfolio) {
             return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });

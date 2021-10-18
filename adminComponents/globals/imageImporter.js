@@ -145,7 +145,7 @@ export default function ImageImporter(props) {
                 ref={ref}
                 type='file'
                 onChange={item => onChange(item)}
-                accept='image/gif image/jpeg, image/png, image/webp'
+                accept='image/*'
             />
         </ImageImporter_style>
     )

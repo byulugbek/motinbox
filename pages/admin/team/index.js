@@ -10,7 +10,6 @@ import { AuthCheck } from '../../../utils/functions/authCheck';
 export default function Index({ teamData, videoData }) {
     const router = useRouter();
     const [video, setVideo] = useState();
-    const [team, setTeam] = useState([]);
     const [token, setToken] = useState();
 
     useEffect(() => {
@@ -21,19 +20,6 @@ export default function Index({ teamData, videoData }) {
             setToken(isLoginned);
         }
     }, [])
-
-    useEffect(() => {
-        const newArrayOfObj = teamData.data.map(({
-            name: title,
-            position: description,
-            ...rest
-        }) => ({
-            title,
-            description,
-            ...rest
-        }));
-        setTeam(newArrayOfObj);
-    }, [teamData])
 
     const onDeletePressed = (id) => {
         const config = {
@@ -62,11 +48,11 @@ export default function Index({ teamData, videoData }) {
 
             <VideoBlock
                 title={'Видео блок'}
-                data={videoData.data[0]}
+                data={videoData.data}
             />
             <Table
                 title={'Вся команда'}
-                data={team}
+                data={teamData.data}
                 editable
                 linkParam={'team'}
                 onDelete={onDeletePressed}

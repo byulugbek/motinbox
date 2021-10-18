@@ -8,7 +8,7 @@ dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'projects').fields([{ name: 'cover', maxCount: 1 }, { name: 'image', maxCount: 1 }]);
+const uploadMiddleware = muterUpload(2, 'projects').fields([{ name: 'imageOne', maxCount: 1 }, { name: 'imageTwo', maxCount: 1 }]);
 
 apiRoute.use(uploadMiddleware);
 
@@ -16,7 +16,6 @@ apiRoute.put(async (req, res) => {
     const {
         query: { id },
     } = req;
-
 
     // define all new data
     const type = req.body.type;
@@ -27,31 +26,32 @@ apiRoute.put(async (req, res) => {
     const url = req.body.url;
     const onMain = req.body.onMain;
     const date = req.body.date;
-    const cover = req.files.cover ? req.files.cover[0].filename : req.body.cover;
-    const image = req.files.image ? req.files.image[0].filename : req.body.image;
+    const postType = req.body.postType;
+    const imageOne = req.files.imageOne ? req.files.imageOne[0].filename : req.body.imageOne;
+    const imageTwo = req.files.imageTwo ? req.files.imageTwo[0].filename : req.body.imageTwo;
 
     const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
     if (isAdmin.length <= 0) {
-        req.files.cover && fs.unlinkSync(`./public/uploads/projects/${cover}`);
-        req.files.image && fs.unlinkSync(`./public/uploads/projects/${image}`);
+        req.files.imageOne && fs.unlinkSync(`./public/uploads/projects/${imageOne}`);
+        req.files.imageTwo && fs.unlinkSync(`./public/uploads/projects/${imageTwo}`);
         return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
     }
 
-    // get old images array of names
+    // get old imageTwos array of names
     const projectById = await Projects.findById(id);
-    // if new images uploaded
-    if (req.files.cover) {
-        fs.unlinkSync(`./public/uploads/projects/${projectById.cover}`);
+    // if new imageTwos uploaded
+    if (req.files.imageOne) {
+        fs.unlinkSync(`./public/uploads/projects/${projectById.imageOne}`);
     }
-    if (req.files.image) {
-        fs.unlinkSync(`./public/uploads/projects/${projectById.image}`);
+    if (req.files.imageTwo) {
+        fs.unlinkSync(`./public/uploads/projects/${projectById.imageTwo}`);
     }
 
     const body = {
         type, title,
         description, conclusion,
-        socials, cover, image,
-        url, onMain, date
+        socials, imageOne, imageTwo,
+        url, onMain, date, postType
     }
 
     try {
@@ -70,7 +70,6 @@ apiRoute.put(async (req, res) => {
         res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
     }
 })
-
 
 apiRoute.get(async (req, res) => {
     const {
@@ -102,8 +101,8 @@ apiRoute.delete(async (req, res) => {
     }
 
     const projectById = await Projects.findById(id);
-    fs.unlinkSync(`./public/uploads/projects/${projectById.cover}`);
-    fs.unlinkSync(`./public/uploads/projects/${projectById.image}`);
+    fs.unlinkSync(`./public/uploads/projects/${projectById.imageOne}`);
+    fs.unlinkSync(`./public/uploads/projects/${projectById.imageTwo}`);
 
 
     try {

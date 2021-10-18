@@ -61,8 +61,8 @@ export default function ProjectScreen(props) {
     // post conclusion
     const [final, setFinal] = useState('');
 
-    const [cover, setCover] = useState();
-    const [image, setImage] = useState();
+    const [imageOne, setImageOne] = useState();
+    const [imageTwo, setImageTwo] = useState();
     const [url, setUrl] = useState('');
     const [onMain, setOnMain] = useState(false);
     const [date, setDate] = useState();
@@ -87,8 +87,8 @@ export default function ProjectScreen(props) {
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
-            setCover(data.cover);
-            setImage(data.image);
+            setImageOne(data.imageOne);
+            setImageTwo(data.imageTwo);
             setUrl(data.url);
             setOnMain(data.onMain);
             setDate(new Date(data.date));
@@ -119,7 +119,7 @@ export default function ProjectScreen(props) {
         if (data) {
             if (
                 chosenAbility && title && desc &&
-                final && date && cover && image &&
+                final && date && imageOne && imageTwo &&
                 chosenSocials.length > 0
             ) {
                 collectAllData();
@@ -130,7 +130,7 @@ export default function ProjectScreen(props) {
         } else {
             if (chosenAbility && title && desc &&
                 final && chosenSocials.length > 0 &&
-                cover && image && date
+                imageOne && imageTwo && date
             ) {
                 collectAllData();
             }
@@ -148,11 +148,12 @@ export default function ProjectScreen(props) {
         formData.append('description', desc);
         formData.append('conclusion', final);
         formData.append('socials', chosenSocials);
-        formData.append('cover', cover);
-        formData.append('image', image);
+        formData.append('imageOne', imageOne);
+        formData.append('imageTwo', imageTwo);
         formData.append('url', url);
         formData.append('onMain', onMain);
         formData.append('date', date);
+        formData.append('postType', 'projects');
 
         sendData(formData);
     }
@@ -214,19 +215,19 @@ export default function ProjectScreen(props) {
                 />
 
                 <ImageImporter
-                    name='cover'
+                    name='imageOne'
                     title='Загрузите обложку'
                     folder='projects'
-                    content={cover}
-                    setContent={setCover}
+                    content={imageOne}
+                    setContent={setImageOne}
                 />
 
                 <ImageImporter
-                    name='image'
+                    name='imageTwo'
                     title='Загрузите фотографию'
                     folder='projects'
-                    content={image}
-                    setContent={setImage}
+                    content={imageTwo}
+                    setContent={setImageTwo}
                 />
 
                 <Input

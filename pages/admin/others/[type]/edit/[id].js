@@ -4,6 +4,7 @@ import ErrorPage from 'next/error';
 import AdminLayer from "../../../../../adminComponents/adminLayer";
 import OtherScreen from "../../../../../adminComponents/screens/otherScreen";
 import Head from 'next/head';
+import PartnerScreen from '../../../../../adminComponents/screens/partnerScreen';
 
 export default function Id({ data }) {
     const router = useRouter();
@@ -20,7 +21,7 @@ export default function Id({ data }) {
         }
     }, [])
 
-    if (type !== 'abilities' && type !== 'headings' && type !== 'socials')
+    if (type !== 'partners' && type !== 'abilities' && type !== 'headings' && type !== 'socials')
         return <ErrorPage statusCode={404} />
 
     return (
@@ -28,8 +29,11 @@ export default function Id({ data }) {
             <Head>
                 <title>MotionBox | Изменение: "{data.title}"</title>
             </Head>
-
-            <OtherScreen type={type} headData={headData} data={data} />
+            {type === 'partners' ?
+                <PartnerScreen data={data} />
+                :
+                <OtherScreen type={type} headData={headData} data={data} />
+            }
         </AdminLayer>
     )
 }
@@ -37,7 +41,7 @@ export default function Id({ data }) {
 Id.getInitialProps = async (ctx) => {
     const { type, id } = ctx.query;
 
-    if (type !== 'abilities' && type !== 'headings' && type !== 'socials') {
+    if (type !== 'partners' && type !== 'abilities' && type !== 'headings' && type !== 'socials') {
         return {};
     };
 

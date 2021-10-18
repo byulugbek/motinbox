@@ -52,7 +52,7 @@ apiRoute.get(async (req, res) => {
         if (!video) {
             return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
         }
-        res.status(200).json({ statusCode: 200, data: video });
+        res.status(200).json({ statusCode: 200, data: video[0] });
     }
     catch (error) {
         res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });

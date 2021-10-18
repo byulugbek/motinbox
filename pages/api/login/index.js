@@ -7,7 +7,6 @@ export default async (req, res) => {
     const { method, body } = req;
 
     const { username, password } = body;
-    console.log(req.headers);
 
     switch (method) {
         case 'POST':
@@ -19,16 +18,10 @@ export default async (req, res) => {
 
                     return res.status(200).json({ statusCode: 200, data: uploadToken })
                 } else {
-                    return res.status(200).json({
-                        statusCode: 405,
-                        data: {
-                            message: 'Wrong username or password'
-                        }
-                    })
+                    return res.status(400).json({ statusCode: 400, message: 'Неверный логин/пароль' })
                 }
             } catch (error) {
-                console.log(error);
-                res.status(400).json({ statusCode: 400 });
+                res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
             }
             break;
 
@@ -38,18 +31,16 @@ export default async (req, res) => {
                 if (isAdmin.length <= 0) {
                     return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
                 } else {
-                    // console.log(isAdmin);
                     const deleteAdmin = await Admins.deleteOne({ _id: isAdmin[0]._id });
-                    console.log(deleteAdmin);
                     res.status(200).json({ statusCode: 200, data: deleteAdmin })
                 }
             } catch (error) {
-                res.status(400).json({ statusCode: 400 });
+                res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
             }
             break;
 
         default:
-            res.status(400).json({ statusCode: 400 });
+            res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
             break;
     }
 }

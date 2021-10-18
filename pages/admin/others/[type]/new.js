@@ -4,6 +4,7 @@ import AdminLayer from "../../../../adminComponents/adminLayer";
 import ErrorPage from 'next/error';
 import OtherScreen from "../../../../adminComponents/screens/otherScreen";
 import Head from 'next/head';
+import PartnerScreen from '../../../../adminComponents/screens/partnerScreen';
 
 
 export default function New() {
@@ -21,7 +22,7 @@ export default function New() {
         }
     }, [])
 
-    if (type !== 'abilities' && type !== 'headings' && type !== 'socials')
+    if (type !== 'partners' && type !== 'abilities' && type !== 'headings' && type !== 'socials')
         return <ErrorPage statusCode={404} />
 
     return (
@@ -29,8 +30,11 @@ export default function New() {
             <Head>
                 <title>MotionBox | Добавление {headData}</title>
             </Head>
-
-            <OtherScreen type={type} headData={headData} />
+            {type === 'partners' ?
+                <PartnerScreen />
+                :
+                <OtherScreen type={type} headData={headData} />
+            }
         </AdminLayer>
     )
 }

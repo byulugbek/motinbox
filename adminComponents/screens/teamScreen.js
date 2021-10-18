@@ -56,10 +56,10 @@ export default function TeamScreen(props) {
         }
 
         if (data) {
-            setName(data.name);
-            setPosition(data.position);
-            setImage(data.image);
-            setSocial(data.social);
+            setName(data.title);
+            setPosition(data.description);
+            setImage(data.imageOne);
+            setSocial(data.url);
         }
 
     }, [])
@@ -67,7 +67,7 @@ export default function TeamScreen(props) {
     const checkAllData = (e) => {
         e.preventDefault();
 
-        if (name, position, social, image) {
+        if (name && position && social && image) {
             collectAllData();
         } else {
             alert('Заполните все поля!');
@@ -76,10 +76,11 @@ export default function TeamScreen(props) {
 
     const collectAllData = () => {
         const formData = new FormData();
-        formData.append('name', name);
-        formData.append('position', position);
-        formData.append('social', social);
-        formData.append('image', image);
+        formData.append('title', name);
+        formData.append('description', position);
+        formData.append('url', social);
+        formData.append('imageOne', image);
+        formData.append('postType', 'team');
 
         sendData(formData);
     }
@@ -94,7 +95,6 @@ export default function TeamScreen(props) {
 
         if (!data) {
             axios.post(`api/team`, formData, config).then(res => {
-                console.log(res);
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
@@ -121,7 +121,7 @@ export default function TeamScreen(props) {
         <Team_style>
             <form onSubmit={checkAllData}>
                 <span className='title'>
-                    Добавление участника
+                    {!data ? 'Добавление участника' : 'Изменение участника'}
                 </span>
 
                 <Input
@@ -137,7 +137,7 @@ export default function TeamScreen(props) {
                 />
 
                 <ImageImporter
-                    name='image'
+                    name='imageOne'
                     folder='team'
                     title='Загрузите портрет'
                     content={image}

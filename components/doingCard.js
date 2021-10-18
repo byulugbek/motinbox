@@ -46,8 +46,12 @@ export default function DoingCard(props) {
             <Card_style>
                 <div className='title'>{data?.title}</div>
                 <div className='descript'>
-                    <p>{data?.descript}</p>
-                    <Button text='ХОЧУ ЭТО' />
+                    <p>{data?.description}</p>
+                    <Link href='/makeOrder'>
+                        <a>
+                            <Button text='ХОЧУ ЭТО' />
+                        </a>
+                    </Link>
                 </div>
             </Card_style>
             <hr className='line' />

@@ -128,10 +128,17 @@ export default function AHeader() {
             }
         }
         if (confirm('Вы уверены что хотите выйти?')) {
-            const res = await axios.get('/api/login', config);
-            window.localStorage.removeItem('token');
-            router.replace('admin/login');
-            console.log(res.data);
+            try {
+                const res = await axios.get('/api/login', config);
+                if (res.data.statusCode === 200) {
+                    window.localStorage.removeItem('token');
+                    router.replace('admin/login');
+                } else {
+                    alert('Ошибка: что-то пошло не так');
+                }
+            } catch (error) {
+                alert(`Ошибка: ${error.response.data.message}`);
+            }
         }
     }
 

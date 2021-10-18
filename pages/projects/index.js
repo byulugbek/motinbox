@@ -11,51 +11,16 @@ const Projects = styled.div`
         grid-template-columns: repeat(1, 1fr);
     }
 `
-
-const projectCard = [
-    {
-        id: 1,
-        type: 'projects',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 2,
-        type: 'projects',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 3,
-        type: 'projects',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-    {
-        id: 4,
-        type: 'projects',
-        img: 'cardPhoto2.webp',
-        theme: 'Мобильное приложение',
-        title: 'Мы создали выставку "DOSTUP" для МТС.',
-        descript: 'В мае 2019 года Scazy был приглашен в Лондон в качестве специального гостя на презентацию нового сотрудничества коньячного дома Rémy Martin',
-    },
-]
-
-export default function ProjectsPage() {
-    const mapProjectCards = projectCard.map((post) => {
+export default function ProjectsPage({ projects }) {
+    const mapProjectCards = projects.data.map((post) => {
         return (
             <Card
-                key={post.id}
+                key={post._id}
                 data={post}
             />
         )
     })
+
     return (
         <MainLayer>
             <Title text='ЭТО НАШИ ПРОЕКТЫ' />
@@ -65,4 +30,14 @@ export default function ProjectsPage() {
 
         </MainLayer>
     )
+}
+
+ProjectsPage.getInitialProps = async () => {
+    const res = await fetch('http://localhost:3000/api/projects');
+
+    const data = await res.json();
+
+    return {
+        projects: data,
+    }
 }

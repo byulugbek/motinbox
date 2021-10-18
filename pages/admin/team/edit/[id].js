@@ -15,7 +15,7 @@ export default function Id({ data, statusCode }) {
     return (
         <AdminLayer>
             <Head>
-                <title>MotionBox | Изменение: "{data.name}"</title>
+                <title>MotionBox | Изменение: {data.title}</title>
             </Head>
             <TeamScreen data={data} />
         </AdminLayer>

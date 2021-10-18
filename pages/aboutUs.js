@@ -3,8 +3,11 @@ import Title from '../components/title'
 import Button from '../components/button'
 import Card from '../components/card'
 import MainLayer from '../components/mainLayer'
+import Link from 'next/link';
 
 const Animatin_screen = styled.div`
+    position: relative;
+    overflow: hidden;
     display: grid;
     grid-template-columns: 1fr;
     padding: 50px;
@@ -13,6 +16,7 @@ const Animatin_screen = styled.div`
     height: calc(100vh - 170px);
     background-color: var(--black100);
     .upBox{
+        z-index: 1;
         display: grid;
         gap: 20px;
         grid-auto-flow: column;
@@ -27,7 +31,12 @@ const Animatin_screen = styled.div`
             font-size: 24px;
         }
     }
+    video {
+        position: absolute;
+        z-index: 0;
+    }
     .bottomBox{
+        z-index: 1;
         display: grid;
         gap:30px;
         justify-content: stretch;
@@ -74,82 +83,21 @@ const Team = styled.div`
     @media only screen and (max-width: 1000px) {
         gap: 10px;
         grid-template-columns: repeat(2, 1fr);    
-    }  
+    }
+
+    @media only screen and (max-width: 500px) {
+        gap: 10px;
+        grid-template-columns: repeat(1, 1fr);    
+    }
 `
+export default function AboutUs({ video, team }) {
 
-const teamCard = [
-    {
-        id: 1,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 2,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 3,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 4,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 5,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 6,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 7,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-    {
-        id: 8,
-        type: 'teamItem',
-        img: 'Team.png',
-        title: 'Улугбек Алимов',
-        descript: 'CEO, Основатель',
-        url: 'https://www.instagram.com/motionbox.uz/'
-    },
-]
-export default function AboutUs() {
-
-    const mapTeamCards = teamCard.map((post) => {
+    const mapTeamCards = team.data.map((post) => {
         return (
             <Card teamItem
-                key={post.id}
+                key={post._id}
                 data={post}
+                type='teamItem'
             />
         )
     })
@@ -158,13 +106,20 @@ export default function AboutUs() {
         <MainLayer>
             <Animatin_screen>
                 <div className='upBox'>
-                    <h1 className='slogan'>Преврвщаем<br />Смелые идеи в <br />Чистый дизайн</h1>
+                    <h1 className='slogan'>{video.data.title}</h1>
                     <p >Мы основаны:<span className='boldText'>2021</span></p>
                 </div>
+                <video autoPlay loop style={{ width: '100%', height: '100%' }}>
+                    <source src={`uploads/video/${video.data.video}`} />
+                </video>
                 <div className='bottomBox'>
                     <p className='about'>Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором. Мы верим, что компания реализует свой потенциал, если каждый человек в компании реализует свой потенциал. Свой талант. Творческий, стратегический, финансовый, управленческий, предпринимательский, любой.</p>
                     <div className='story'>
-                        <Button lite text='Наши проекты' />
+                        <Link href='/projects'>
+                            <a>
+                                <Button lite text='Наши проекты' />
+                            </a>
+                        </Link>
                         <p className='creater'> Основатель:<span className='boldText'>Ulugbek Alimov</span></p>
                     </div>
                 </div>
@@ -178,3 +133,15 @@ export default function AboutUs() {
         </MainLayer>
     )
 };
+
+AboutUs.getInitialProps = async () => {
+    const videoRes = await fetch(`http://localhost:3000/api/video`);
+    const video = await videoRes.json();
+
+    const teamRes = await fetch(`http://localhost:3000/api/team`);
+    const team = await teamRes.json();
+
+    return {
+        video, team,
+    }
+}

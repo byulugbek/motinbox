@@ -1,8 +1,10 @@
 import styled from 'styled-components'
 import Image from 'next/image'
+import ErrorPage from 'next/error';
 import { Instagram } from '../../components/icons'
 import Button from '../../components/button'
 import MainLayer from '../../components/mainLayer'
+import Link from 'next/link';
 
 const PostWrap = styled.div`
     display: grid;
@@ -19,6 +21,11 @@ const PostWrap = styled.div`
     border: 0.5px solid var(--black20);
     padding: 50px;
     font-size: 18px;
+    .bottom {
+        display: grid;
+        grid-auto-flow: rows;
+        gap: 10px;
+    }
     .line{
         width:100%;
         height: 0.5px;
@@ -78,6 +85,17 @@ const PostWrap = styled.div`
         }
     }
 
+    .link {
+        width: 100%;
+        display: grid;
+        /* justify-content: center; */
+        a {
+            font-size: 32px;
+            font-family: Bold;
+            /* text-decoration: underline; */
+        }
+    }
+
     @media only screen and (max-width: 500px) {
         gap: 30px;
         border-radius: 20px;
@@ -94,40 +112,68 @@ const PostWrap = styled.div`
 `
 
 
-export default function Post() {
+export default function Post({ data, socials }) {
+
+    if (data.statusCode !== 200) {
+        return <ErrorPage statusCode={data.statusCode} />
+    }
+
+    const mapSocials = data.data.socials.map(item => {
+        const social = socials.data.filter(i => i._id === item);
+        return (
+            <Link key={item} href={social[0].description}>
+                <a target='_blank'>
+                    <Instagram fill='#000' />
+                </a>
+            </Link>
+        )
+    });
+
     return (
         <MainLayer>
             <PostWrap>
-                <p className='theme'>Мобильное приложение</p>
-                <p className='Title'>Коллаборация SCAZY x ADIDAS в честь 70-летия бренда</p>
-                <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
-                <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
-                <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
-                <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
-                <p className='descript'>Новая коллаборация от Scazy, в честь 70-летия бренда @adidas, которая основана на художественном стиле #Patternism, который говорит о том, что независимо от того, насколько богата и чрезмерна культурная среда, бренд Adidas никогда не потеряется в ней и займет свое особое место.</p>
+                <p className='theme'>{data.data.type}</p>
+                <p className='Title'>{data.data.title}</p>
+                <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
                 <div className='imageBox'>
-                    <div className='picture'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
-                    <div className='calaje'>
-                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
-                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
-                        <div className='picture Litle'><Image src={`/cardPhoto2.webp`} layout='fill' /></div>
+                    <div className='picture'>
+                        <Image src={`/uploads/projects/${data.data.imageTwo}`} layout='fill' alt={data.data.imageTwo} />
                     </div>
                 </div>
-                <p className='descript'>A brand that has gone far beyond sports, affecting the absolute diversity of the audience. </p>
-                <p className='descript'>This pattern refers to a variety of subcultures, and even those sections of society that are not related to art and culture.</p>
-                <hr className='line' />
-                <div className='feedback'>
-                    <div className='social'>
-                        <a><Instagram fill='#000000' /></a>
-                        <a><Instagram fill='#000000' /></a>
-                        <a><Instagram fill='#000000' /></a>
+                <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.conclusion }} />
+                <div className='bottom'>
+                    <hr className='line' />
+                    <div className='feedback'>
+                        <div className='social'>
+                            {mapSocials}
+                        </div>
+                        <Link href={data.data.url}>
+                            <a target='_blank'>
+                                <Button
+                                    text='Перейти'
+                                />
+                            </a>
+                        </Link>
                     </div>
-                    <Button
-                        text='Лайкнуть'
-                    />
+                    <hr className='line' />
                 </div>
-                <hr className='line' />
             </PostWrap>
         </MainLayer>
     )
 };
+
+Post.getInitialProps = async ({ query }) => {
+    const { id } = query;
+
+    const res = await fetch(`http://localhost:3000/api/projects/${id}`);
+
+    const data = await res.json();
+
+    const resSocials = await fetch('http://localhost:3000/api/socials');
+    const socialsData = await resSocials.json();
+
+    return {
+        data: data,
+        socials: socialsData,
+    }
+}

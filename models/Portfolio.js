@@ -16,6 +16,7 @@ const PortfolioSchema = new mongoose.Schema({
     url: reqString,
     conclusion: reqString,
     socials: [String],
+    postType: reqString,
     onMain: { type: Boolean, required: true },
     date: { type: Date, required: true },
 });
