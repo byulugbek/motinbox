@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import Head from 'next/head';
 import styled from "styled-components";
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -7,6 +8,8 @@ import { Plus } from "../components/icons";
 import MainLayer from '../components/mainLayer';
 import ModalLayer from "../components/modalLayer";
 import Modal from "../components/modal";
+import dbConnect from "../utils/dbConnect";
+import Abilities from "../models/Abilities";
 
 const FormWrap = styled.form`
     display: grid;
@@ -48,6 +51,7 @@ const FormWrap = styled.form`
             }
         }
         .selected{
+            cursor: default;
             height: fit-content;
             min-height: 50px;
             display: flex;
@@ -82,7 +86,7 @@ const FormWrap = styled.form`
         }
     }
 `
-const Abilities = styled.div`
+const Abilities_style = styled.div`
     width: 100%;
     display: flex;
     flex-wrap: wrap;
@@ -138,11 +142,11 @@ export default function MakeOrder({ data }) {
     const [phone, setPhone] = useState();
 
     useEffect(() => {
-        setAbilities(data.data);
+        setAbilities(data);
     }, [])
 
     const onClick = (id) => {
-        const res = data.data.find(i => i._id === id);
+        const res = data.find(i => i._id === id);
         arrayAdd.push(res);
         setSelected(arrayAdd);
 
@@ -155,7 +159,7 @@ export default function MakeOrder({ data }) {
         arrayAdd = afterClick;
 
         let ability = abilities;
-        const res = data.data.find(i => i._id === id);
+        const res = data.find(i => i._id === id);
         ability.push(res);
         setAbilities(ability);
     }
@@ -188,7 +192,7 @@ export default function MakeOrder({ data }) {
             const body = {
                 organization, name, note, selected, contact, phone
             };
-            const res = await axios.post('api/order', body);
+            const res = await axios.post(`${process.env.URL_BASE}/api/order`, body);
 
             console.log(res.data);
             if (res.data.statusCode === 200) {
@@ -205,15 +209,18 @@ export default function MakeOrder({ data }) {
 
     return (
         <MainLayer>
+            <Head>
+                <title>MotionBox | Быть с нами</title>
+            </Head>
             <FormWrap onSubmit={chekAllData}>
                 <p className='theme'>Выбери нужную услугу</p>
-                <Abilities>
+                <Abilities_style>
                     {abilities.length > 0 ?
                         <>{mapAbilities}</>
                         :
                         <span>Большего мы пока не умеем ...</span>
                     }
-                </Abilities>
+                </Abilities_style>
                 <div className='input'>
                     <label htmlFor="name">Выбранные услуги</label>
                     <div className='selected'>
@@ -288,10 +295,13 @@ export default function MakeOrder({ data }) {
     )
 }
 
-MakeOrder.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/abilities');
-    const data = await res.json();
+export async function getStaticProps() {
+    dbConnect();
+    const abilities = JSON.parse(JSON.stringify(await Abilities.find({})));
+
     return {
-        data,
+        props: {
+            data: abilities,
+        }
     }
 }

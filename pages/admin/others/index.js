@@ -90,16 +90,16 @@ export default function Index({ partners, abilities, headings, socials }) {
 }
 
 Index.getInitialProps = async () => {
-    const resPartner = await fetch('http://localhost:3000/api/partners');
+    const resPartner = await fetch(`${process.env.URL_BASE}/api/partners`);
     const dataPartner = await resPartner.json();
 
-    const resAbility = await fetch('http://localhost:3000/api/abilities');
+    const resAbility = await fetch(`${process.env.URL_BASE}/api/abilities`);
     const dataAbility = await resAbility.json();
 
-    const resHeading = await fetch('http://localhost:3000/api/headings');
+    const resHeading = await fetch(`${process.env.URL_BASE}/api/headings`);
     const dataHeading = await resHeading.json();
 
-    const resSocial = await fetch('http://localhost:3000/api/socials');
+    const resSocial = await fetch(`${process.env.URL_BASE}/api/socials`);
     const dataSocial = await resSocial.json();
 
     return {

@@ -62,10 +62,10 @@ export default function Index({ teamData, videoData }) {
 }
 
 Index.getInitialProps = async () => {
-    const teamRes = await fetch('http://localhost:3000/api/team');
+    const teamRes = await fetch(`${process.env.URL_BASE}/api/team`);
     const teamData = await teamRes.json();
 
-    const videoRes = await fetch('http://localhost:3000/api/video');
+    const videoRes = await fetch(`${process.env.URL_BASE}/api/video`);
     const videoData = await videoRes.json();
 
     return { teamData: teamData, videoData: videoData };

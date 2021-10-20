@@ -90,7 +90,7 @@ export default function PartnerScreen(props) {
         }
 
         if (!data) {
-            axios.post(`api/partners`, formData, config).then(res => {
+            axios.post(`${process.env.URL_BASE}/api/partners`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {
@@ -100,7 +100,7 @@ export default function PartnerScreen(props) {
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/partners/${data._id}`, formData, config).then(res => {
+            axios.put(`${process.env.URL_BASE}/api/partners/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {

@@ -166,7 +166,7 @@ export default function ProjectScreen(props) {
             },
         }
         if (!data) {
-            axios.post(`api/projects`, formData, config).then(res => {
+            axios.post(`${process.env.URL_BASE}/api/projects`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/projects`);
                 } else {
@@ -176,7 +176,7 @@ export default function ProjectScreen(props) {
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/projects/${data._id}`, formData, config).then(res => {
+            axios.put(`${process.env.URL_BASE}/api/projects/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/projects`);
                 } else {

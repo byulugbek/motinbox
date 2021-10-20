@@ -69,7 +69,7 @@ export default function OtherScreen(props) {
             headers: { 'Authorization': token }
         }
         if (!data) {
-            axios.post(`api/${type}`, body, config).then(res => {
+            axios.post(`${process.env.URL_BASE}/api/${type}`, body, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push('/admin/others');
                 } else {
@@ -79,7 +79,7 @@ export default function OtherScreen(props) {
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/${type}/${data._id}`, body, config).then(res => {
+            axios.put(`${process.env.URL_BASE}/api/${type}/${data._id}`, body, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push('/admin/others');
                 } else {

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import styled from 'styled-components';
 import Image from 'next/image';
 import { Instagram } from '../../components/icons';
@@ -99,8 +100,6 @@ const PostWrap = styled.div`
 
     }
 `
-
-
 export default function Post({ data, socials }) {
 
     if (data.statusCode !== 200) {
@@ -120,6 +119,9 @@ export default function Post({ data, socials }) {
 
     return (
         <MainLayer>
+            <Head>
+                <title>MotionBox | {data.data.title}</title>
+            </Head>
             <PostWrap>
                 <p className='theme'>{data.data.type}</p>
                 <p className='Title'>{data.data.title}</p>
@@ -165,11 +167,11 @@ export default function Post({ data, socials }) {
 Post.getInitialProps = async ({ query }) => {
     const { id } = query;
 
-    const res = await fetch(`http://localhost:3000/api/portfolio/${id}`);
+    const res = await fetch(`${process.env.URL_BASE}/api/portfolio/${id}`);
 
     const data = await res.json();
 
-    const resSocials = await fetch('http://localhost:3000/api/socials');
+    const resSocials = await fetch(`${process.env.URL_BASE}/api/socials`);
     const socialsData = await resSocials.json();
 
     return {

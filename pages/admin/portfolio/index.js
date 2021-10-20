@@ -56,7 +56,7 @@ export default function Index({ portfolio }) {
 }
 
 Index.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/portfolio');
+    const res = await fetch(`${process.env.URL_BASE}/api/portfolio`);
 
     const { data } = await res.json();
 

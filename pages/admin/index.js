@@ -27,7 +27,7 @@ export default function AdminHome({ data }) {
 
 
 AdminHome.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/main');
+    const res = await fetch(`${process.env.URL_BASE}/api/main`);
 
     const { data } = await res.json();
 

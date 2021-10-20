@@ -56,7 +56,7 @@ export default function Index({ projects }) {
 }
 
 Index.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/projects');
+    const res = await fetch(`${process.env.URL_BASE}/api/projects`);
 
     const { data } = await res.json();
 

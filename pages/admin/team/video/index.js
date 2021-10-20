@@ -15,7 +15,7 @@ export default function Index({ data }) {
 }
 
 Index.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/video');
+    const res = await fetch(`${process.env.URL_BASE}/api/video`);
 
     const { data } = await res.json();
 

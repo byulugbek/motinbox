@@ -159,7 +159,7 @@ export default function PortfolioScreen(props) {
             },
         }
         if (!data) {
-            axios.post(`api/portfolio`, formData, config).then(res => {
+            axios.post(`${process.env.URL_BASE}/api/portfolio`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/portfolio`);
                 } else {
@@ -169,7 +169,7 @@ export default function PortfolioScreen(props) {
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/portfolio/${data._id}`, formData, config).then(res => {
+            axios.put(`${process.env.URL_BASE}/api/portfolio/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/portfolio`);
                 } else {

@@ -94,7 +94,7 @@ export default function TeamScreen(props) {
         }
 
         if (!data) {
-            axios.post(`api/team`, formData, config).then(res => {
+            axios.post(`${process.env.URL_BASE}/api/team`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
@@ -104,7 +104,7 @@ export default function TeamScreen(props) {
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
-            axios.put(`api/team/${data._id}`, formData, config).then(res => {
+            axios.put(`${process.env.URL_BASE}/api/team/${data._id}`, formData, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {

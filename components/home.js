@@ -65,7 +65,7 @@ const Portfolio_Style = styled(Projects)`
 `
 
 export default function HomePage({ data }) {
-    const { main, abilities } = data;
+    const { main } = data;
 
     const mapProjectCards = main.projects.map((post) => {
         return (
@@ -87,7 +87,7 @@ export default function HomePage({ data }) {
         )
     })
 
-    const mapDoingCards = abilities.map((post) => {
+    const mapDoingCards = main.abilities.map((post) => {
         return (
             <DoingCard
                 key={post._id}

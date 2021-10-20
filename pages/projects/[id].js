@@ -1,9 +1,10 @@
-import styled from 'styled-components'
-import Image from 'next/image'
+import Head from 'next/head';
+import styled from 'styled-components';
+import Image from 'next/image';
 import ErrorPage from 'next/error';
-import { Instagram } from '../../components/icons'
-import Button from '../../components/button'
-import MainLayer from '../../components/mainLayer'
+import { Instagram } from '../../components/icons';
+import Button from '../../components/button';
+import MainLayer from '../../components/mainLayer';
 import Link from 'next/link';
 
 const PostWrap = styled.div`
@@ -131,6 +132,9 @@ export default function Post({ data, socials }) {
 
     return (
         <MainLayer>
+            <Head>
+                <title>MotionBox | {data.data.title}</title>
+            </Head>
             <PostWrap>
                 <p className='theme'>{data.data.type}</p>
                 <p className='Title'>{data.data.title}</p>
@@ -165,11 +169,11 @@ export default function Post({ data, socials }) {
 Post.getInitialProps = async ({ query }) => {
     const { id } = query;
 
-    const res = await fetch(`http://localhost:3000/api/projects/${id}`);
+    const res = await fetch(`${process.env.URL_BASE}/api/projects/${id}`);
 
     const data = await res.json();
 
-    const resSocials = await fetch('http://localhost:3000/api/socials');
+    const resSocials = await fetch(`${process.env.URL_BASE}/api/socials`);
     const socialsData = await resSocials.json();
 
     return {

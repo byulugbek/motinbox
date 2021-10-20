@@ -129,7 +129,7 @@ export default function AHeader() {
         }
         if (confirm('Вы уверены что хотите выйти?')) {
             try {
-                const res = await axios.get('/api/login', config);
+                const res = await axios.get(`${process.env.URL_BASE}/api/login`, config);
                 if (res.data.statusCode === 200) {
                     window.localStorage.removeItem('token');
                     router.replace('admin/login');

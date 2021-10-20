@@ -59,7 +59,7 @@ export default function Index() {
             const body = JSON.stringify({ username, password });
 
             try {
-                const res = await axios.post('api/login', body, config);
+                const res = await axios.post(`${process.env.URL_BASE}/api/login`, body, config);
 
                 if (res.data.statusCode === 200) {
                     window.localStorage.setItem('token', res.data.data.token);

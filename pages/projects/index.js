@@ -1,9 +1,12 @@
+import Head from 'next/head';
 import styled from 'styled-components';
 import Card from '../../components/card';
 import Title from '../../components/title';
 import MainLayer from '../../components/mainLayer';
+import Projects from '../../models/Projects';
+import dbConnect from '../../utils/dbConnect';
 
-const Projects = styled.div`
+const Projects_style = styled.div`
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -11,8 +14,9 @@ const Projects = styled.div`
         grid-template-columns: repeat(1, 1fr);
     }
 `
+
 export default function ProjectsPage({ projects }) {
-    const mapProjectCards = projects.data.map((post) => {
+    const mapProjectCards = projects.map((post) => {
         return (
             <Card
                 key={post._id}
@@ -23,21 +27,25 @@ export default function ProjectsPage({ projects }) {
 
     return (
         <MainLayer>
+            <Head>
+                <title>MotionBox | Наши проекты</title>
+            </Head>
             <Title text='ЭТО НАШИ ПРОЕКТЫ' />
-            <Projects>
+            <Projects_style>
                 {mapProjectCards}
-            </Projects>
+            </Projects_style>
 
         </MainLayer>
     )
 }
 
-ProjectsPage.getInitialProps = async () => {
-    const res = await fetch('http://localhost:3000/api/projects');
-
-    const data = await res.json();
+export async function getStaticProps() {
+    dbConnect();
+    const projects = JSON.parse(JSON.stringify(await Projects.find({}).sort({ date: -1 })));
 
     return {
-        projects: data,
+        props: {
+            projects,
+        }
     }
 }

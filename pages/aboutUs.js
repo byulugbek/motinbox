@@ -1,9 +1,13 @@
+import Head from 'next/head';
 import styled from 'styled-components'
 import Title from '../components/title'
 import Button from '../components/button'
 import Card from '../components/card'
 import MainLayer from '../components/mainLayer'
 import Link from 'next/link';
+import Video from '../models/Video';
+import Team from '../models/Team';
+import dbConnect from '../utils/dbConnect';
 
 const Animatin_screen = styled.div`
     position: relative;
@@ -74,7 +78,7 @@ const Animatin_screen = styled.div`
         }
     }
 `
-const Team = styled.div`
+const Team_style = styled.div`
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 20px;
@@ -92,7 +96,7 @@ const Team = styled.div`
 `
 export default function AboutUs({ video, team }) {
 
-    const mapTeamCards = team.data.map((post) => {
+    const mapTeamCards = team.map((post) => {
         return (
             <Card teamItem
                 key={post._id}
@@ -104,16 +108,19 @@ export default function AboutUs({ video, team }) {
 
     return (
         <MainLayer>
+            <Head>
+                <title>MotionBox | Кто мы такие</title>
+            </Head>
             <Animatin_screen>
                 <div className='upBox'>
-                    <h1 className='slogan'>{video.data.title}</h1>
+                    <h1 className='slogan'>{video.title}</h1>
                     <p >Мы основаны:<span className='boldText'>2021</span></p>
                 </div>
                 <video autoPlay loop style={{ width: '100%', height: '100%' }}>
-                    <source src={`uploads/video/${video.data.video}`} />
+                    <source src={`uploads/video/${video.video}`} />
                 </video>
                 <div className='bottomBox'>
-                    <p className='about'>Агентство для неробких! Мы создали команду с чувством захватывающей неопределённости и с наивным романтическим задором. Мы верим, что компания реализует свой потенциал, если каждый человек в компании реализует свой потенциал. Свой талант. Творческий, стратегический, финансовый, управленческий, предпринимательский, любой.</p>
+                    <p className='about'>{video.description}</p>
                     <div className='story'>
                         <Link href='/projects'>
                             <a>
@@ -127,21 +134,22 @@ export default function AboutUs({ video, team }) {
             <Title
                 text='Наша семья'
             />
-            <Team>
+            <Team_style>
                 {mapTeamCards}
-            </Team>
+            </Team_style>
         </MainLayer>
     )
 };
 
-AboutUs.getInitialProps = async () => {
-    const videoRes = await fetch(`http://localhost:3000/api/video`);
-    const video = await videoRes.json();
+export async function getStaticProps() {
+    dbConnect();
 
-    const teamRes = await fetch(`http://localhost:3000/api/team`);
-    const team = await teamRes.json();
+    const video = JSON.parse(JSON.stringify(await Video.find({})));
+    const team = JSON.parse(JSON.stringify(await Team.find({})));
 
     return {
-        video, team,
+        props: {
+            video: video[0], team
+        }
     }
 }

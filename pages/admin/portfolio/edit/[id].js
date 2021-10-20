@@ -28,7 +28,7 @@ export default function Id({ data, statusCode }) {
 Id.getInitialProps = async (ctx) => {
     const { id } = ctx.query;
 
-    const res = await fetch(`http://localhost:3000/api/portfolio/${id}`);
+    const res = await fetch(`${process.env.URL_BASE}/api/portfolio/${id}`);
 
     const { data, statusCode } = await res.json();
 

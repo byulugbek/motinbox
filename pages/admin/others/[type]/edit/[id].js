@@ -45,7 +45,7 @@ Id.getInitialProps = async (ctx) => {
         return {};
     };
 
-    const res = await fetch(`http://localhost:3000/api/${type}/${id}`);
+    const res = await fetch(`${process.env.URL_BASE}/api/${type}/${id}`);
 
     const { data } = await res.json();
 
