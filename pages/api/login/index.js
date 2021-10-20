@@ -11,7 +11,7 @@ export default async (req, res) => {
     switch (method) {
         case 'POST':
             try {
-                if (username === 'motionbox' && password == '12345') {
+                if (username === 'motionboxadmin' && password == '?fU4b&uvc!+t&gDX7X+Su+8N!F') {
                     const token = jwt.sign({ username, admin: true, }, KEY);
 
                     const uploadToken = await Admins.create({ token: token });
