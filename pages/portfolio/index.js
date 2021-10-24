@@ -39,7 +39,7 @@ export default function PortfolioPage({ portfolio }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     dbConnect();
     const portfolio = JSON.parse(JSON.stringify(await Portfolio.find({}).sort({ date: -1 })));
 

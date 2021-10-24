@@ -295,7 +295,7 @@ export default function MakeOrder({ data }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     dbConnect();
     const abilities = JSON.parse(JSON.stringify(await Abilities.find({})));
 

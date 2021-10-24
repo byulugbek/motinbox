@@ -141,7 +141,7 @@ export default function AboutUs({ video, team }) {
     )
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     dbConnect();
 
     const video = JSON.parse(JSON.stringify(await Video.find({})));

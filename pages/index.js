@@ -28,7 +28,7 @@ const fields = {
     postType: 1,
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     dbConnect();
 
     const projects = JSON.parse(JSON.stringify(await Projects.find({ onMain: true, }, fields).sort({ date: -1 })));

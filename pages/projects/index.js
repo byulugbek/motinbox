@@ -39,7 +39,7 @@ export default function ProjectsPage({ projects }) {
     )
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     dbConnect();
     const projects = JSON.parse(JSON.stringify(await Projects.find({}).sort({ date: -1 })));
 
