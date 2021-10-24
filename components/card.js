@@ -176,7 +176,7 @@ export default function Card(props) {
 
                 </div>
             </div>
-            <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} />
+            <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
         </Card_style>
     )
 };
