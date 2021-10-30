@@ -175,7 +175,13 @@ export default function Card(props) {
 
                 </div>
             </div>
-            <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
+            {data?.postType === 'projects' ?
+                <video autoPlay loop muted style={{ width: '100%', height: '100%' }}>
+                    <source src={`uploads/projects/${data?.imageOne}`} />
+                </video>
+                :
+                <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
+            }
         </Card_style>
     )
 };

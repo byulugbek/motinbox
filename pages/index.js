@@ -22,7 +22,7 @@ export default function Index(props) {
 const fields = {
     _id: 1,
     title: 1,
-    description: 1,
+    shortDesc: 1,
     type: 1,
     imageOne: 1,
     date: 1,

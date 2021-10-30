@@ -122,7 +122,7 @@ export default function Header() {
         <>
             <Header_style>
 
-                {isMobile && <button onClick={() => setBurger(true)}><Burger className='burger' /></button>}
+                {isMobile && <button aria-label="BURGER" onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
                 <Link href='/'><a aria-label="LOGO" className='logo'><Logo fill='#000' /></a></Link>
 

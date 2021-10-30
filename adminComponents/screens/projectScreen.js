@@ -12,6 +12,7 @@ import ImageImporter from '../globals/imageImporter';
 import Switcher from '../globals/switcher';
 import CustomDatePicker from '../globals/customDatePicker';
 import { AuthCheck } from '../../utils/functions/authCheck';
+import VideoImporter from '../globals/videoImporter';
 
 const Container = styled.div`
     display: grid;
@@ -224,10 +225,8 @@ export default function ProjectScreen(props) {
                     setText={setDesc}
                 />
 
-                <ImageImporter
+                <VideoImporter
                     name='imageOne'
-                    title='Загрузите обложку'
-                    folder='projects'
                     content={imageOne}
                     setContent={setImageOne}
                 />
