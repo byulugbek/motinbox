@@ -8,6 +8,7 @@ const reqString = {
 const PortfolioSchema = new mongoose.Schema({
     type: reqString,
     title: reqString,
+    shortDesc: reqString,
     description: reqString,
     imageOne: reqString,
     imageTwo: reqString,

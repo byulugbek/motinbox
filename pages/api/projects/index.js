@@ -15,6 +15,7 @@ apiRoute.use(uploadMiddleware);
 apiRoute.post(async (req, res) => {
     const type = req.body.type;
     const title = req.body.title;
+    const shortDesc = req.body.shortDesc;
     const description = req.body.description;
     const conclusion = req.body.conclusion;
     const socials = req.body.socials.split(',');
@@ -26,7 +27,7 @@ apiRoute.post(async (req, res) => {
     const imageTwo = req.files.imageTwo[0].filename;
 
     const body = {
-        type, title,
+        type, title, shortDesc,
         description, conclusion,
         socials, imageOne, imageTwo,
         url, onMain, date, postType,

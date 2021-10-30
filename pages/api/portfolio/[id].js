@@ -25,6 +25,7 @@ apiRoute.put(async (req, res) => {
     // define all new data
     const type = req.body.type;
     const title = req.body.title;
+    const shortDesc = req.body.shortDesc;
     const description = req.body.description;
     const conclusion = req.body.conclusion;
     const socials = req.body.socials.split(',');
@@ -55,7 +56,8 @@ apiRoute.put(async (req, res) => {
     req.files.imageFour && fs.unlinkSync(`./public/uploads/portfolio/${portfolioById.imageFour}`);
 
     const body = {
-        type, title, description,
+        type, title,
+        shortDesc, description,
         conclusion, socials, url,
         onMain, date, imageOne,
         imageTwo, imageThree, imageFour,

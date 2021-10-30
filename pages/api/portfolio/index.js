@@ -20,6 +20,7 @@ apiRoute.use(uploadMiddleware);
 apiRoute.post(async (req, res) => {
     const type = req.body.type;
     const title = req.body.title;
+    const shortDesc = req.body.shortDesc;
     const description = req.body.description;
     const conclusion = req.body.conclusion;
     const socials = req.body.socials.split(',');
@@ -42,7 +43,8 @@ apiRoute.post(async (req, res) => {
     }
 
     const body = {
-        type, title, description,
+        type, title,
+        shortDesc, description,
         conclusion, socials, url,
         onMain, date, imageOne,
         imageTwo, imageThree, imageFour,

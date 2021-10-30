@@ -53,6 +53,8 @@ export default function ProjectScreen(props) {
     const [chosenAbility, setChosenAbility] = useState();
     // post title
     const [title, setTitle] = useState('');
+    // post sort description
+    const [shortDesc, setShortDesc] = useState('');
     // post description
     const [desc, setDesc] = useState('');
     // post socials
@@ -84,6 +86,7 @@ export default function ProjectScreen(props) {
             setHeadData('Изменение данных проекта');
             setChosenAbility(data.type);
             setTitle(data.title);
+            setShortDesc(data?.shortDesc);
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
@@ -118,7 +121,7 @@ export default function ProjectScreen(props) {
         e.preventDefault();
         if (data) {
             if (
-                chosenAbility && title && desc &&
+                chosenAbility && title && desc && shortDesc &&
                 final && date && imageOne && imageTwo &&
                 chosenSocials.length > 0
             ) {
@@ -128,7 +131,7 @@ export default function ProjectScreen(props) {
                 alert('Заполните все поля!')
             }
         } else {
-            if (chosenAbility && title && desc &&
+            if (chosenAbility && title && desc && shortDesc &&
                 final && chosenSocials.length > 0 &&
                 imageOne && imageTwo && date
             ) {
@@ -145,6 +148,7 @@ export default function ProjectScreen(props) {
         const formData = new FormData();
         formData.append('type', chosenAbility);
         formData.append('title', title);
+        formData.append('shortDesc', shortDesc);
         formData.append('description', desc);
         formData.append('conclusion', final);
         formData.append('socials', chosenSocials);
@@ -206,6 +210,12 @@ export default function ProjectScreen(props) {
                     title='Введите заглавление'
                     text={title}
                     setText={setTitle}
+                />
+
+                <Input
+                    title='Введите краткое описание'
+                    text={shortDesc}
+                    setText={setShortDesc}
                 />
 
                 <TextEditor

@@ -53,6 +53,8 @@ export default function PortfolioScreen(props) {
     const [chosenAbility, setChosenAbility] = useState();
     // post title
     const [title, setTitle] = useState('');
+    // post sort description
+    const [shortDesc, setShortDesc] = useState('');
     // post description
     const [desc, setDesc] = useState('');
     // post socials
@@ -86,6 +88,7 @@ export default function PortfolioScreen(props) {
             setHeadData('Изменение данных проекта');
             setChosenAbility(data.type);
             setTitle(data.title);
+            setShortDesc(data.shortDesc);
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
@@ -122,7 +125,7 @@ export default function PortfolioScreen(props) {
         e.preventDefault();
         if (
             chosenAbility && title && desc &&
-            final && date && imageOne &&
+            shortDesc && final && date && imageOne &&
             imageTwo && imageThree && imageFour &&
             chosenSocials.length > 0 && url && date
         ) {
@@ -199,6 +202,12 @@ export default function PortfolioScreen(props) {
                     title='Введите заглавление'
                     text={title}
                     setText={setTitle}
+                />
+
+                <Input
+                    title='Введите краткое описание'
+                    text={shortDesc}
+                    setText={setShortDesc}
                 />
 
                 <TextEditor

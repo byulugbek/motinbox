@@ -56,14 +56,13 @@ const Card_style = styled.div`
                         justify-content: space-between;
                         width: 100%;
                         .descript{
+                            max-width: 50%;
+                            overflow: hidden;
                             text-overflow: ellipsis;
                             display: -webkit-box;
                             -webkit-line-clamp: 6;
                             -webkit-box-orient: vertical;
-                            overflow: hidden;
                             color: var(--black80);
-                            max-width: 50%;
-                            color: var(--black100);
                         }
                         .instagram{
                             display: none;
@@ -162,8 +161,7 @@ export default function Card(props) {
                     <div className='textBox'>
                         <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
-                            {/* <p className='descript'>{data?.description}</p> */}
-                            <div className='descript' dangerouslySetInnerHTML={{ __html: data.description }}></div>
+                            <p className='descript'>{data?.shortDesc}</p>
                             <Link href={data?.postType !== 'team' ? `/${data?.postType}/${data?._id}` : `${data?.url}`}>
                                 {data?.postType === 'team'
                                     ?
