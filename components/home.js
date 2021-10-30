@@ -102,6 +102,7 @@ export default function HomePage({ data }) {
                 <a
                     className='heardItem'
                     target='_blank'
+                    rel="noopener"
                 >
                     <Image src={`/uploads/partners/${post.imageOne}`} width='250px' height='100px' alt={post.imageOne} />
                 </a>

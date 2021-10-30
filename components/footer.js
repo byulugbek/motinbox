@@ -157,7 +157,7 @@ const Footer_style = styled.div`
 const Cert = styled.p`
     width: 100%;
     text-align: center;
-    color: var(--black50);
+    color: var(--black100);
     padding: 0 30px 30px;
     @media only screen and (max-width: 500px) {
         padding: 0 20px 20px; 
@@ -169,36 +169,36 @@ export default function Footer() {
     return (
         <>
             <Footer_style>
-                    <div className='upBox'>
-                        <div className='logoBox'>
-                            <Logo fill='#fff'/>
-                            <div className='verticalLine'/>
-                            <p>Преврвщаем Смелые <br/>идеи в Чистый дизайн</p>
-                        </div>
-                        <div className='projectBox'>
-                            <a className='projectItem'>Logist Box</a>
-                            <div className='verticalLine'/>
-                            <a className='projectItem'>School Box</a>
-                            <div className='verticalLine'/>
-                            <a className='projectItem'>Market Box</a>
-                        </div>
+                <div className='upBox'>
+                    <div className='logoBox'>
+                        <Logo fill='#fff' />
+                        <div className='verticalLine' />
+                        <p>Преврвщаем Смелые <br />идеи в Чистый дизайн</p>
                     </div>
-                    <div className='bottomBox'>
-                        <div className='informationBox'>
-                            <a className='infoItem'><Location/> <p>Узбекистан, Ташкент <br/> Яккасарай 5 дом</p> </a>
-                            <a className='infoItem'><Mail/>support@motionbox.uz</a>
-                            <a className='infoItem'><Phone/>+998 99 881 80 60</a>
-                        </div>
-                        <div className='socialBox'>
-                            <a className='coxialItem'><Instagram fill='#fff'/></a>
-                            <a className='coxialItem'><Instagram fill='#fff'/></a>
-                            <a className='coxialItem'><Instagram fill='#fff'/></a>
-                        </div>
+                    <div className='projectBox'>
+                        <a href='#' aria-label="PROJECT" className='projectItem'>Logist Box</a>
+                        <div className='verticalLine' />
+                        <a href='#' aria-label="PROJECT" className='projectItem'>School Box</a>
+                        <div className='verticalLine' />
+                        <a href='#' aria-label="PROJECT" className='projectItem'>Market Box</a>
+                    </div>
+                </div>
+                <div className='bottomBox'>
+                    <div className='informationBox'>
+                        <a href='#' className='infoItem'><Location /> <p>Узбекистан, Ташкент <br /> Яккасарай 5 дом</p> </a>
+                        <a href='#' aria-label="CONTACT" className='infoItem'><Mail />support@motionbox.uz</a>
+                        <a href='#' aria-label="CONTACT" className='infoItem'><Phone />+998 99 881 80 60</a>
+                    </div>
+                    <div className='socialBox'>
+                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
+                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
+                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
+                    </div>
 
-                    </div>
+                </div>
             </Footer_style>
             <Cert>ВСЕ ПРАВА ЗАЩИЩЕНЫ © MOTION BOX / 2021</Cert>
         </>
-        
+
     )
 };

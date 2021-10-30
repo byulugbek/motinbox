@@ -101,6 +101,7 @@ const PostWrap = styled.div`
     }
 `
 export default function Post({ data, socials }) {
+    const metaDescription = data.data.description.split('<p>');
 
     if (data.statusCode !== 200) {
         return <ErrorPage statusCode={data.statusCode} />
@@ -121,6 +122,7 @@ export default function Post({ data, socials }) {
         <MainLayer>
             <Head>
                 <title>MotionBox | {data.data.title}</title>
+                <meta name='description' content={metaDescription[1].slice(0, 200)} />
             </Head>
             <PostWrap>
                 <p className='theme'>{data.data.type}</p>

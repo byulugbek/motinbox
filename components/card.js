@@ -162,13 +162,14 @@ export default function Card(props) {
                     <div className='textBox'>
                         <h1 className='title'>{data?.title}</h1>
                         <div className='correct'>
-                            <p className='descript'>{data?.description}</p>
+                            {/* <p className='descript'>{data?.description}</p> */}
+                            <div className='descript' dangerouslySetInnerHTML={{ __html: data.description }}></div>
                             <Link href={data?.postType !== 'team' ? `/${data?.postType}/${data?._id}` : `${data?.url}`}>
                                 {data?.postType === 'team'
                                     ?
-                                    <a className='instagram' target="_blank"><Instagram fill='#fff' /></a>
+                                    <a aria-label="INSTAGRAM" className='instagram' target="_blank" rel="noopener"><Instagram fill='#fff' /></a>
                                     :
-                                    <a className='strelka'><Strelka /></a>
+                                    <a aria-label="INFO" className='strelka' rel="noopener"><Strelka /></a>
                                 }
                             </Link>
                         </div>

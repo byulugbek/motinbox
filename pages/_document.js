@@ -35,12 +35,14 @@ export default class MyDocument extends Document {
           <meta name="charset" content="utf-8" />
           <meta name="referrer" content="always" />
           <meta name="referrer" content="unsafe-url" />
+          <meta name="viewport" content="width=device-width, initial-scale=1" />
+          <meta name="keywords" content="motionbox, разработка, дизайн, мобильные приложения, веб-приложения, программирование, freelance, фриланс, заказ" />
         </Head>
 
         <body>
           <Main />
           <NextScript />
-          <div id='__modal'/>
+          <div id='__modal' />
         </body>
       </Html>
     )

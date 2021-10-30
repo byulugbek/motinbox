@@ -23,6 +23,7 @@ export default function PortfolioPage({ portfolio }) {
         <MainLayer>
             <Head>
                 <title>MotionBox | Портфолио</title>
+                <meta name='description' content='Ваши проеткты, это наши проекты, мы беремся за них не только ради денег, но и для того что бы записать в портфолио такие замечательные проекты.' />
             </Head>
             <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>

@@ -110,6 +110,7 @@ export default function AboutUs({ video, team }) {
         <MainLayer>
             <Head>
                 <title>MotionBox | Кто мы такие</title>
+                <meta name='description' content='Это мы' />
             </Head>
             <Animatin_screen>
                 <div className='upBox'>

@@ -124,7 +124,7 @@ export default function Header() {
 
                 {isMobile && <button onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
-                <Link href='/'><a className='logo'><Logo fill='#000' /></a></Link>
+                <Link href='/'><a aria-label="LOGO" className='logo'><Logo fill='#000' /></a></Link>
 
                 <ul className='navigation'>
                     <li className='navigationItem'>

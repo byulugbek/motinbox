@@ -55,7 +55,7 @@ export default function ABurgerModal(props) {
     return (
         <ModalLayer isModal={isBurger} setModal={setBurger}>
             <BurgerWrap>
-                <Link href='/'><a className='logo'><Logo fill='#000' /></a></Link>
+                <Link href='/'><a className='logo' ><Logo fill='#000' /></a></Link>
 
                 <ul className='navigation'>
                     <li className='navigationItem'>

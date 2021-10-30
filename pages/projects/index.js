@@ -29,6 +29,7 @@ export default function ProjectsPage({ projects }) {
         <MainLayer>
             <Head>
                 <title>MotionBox | Наши проекты</title>
+                <meta name='description' content='Мы создаем наши проекты не только для вас, но и для себя, мы получаем действительно удовольствие от создания подобных проектов.' />
             </Head>
             <Title text='ЭТО НАШИ ПРОЕКТЫ' />
             <Projects_style>

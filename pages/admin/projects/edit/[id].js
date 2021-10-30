@@ -1,8 +1,9 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import AdminLayer from "../../../../adminComponents/adminLayer";
+import AdminLayer from '../../../../adminComponents/adminLayer';
 import ProjectScreen from '../../../../adminComponents/screens/projectScreen';
 import Head from 'next/head';
+
 export default function Id({ data, statusCode }) {
     const router = useRouter();
     useEffect(() => {

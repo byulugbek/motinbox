@@ -12,6 +12,7 @@ export default function Index(props) {
         <MainLayer>
             <Head>
                 <title>MotionBox | Главная</title>
+                <meta name='description' content='На главной странице собранны все информации' />
             </Head>
             <HomePage data={{ main: props.main, }} />
         </MainLayer>
