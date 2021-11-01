@@ -25,8 +25,6 @@ const FormWrap = styled.form`
     border-radius: 40px;
     border: 0.5px solid var(--black20);
     .theme{
-        font-family: Bold;
-        font-size: 24px;
         width: 100%;
     }
     .input{
@@ -40,7 +38,6 @@ const FormWrap = styled.form`
             display: grid;
             padding: 10px;
             height: 200px;
-            font-size: 16px;
             border-radius: 10px;
             border: 0;
             background-color: var(--black05);
@@ -72,7 +69,6 @@ const FormWrap = styled.form`
             height: 50px;
             border-radius: 10px;
             border: 0;
-            font-size: 16px;
             background-color: var(--black05);
             :focus{
                 outline: 0;
@@ -92,19 +88,19 @@ const Abilities_style = styled.div`
     flex-wrap: wrap;
     gap: 10px;
 
-    span {
-        font-size: 16px;
-        line-height: 30px;
+    p {
         color: var(--black50);
+        line-height: 30px;
     }
 `
 const Item = styled.div`
     width: fit-content;
-    height: fit-content;
-    padding: 1.5px 10px;
+    height: 30px;
+    padding: 0 10px;
     border: 1px solid var(--black100);
     border-radius: 5px;
     display: grid;
+    align-items: center;
     grid-auto-flow: column;
     gap: 12px;
     align-items: center;
@@ -112,12 +108,11 @@ const Item = styled.div`
     background-color: ${props => props.selected ? 'var(--black100)' : 'var(--white100)'};
     user-select: none;
     
-    span {
-        color: ${props => props.selected ? 'var(--white100)' : 'var(--black100)'};
-        line-height: 25px;
+    p {
+        color: ${props => props.selected ? 'var(--white100)' : 'var(--black100) !important'};
     }
     
-    p {
+    div {
         width: 16px;
         height: 16px;
         transform: ${props => props.selected ? 'rotate(45deg)' : 'rotate(0deg)'};
@@ -168,8 +163,8 @@ export default function MakeOrder({ data }) {
         return (
             <div key={item._id}>
                 <Item onClick={() => onClick(item._id)}>
-                    <span>{item.title}</span>
-                    <p><Plus fill='#000' /></p>
+                    <p>{item.title}</p>
+                    <div><Plus fill='#000' /></div>
                 </Item>
             </div>
         )
@@ -179,8 +174,8 @@ export default function MakeOrder({ data }) {
         return (
             <div key={item._id} onClick={() => deleteItem(item._id)}>
                 <Item selected >
-                    <span>{item.title}</span>
-                    <p><Plus fill='#000' /></p>
+                    <p>{item.title}</p>
+                    <div><Plus fill='#000' /></div>
                 </Item>
             </div>
         )
@@ -213,12 +208,12 @@ export default function MakeOrder({ data }) {
                 <title>MotionBox | Быть с нами</title>
             </Head>
             <FormWrap onSubmit={chekAllData}>
-                <p className='theme'>Выбери нужную услугу</p>
+                <h2 className='theme'>Выбери нужную услугу</h2>
                 <Abilities_style>
                     {abilities.length > 0 ?
                         <>{mapAbilities}</>
                         :
-                        <span>Большего мы пока не умеем ...</span>
+                        <p>Можешь написать в заметках если что ...</p>
                     }
                 </Abilities_style>
                 <div className='input'>
@@ -227,7 +222,7 @@ export default function MakeOrder({ data }) {
                         {selected.length > 0 ?
                             <>{mapSelectedAbilities}</>
                             :
-                            <span className='placeholder'>Выбранные</span>
+                            <p className='placeholder'>Выбранные</p>
                         }
                     </div>
                 </div>

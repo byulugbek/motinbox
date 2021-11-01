@@ -23,7 +23,6 @@ const Table_style = styled.div`
         justify-content: space-between;
         align-items: center;
         span {
-            font-family: Bold;
             font-size: 24px;
         }
         button {
@@ -52,7 +51,6 @@ const Table_style = styled.div`
         margin-bottom: 30px;
         span{
             grid-area: title;
-            font-family: Bold;
             font-size: 24px;
         }
         .descript{

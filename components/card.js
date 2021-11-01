@@ -6,9 +6,7 @@ import Link from 'next/link';
 const Card_style = styled.div`
     width: 100%;
     height: 400px;
-    /* padding-top: 60%; */
     position: relative;
-    /* height: fit-content; */
     border-radius: 40px;
     overflow: hidden;
 
@@ -44,8 +42,6 @@ const Card_style = styled.div`
                 gap: 20px;
                 width: 100%;
                 .title{
-                    font-family: Bold;
-                    font-size: 18px;
                     max-width: 50%;
                     color: var(--black100);
                 }
@@ -84,7 +80,6 @@ const Card_style = styled.div`
             .info{
                 .textBox{
                     .title{
-                        font-family: Bold;
                         color: var(--white100) !important;
                         max-width: 100% !important;
                     }
@@ -107,7 +102,6 @@ const Card_style = styled.div`
             .info{
                 .textBox{
                     .title{
-                        font-family: Bold;
                         color: var(--white100) !important;
                         max-width: 100% !important;
                     }
@@ -162,7 +156,7 @@ export default function Card(props) {
                 <p>{data?.type}</p>
                 <div className='info'>
                     <div className='textBox'>
-                        <h1 className='title'>{data?.title}</h1>
+                        <h2 className='title'>{data?.title}</h2>
                         <div className='correct'>
                             <p className='descript'>{data.shortDesc || data.description}</p>
                             <Link href={data?.postType !== 'team' ? `/${data?.postType}/${data?._id}` : `${data?.url}`}>

@@ -11,8 +11,6 @@ const Card_style = styled.div`
     width: 100%;
     .title{
         grid-area: title;
-        font-family: Bold;
-        font-size: 24px;
     }
     .descript{
         height:100%;
@@ -44,7 +42,7 @@ export default function DoingCard(props) {
     return (
         <>
             <Card_style>
-                <div className='title'>{data?.title}</div>
+                <h2 className='title'>{data?.title}</h2>
                 <div className='descript'>
                     <p>{data?.description}</p>
                     <Link href='/makeOrder'>

@@ -1,8 +1,6 @@
 import styled, { css } from 'styled-components';
 
 const Button_style = styled.button`
-    font-family: Medium;
-    font-size: 16px;
     height: 40px;
     padding: 0 20px;
     width: fit-content;
@@ -42,7 +40,9 @@ const Button_style = styled.button`
 export default function Button(props) {
     return (
         <Button_style {...props}>
-            {props.text}
+            <p>
+                {props.text}
+            </p>
         </Button_style>
     )
 };

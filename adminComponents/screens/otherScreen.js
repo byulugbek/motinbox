@@ -17,7 +17,6 @@ const Screen_Style = styled.div`
 
     .title {
         font-size: 24px;
-        font-family: bold;
         color: var(--black100)
     }
 

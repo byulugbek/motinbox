@@ -51,7 +51,6 @@ const Header_style = styled.div`
 
         .navigationItem{
             white-space: nowrap;
-            font-size: 18px;
             color: var(--black100);
             cursor: pointer;
             transition: 0.5s;
@@ -129,17 +128,17 @@ export default function Header() {
                 <ul className='navigation'>
                     <li className='navigationItem'>
                         <Link href='/aboutUs'>
-                            <a>Кто мы такие</a>
+                            <a><h3>Кто мы такие</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link href='/projects'>
-                            <a>Наши проекты</a>
+                            <a><h3>Наши проекты</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link href='/portfolio'>
-                            <a>Портфолио</a>
+                            <a><h3>Портфолио</h3></a>
                         </Link>
                     </li>
                 </ul>

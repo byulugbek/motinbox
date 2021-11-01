@@ -30,7 +30,6 @@ const Container = styled.div`
 
     .title {
         font-size: 24px;
-        font-family: bold;
     }
     
     .bottom {

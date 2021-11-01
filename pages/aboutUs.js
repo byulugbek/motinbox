@@ -19,6 +19,16 @@ const Animatin_screen = styled.div`
     border-radius: 40px;
     height: calc(100vh - 170px);
     background-color: var(--black100);
+    .creator {
+        display: grid;
+        gap: 5px;
+        grid-auto-flow: column;
+        justify-self: left;
+        p, h4 {
+            white-space: nowrap;
+        }
+    }
+
     .upBox{
         z-index: 1;
         display: grid;
@@ -26,14 +36,6 @@ const Animatin_screen = styled.div`
         grid-auto-flow: column;
         color: var(--white100);
         justify-content: space-between;
-        .boldText{
-            margin-left: 5px;
-            font-family: Bold;
-        }
-        .slogan{
-            font-family: Bold;
-            font-size: 24px;
-        }
     }
     video {
         position: absolute;
@@ -45,10 +47,6 @@ const Animatin_screen = styled.div`
         gap:30px;
         justify-content: stretch;
         color: var(--white100);
-        .boldText{
-            margin-left: 5px;
-            font-family: Bold;
-        }
         .about{
             max-width: 400px;
         }
@@ -60,7 +58,7 @@ const Animatin_screen = styled.div`
             gap:30px;
         }
     }
-    @media only screen and (max-width: 500px) {
+    @media only screen and (max-width: 700px) {
         border-radius: 20px;
         padding: 20px;
         padding-bottom: 30px;
@@ -72,7 +70,7 @@ const Animatin_screen = styled.div`
             .story{
                 justify-content: space-around;
             }
-            .creater{
+            .creator{
                 display: none;
             }
         }
@@ -114,8 +112,11 @@ export default function AboutUs({ video, team }) {
             </Head>
             <Animatin_screen>
                 <div className='upBox'>
-                    <h1 className='slogan'>{video.title}</h1>
-                    <p >Мы основаны:<span className='boldText'>2021</span></p>
+                    <h2>{video.title}</h2>
+                    <div className='creator'>
+                        <p >Мы основаны:</p>
+                        <h4>2021</h4>
+                    </div>
                 </div>
                 <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
                     <source src={`uploads/video/${video.video}`} />
@@ -128,7 +129,10 @@ export default function AboutUs({ video, team }) {
                                 <Button lite text='Наши проекты' />
                             </a>
                         </Link>
-                        <p className='creater'> Основатель:<span className='boldText'>Ulugbek Alimov</span></p>
+                        <div className='creator'>
+                            <p> Основатель:</p>
+                            <h4>Ulugbek Alimov</h4>
+                        </div>
                     </div>
                 </div>
             </Animatin_screen>

@@ -5,8 +5,6 @@ const Title_style = styled.h1`
     grid-template-columns: 1fr;
     align-content: stretch;
     height: 150px;
-    font-family: Bold;
-    font-size: 48px;
     text-align: center;
     align-items: center;
     justify-content: center;
@@ -17,6 +15,6 @@ const Title_style = styled.h1`
 
 export default function Title(props) {
     return (
-            <Title_style>{props.text}</Title_style>
+        <Title_style>{props.text}</Title_style>
     )
 };

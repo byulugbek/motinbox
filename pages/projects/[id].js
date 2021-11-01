@@ -21,7 +21,10 @@ const PostWrap = styled.div`
     border-radius: 40px;
     border: 0.5px solid var(--black20);
     padding: 50px;
-    font-size: 18px;
+
+    p {
+        line-height: 22px;
+    }
     .bottom {
         display: grid;
         grid-auto-flow: rows;
@@ -38,10 +41,6 @@ const PostWrap = styled.div`
     }
     .descript{
         color: var(--black80)
-    }
-    .Title{
-        font-family: Bold;
-        font-size: 24px;
     }
     .imageBox{
         display: grid;
@@ -86,22 +85,10 @@ const PostWrap = styled.div`
         }
     }
 
-    .link {
-        width: 100%;
-        display: grid;
-        /* justify-content: center; */
-        a {
-            font-size: 32px;
-            font-family: Bold;
-            /* text-decoration: underline; */
-        }
-    }
-
     @media only screen and (max-width: 500px) {
         gap: 30px;
         border-radius: 20px;
         padding: 20px;
-        font-size: 16px;
         .imageBox{
             gap: 10px;
             .calaje{
@@ -138,8 +125,8 @@ export default function Post({ data, socials }) {
                 <meta name='description' content={metaDescription[1].slice(0, 200)} />
             </Head>
             <PostWrap>
-                <p className='theme'>{data.data.type}</p>
-                <p className='Title'>{data.data.title}</p>
+                <h3 className='theme'>{data.data.type}</h3>
+                <h2 className='Title'>{data.data.title}</h2>
                 <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
                 <div className='imageBox'>
                     <div className='picture'>
@@ -156,7 +143,7 @@ export default function Post({ data, socials }) {
                         <Link href={data.data.url}>
                             <a target='_blank'>
                                 <Button
-                                    text='Перейти'
+                                    text='ПЕРЕЙТИ'
                                 />
                             </a>
                         </Link>

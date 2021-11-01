@@ -60,22 +60,22 @@ export default function burgerModal(props) {
                 <ul className='navigation'>
                     <li className='navigationItem'>
                         <Link onClick={onClick} href='/aboutUs'>
-                            <a>Кто мы такие</a>
+                            <a><p>Кто мы такие</p></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link onClick={onClick} href='/projects'>
-                            <a>Наши проекты</a>
+                            <a><p>Наши проекты</p></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link onClick={onClick} href='/portfolio'>
-                            <a>Портфолио</a>
+                            <a><p>Портфолио</p></a>
                         </Link>
                     </li>
                 </ul>
 
-                <Button onClick={onClick} text='Закрыть' />
+                <Button onClick={onClick} text='ЗАКРЫТЬ' />
             </BurgerWrap>
         </ModalLayer>
     )
