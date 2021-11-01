@@ -117,7 +117,7 @@ export default function AboutUs({ video, team }) {
                     <h1 className='slogan'>{video.title}</h1>
                     <p >Мы основаны:<span className='boldText'>2021</span></p>
                 </div>
-                <video autoPlay loop style={{ width: '100%', height: '100%' }}>
+                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
                     <source src={`uploads/video/${video.video}`} />
                 </video>
                 <div className='bottomBox'>

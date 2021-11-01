@@ -139,6 +139,7 @@ export default function PortfolioScreen(props) {
         const formData = new FormData();
         formData.append('type', chosenAbility);
         formData.append('title', title);
+        formData.append('shortDesc', shortDesc)
         formData.append('description', desc);
         formData.append('conclusion', final);
         formData.append('socials', chosenSocials);

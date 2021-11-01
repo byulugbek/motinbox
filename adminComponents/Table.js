@@ -115,7 +115,7 @@ export default function Table(props) {
                         {item.title}
                     </span>
                     <div className='descript'>
-                        <div className='text' dangerouslySetInnerHTML={{ __html: item.description }}></div>
+                        <div className='text' dangerouslySetInnerHTML={{ __html: item.description || item.shortDesc }}></div>
                         {editable &&
                             <>
                                 <Link href={`/admin/${linkParam}/edit/${item._id}`}>

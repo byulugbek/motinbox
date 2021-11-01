@@ -1,13 +1,16 @@
 @font-face {
   font-family: Bold;
+  font-display: swap;
   src: url(../public/fonts/SFProDisplay/SFProDisplay-Bold.ttf);
 }
 @font-face {
   font-family: Medium;
+  font-display: swap;
   src: url(../public/fonts/SFProDisplay/SFProDisplay-Medium.ttf);
 }
 @font-face {
   font-family: Regular;
+  font-display: swap;
   src: url(../public/fonts/SFProDisplay/SFProDisplay-Regular.ttf);
 }
 
