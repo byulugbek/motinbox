@@ -123,7 +123,7 @@ const Footer_style = styled.div`
             gap: 20px;
             .logoBox{
                 gap: 0;
-                p{display: none;}
+                span{display: none;}
             }
             .projectBox{
                 height: fit-content;
@@ -158,7 +158,8 @@ const Cert = styled.span`
     color: var(--black100);
     padding: 0 30px 30px;
     @media only screen and (max-width: 500px) {
-        padding: 0 20px 20px; 
+        padding: 0 20px 20px;
+        font-size: 12px;
     }
 `
 

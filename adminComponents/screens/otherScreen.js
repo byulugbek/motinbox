@@ -15,11 +15,6 @@ const Screen_Style = styled.div`
     border: 1px solid var(--black20);
     padding: 50px;
 
-    .title {
-        font-size: 24px;
-        color: var(--black100)
-    }
-
     .bottom {
         display: grid;
         justify-content: center;
@@ -92,9 +87,9 @@ export default function OtherScreen(props) {
 
     return (
         <Screen_Style>
-            <span className='title'>
+            <h2 className='title'>
                 {`Добавление ${headData}`}
-            </span>
+            </h2>
             <Input
                 title={`Введите название ${headData}`}
                 text={title}
@@ -106,7 +101,7 @@ export default function OtherScreen(props) {
                 setText={setDesc}
             />
             <div className='bottom'>
-                <Button text='Отправить' onClick={checkData} />
+                <Button aria-label="SEND" text='Отправить' onClick={checkData} />
             </div>
         </Screen_Style>
     )

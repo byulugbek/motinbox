@@ -40,7 +40,7 @@ export default function Switcher(props) {
 
     return (
         <Switcher_style>
-            <stan>Показать проект на главной:</stan>
+            <p>Показать проект на главной:</p>
             <div onClick={handleClick}>
                 <div style={{ marginLeft: state ? 23 : 3, backgroundColor: state ? 'black' : 'silver' }} />
             </div>

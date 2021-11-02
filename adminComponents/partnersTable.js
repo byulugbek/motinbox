@@ -49,10 +49,6 @@ display: grid;
         gap: 20px;
         width: 100%;
         margin-bottom: 30px;
-        span{
-            grid-area: title;
-            font-size: 24px;
-        }
         .descript{
             height:100%;            
             grid-area: descript;
@@ -104,9 +100,9 @@ export default function PartnersTable(props) {
         return (
             <div key={item._id}>
                 <div className='item'>
-                    <span>
+                    <h2>
                         {item.title}
-                    </span>
+                    </h2>
                     <div className='descript'>
                         <div>
                             <p className='text'>
@@ -138,11 +134,11 @@ export default function PartnersTable(props) {
     return (
         <Container>
             <div className='title'>
-                <span>
+                <h2>
                     Наши партнеры
-                </span>
+                </h2>
                 <Link href={`/admin/others/partners/new`}>
-                    <button>
+                    <button aria-label="ADD_NEW_PARTNER">
                         <Plus fill={'#000'} />
                     </button>
                 </Link>

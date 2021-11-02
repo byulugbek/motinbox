@@ -22,9 +22,6 @@ const Table_style = styled.div`
         grid-auto-flow: column;
         justify-content: space-between;
         align-items: center;
-        span {
-            font-size: 24px;
-        }
         button {
             width: 40px;
             height: 40px;
@@ -49,9 +46,8 @@ const Table_style = styled.div`
         gap: 20px;
         width: 100%;
         margin-bottom: 30px;
-        span{
+        h2{
             grid-area: title;
-            font-size: 24px;
         }
         .descript{
             height:100%;            
@@ -66,8 +62,12 @@ const Table_style = styled.div`
 
             .text {
                 grid-area: text;
-                max-height: 150px;
                 overflow: hidden;
+                line-clamp: 6;
+                display: -webkit-box;
+                -webkit-line-clamp: 6;
+                -webkit-box-orient: vertical;
+                text-overflow: ellipsis;
             }
             .button1 {
                 grid-area: button1; 
@@ -81,13 +81,14 @@ const Table_style = styled.div`
             grid-auto-flow: row;
             grid-template-rows: none;
             grid-template-areas: none;
-            span{
+            h2{
                 grid-area: auto;
             }
             .descript{
                 height:100%;
                 grid-area: auto;
                 grid-auto-flow: row;
+                gap: 20px 0;
                 grid-template-areas: 
                 "text text"
                 "button1 button2";
@@ -109,9 +110,9 @@ export default function Table(props) {
         return (
             <div key={item._id}>
                 <div className='item'>
-                    <span>
+                    <h2>
                         {item.title}
-                    </span>
+                    </h2>
                     <div className='descript'>
                         <div className='text' dangerouslySetInnerHTML={{ __html: item.description || item.shortDesc }}></div>
                         {editable &&
@@ -119,12 +120,14 @@ export default function Table(props) {
                                 <Link href={`/admin/${linkParam}/edit/${item._id}`}>
                                     <a className='button1'>
                                         <Button
+                                            aria-label="EDIT"
                                             text={<Edit fill={'#fff'} />}
                                         />
                                     </a>
                                 </Link>
                                 <Button
                                     className='button2'
+                                    aria-label="DELETE"
                                     text={<Trash />}
                                     onClick={() => onDelete && onDelete(item._id)}
                                 />
@@ -140,11 +143,11 @@ export default function Table(props) {
     return (
         <Table_style>
             <div className='title'>
-                <span>
+                <h2>
                     {title}
-                </span>
+                </h2>
                 <Link href={`/admin/${linkParam}${editable ? '/new' : ''}`}>
-                    <button>
+                    <button aria-label="ADD NEW">
                         {editable ?
                             <Plus fill={'#000'} />
                             :

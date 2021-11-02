@@ -20,10 +20,6 @@ const Container = styled.div`
         gap: 30px;
         grid-auto-flow: row;
     }
-
-    .title {
-        font-size: 24px;
-    }
     
     .bottom {
         width: 100%;
@@ -108,7 +104,7 @@ export default function VideoScreen(props) {
     return (
         <Container>
             <form onSubmit={checkData}>
-                <span className='title'>{data ? 'Редактирование' : 'Добавление'} видео</span>
+                <h2>{data ? 'Редактирование' : 'Добавление'} видео</h2>
 
                 <Input
                     title='Введите заглавие видео блока'
@@ -130,6 +126,7 @@ export default function VideoScreen(props) {
 
                 <div className='bottom'>
                     <Button
+                        aria-label="SEND"
                         text='Отправить'
                     />
                 </div>

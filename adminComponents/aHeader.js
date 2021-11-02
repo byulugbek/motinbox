@@ -56,7 +56,6 @@ const Header_style = styled.div`
             display: flex;
             align-items: center;
             white-space: nowrap;
-            font-size: 18px;
             color: var(--black100);
             cursor: pointer;
             transition: 0.5s;
@@ -158,34 +157,34 @@ export default function AHeader() {
     return (
         <>
             <Header_style>
-                {isMobile && <button onClick={() => setBurger(true)}><Burger className='burger' /></button>}
+                {isMobile && <button aria-label="BURGER" onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
-                <Link href='/admin'><a className='logo'><Logo fill='#000' /></a></Link>
+                <Link href='/admin'><a className='logo' aria-label='LOGO'><Logo fill='#000' /></a></Link>
 
                 <ul className='navigation'>
                     <li className='navigationItem'>
                         <Link href='/admin/team'>
-                            <a>Команда</a>
+                            <a><h3>Команда</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link href='/admin/projects'>
-                            <a>Проекты</a>
+                            <a><h3>Проекты</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link href='/admin/portfolio'>
-                            <a>Портфолио</a>
+                            <a><h3>Портфолио</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
                         <Link href='/admin/others'>
-                            <a>Другие</a>
+                            <a><h3>Другие</h3></a>
                         </Link>
                     </li>
                 </ul>
 
-                <Button text='Выход' onClick={logout} />
+                <Button text='ВЫХОД' onClick={logout} />
             </Header_style>
             {isBurger && <ABurgerModal isBurger={isBurger} setBurger={setBurger} onClick={buttonPressed} />}
         </>

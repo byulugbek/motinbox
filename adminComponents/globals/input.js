@@ -4,7 +4,7 @@ const Input_style = styled.div`
     display: grid;
     gap: 5px;
 
-    span {
+    p {
         user-select: none;
         color: var(--black50);
     
@@ -30,7 +30,7 @@ export default function Input(props) {
 
     return (
         <Input_style>
-            <span>{title}</span>
+            <p>{title}</p>
             {inputType === 'input' ?
                 <input
                     type={type}

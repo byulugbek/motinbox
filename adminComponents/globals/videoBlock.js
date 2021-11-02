@@ -23,9 +23,6 @@ const VideoBlock_style = styled.div`
         grid-auto-flow: column;
         justify-content: space-between;
         align-items: center;
-        span {
-            font-size: 24px;
-        }
         button {
             width: 40px;
             height: 40px;
@@ -50,9 +47,8 @@ const VideoBlock_style = styled.div`
         gap: 20px;
         width: 100%;
         margin-bottom: 30px;
-        span{
+        h1{
             grid-area: title;
-            font-size: 24px;
         }
         .descript{
             height:100%;
@@ -80,7 +76,7 @@ const VideoBlock_style = styled.div`
             grid-auto-flow: row;
             grid-template-rows: none;
             grid-template-areas: none;
-            span{
+            h1{
                 grid-area: auto;
             }
             .descript{
@@ -134,36 +130,37 @@ export default function VideoBlock(props) {
     return (
         <VideoBlock_style>
             <div className='title'>
-                <span>
+                <h2>
                     {title}
-                </span>
-                <Link href={`/admin/team/video`}>
-                    <button>
-                        {!data &&
+                </h2>
+                {!data &&
+                    <Link href={`/admin/team/video`}>
+                        <button aria-label="ADD_NEW_VIDEO">
                             <Plus fill={'#000'} />
-                        }
-                    </button>
-                </Link>
+                        </button>
+                    </Link>
+                }
             </div>
             <hr className='line' />
             {data &&
                 <>
                     <div className='item'>
-                        <span>
+                        <h2>
                             {data.title}
-                        </span>
+                        </h2>
                         <div className='descript'>
                             <p>
                                 {data.description}
                             </p>
-                            <Link href={`/admin/team/video/`}>
-                                <a className='button1'>
+                            <Link href={`/admin/team/video`}>
+                                <a className='button1' aria-label="EDIT_VIDEO">
                                     <Button
                                         text={<Edit fill={'#fff'} />}
                                     />
                                 </a>
                             </Link>
                             <Button
+                                aria-label="DELETE_VIDEO"
                                 className='button2'
                                 text={<Trash />}
                                 onClick={() => onDelete && onDelete(data._id)}

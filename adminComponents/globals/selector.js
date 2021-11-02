@@ -7,7 +7,7 @@ const Selector_style = styled.div`
     grid-auto-flow: row;
     gap: 5px;
 
-    span {
+    p {
         color: var(--black50);
     }
 
@@ -60,7 +60,7 @@ export default function Selector(props) {
 
     return (
         <Selector_style>
-            <span>{title}</span>
+            <p>{title}</p>
             {data && <Select
                 ref={ref}
                 value={values}

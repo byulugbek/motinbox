@@ -71,6 +71,8 @@ apiRoute.delete(async (req, res) => {
         query: { id }
     } = req;
 
+    console.log('req:', req.query.id);
+
     const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
     if (isAdmin.length <= 0)
         return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });

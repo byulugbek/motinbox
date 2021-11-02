@@ -80,7 +80,7 @@ export default function ABurgerModal(props) {
                     </li>
                 </ul>
 
-                <Button onClick={onClick} text='Закрыть' />
+                <Button onClick={onClick} text='ЗАКРЫТЬ' />
             </BurgerWrap>
         </ModalLayer>
     )

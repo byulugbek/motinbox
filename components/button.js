@@ -39,7 +39,7 @@ const Button_style = styled.button`
 
 export default function Button(props) {
     return (
-        <Button_style {...props}>
+        <Button_style {...props} aria-label="BUTTON">
             <p>
                 {props.text}
             </p>

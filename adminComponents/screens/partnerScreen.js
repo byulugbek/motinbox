@@ -20,10 +20,6 @@ const Container = styled.div`
         gap: 30px;
         grid-auto-flow: row;
     }
-
-    .title {
-        font-size: 24px;
-    }
     
     .bottom {
         width: 100%;
@@ -114,9 +110,9 @@ export default function PartnerScreen(props) {
     return (
         <Container>
             <form onSubmit={checkAllData}>
-                <span className='title'>
+                <h2>
                     {!data ? 'Добавление партнера' : 'Изменение партнера'}
-                </span>
+                </h2>
 
                 <Input
                     inputType='input'
@@ -151,6 +147,7 @@ export default function PartnerScreen(props) {
 
                 <div className='bottom'>
                     <Button
+                        aria-label="SEND"
                         text='Отправить'
                     />
                 </div>

@@ -19,11 +19,11 @@ const Wrap = styled.div`
 const Cert = styled.p`
     width: 100%;
     text-align: center;
-    color: var(--black50);
+    color: var(--black100);
     padding: 0 30px 30px;
     @media only screen and (max-width: 500px) {
         padding: 0 20px 20px; 
-        font-size: 14px;
+        font-size: 12px;
     }
 `
 

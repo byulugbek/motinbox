@@ -14,7 +14,7 @@ const TextEditor_style = styled.div`
     gap: 5px;
     grid-auto-flow: row;
 
-    span {
+    p {
         color: var(--black50);
     }
 `
@@ -29,7 +29,7 @@ export default function TextEditor(props) {
 
     return (
         <TextEditor_style>
-            <span>{title}</span>
+            <p>{title}</p>
             <JoditEditor
                 ref={editor}
                 value={text}

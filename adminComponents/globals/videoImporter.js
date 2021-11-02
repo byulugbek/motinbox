@@ -6,7 +6,7 @@ const Container = styled.div`
     display: grid;
     gap: 5px;
 
-    span {
+    p {
         color: var(--black50);
     }
 
@@ -49,7 +49,7 @@ export default function VideoImporter(props) {
     }
     return (
         <Container>
-            <span>Загрузите видео</span>
+            <p>Загрузите видео</p>
 
             <input
                 type='file'

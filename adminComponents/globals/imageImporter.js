@@ -8,7 +8,7 @@ const ImageImporter_style = styled.div`
     grid-auto-flow: row;
     gap: 5px;
     
-    span {
+    p {
         color: var(--black50);
     }
     
@@ -25,7 +25,6 @@ const ImageImporter_style = styled.div`
         position: relative;
 
         span {
-            font-size: 12px;
             color: var(--black20);
             user-select: none;
         }
@@ -112,7 +111,7 @@ export default function ImageImporter(props) {
 
     return (
         <ImageImporter_style>
-            <span>{title}</span>
+            <p>{title}</p>
             <div>
                 {preImage ?
                     <>

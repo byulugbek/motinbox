@@ -7,7 +7,7 @@ const Container = styled.div`
     gap: 5px;
     width: 100%;
 
-    span {
+    p {
         color: var(--black50);
         line-height: 20px;
     }
@@ -19,7 +19,6 @@ const Container = styled.div`
         border-radius: 10px;
 
         padding: 0 10px;
-        font-size: 16px;
     }
 `
 
@@ -27,7 +26,7 @@ export default function LittleInput(props) {
     const { title, text, setText, type, ph } = props;
     return (
         <Container>
-            <span>{title}</span>
+            <p>{title}</p>
             <input
                 type={type}
                 defaultValue={text}

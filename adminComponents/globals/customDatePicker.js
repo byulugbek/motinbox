@@ -9,7 +9,7 @@ const DatePicker_style = styled.div`
     flex-direction: column;
     gap: 5px;
 
-    span {
+    p {
         color: var(--black50);
     }
 
@@ -30,7 +30,7 @@ export default function CustomDatePicker(props) {
 
     return (
         <DatePicker_style>
-            <span>Выберите дату проекта</span>
+            <p>Выберите дату проекта</p>
             <DatePicker selected={date} onChange={(date) => setDate(date)} />
         </DatePicker_style>
     )

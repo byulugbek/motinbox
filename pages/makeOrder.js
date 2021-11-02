@@ -109,6 +109,9 @@ const Item = styled.div`
     user-select: none;
     
     p {
+        white-space: nowrap;
+        overflow:hidden; 
+        text-overflow: ellipsis;
         color: ${props => props.selected ? 'var(--white100)' : 'var(--black100) !important'};
     }
     

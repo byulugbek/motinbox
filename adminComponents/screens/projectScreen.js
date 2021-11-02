@@ -27,10 +27,6 @@ const Container = styled.div`
         gap: 30px;
         grid-auto-flow: row;
     }
-
-    .title {
-        font-size: 24px;
-    }
     
     .bottom {
         width: 100%;
@@ -195,9 +191,9 @@ export default function ProjectScreen(props) {
     return (
         <Container>
             <form onSubmit={checkAllData}>
-                <span className='title'>
+                <h2 className='title'>
                     {headData}
-                </span>
+                </h2>
 
                 <Selector
                     title='Выберите тип'

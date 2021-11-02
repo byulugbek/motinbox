@@ -18,13 +18,6 @@ const Team_style = styled.div`
         display: grid;
         gap: 30px;
     }
-
-    .title {
-        font-size: 24px;
-        color: var(--black100);
-    }
-
-
     .bottom {
         display: grid;
         justify-content: center;
@@ -119,9 +112,9 @@ export default function TeamScreen(props) {
     return (
         <Team_style>
             <form onSubmit={checkAllData}>
-                <span className='title'>
+                <h2>
                     {!data ? 'Добавление участника' : 'Изменение участника'}
-                </span>
+                </h2>
 
                 <Input
                     title='Ввдите имя'
@@ -149,8 +142,9 @@ export default function TeamScreen(props) {
                     setText={setSocial}
                 />
 
-                <div className='bottom'>
+                <div className='bottom' >
                     <Button
+                        aria-label="SEND"
                         text='Отправить'
                     />
                 </div>

@@ -108,7 +108,7 @@ export default function Post({ data, socials }) {
         const social = socials.data.filter(i => i._id === item);
         return (
             <Link key={item} href={social[0].description}>
-                <a target='_blank'>
+                <a target='_blank' aria-label="SOCIALS" rel='noopener'>
                     <Instagram fill='#000' />
                 </a>
             </Link>
@@ -149,7 +149,7 @@ export default function Post({ data, socials }) {
                             {mapSocials}
                         </div>}
                         <Link href={data.data.url}>
-                            <a target='_blank'>
+                            <a target='_blank' rel="noopener">
                                 <Button
                                     text='ПЕРЕЙТИ'
                                 />

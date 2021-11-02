@@ -28,7 +28,7 @@ export default function Index({ teamData, videoData }) {
             }
         }
         if (confirm('Вы уверены что хотите удалить?')) {
-            axios.delete(`api/team/${id}`, config).then(res => {
+            axios.delete(`/api/team/${id}`, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
