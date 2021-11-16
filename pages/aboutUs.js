@@ -8,8 +8,10 @@ import Link from 'next/link';
 import Video from '../models/Video';
 import Team from '../models/Team';
 import dbConnect from '../utils/dbConnect';
+import { motion } from 'framer-motion';
+import { fadeInSides } from '../components/animations';
 
-const Animatin_screen = styled.div`
+const Animation_screen = styled.div`
     position: relative;
     overflow: hidden;
     display: grid;
@@ -92,6 +94,7 @@ const Team_style = styled.div`
         grid-template-columns: repeat(1, 1fr);    
     }
 `
+
 export default function AboutUs({ video, team }) {
 
     const mapTeamCards = team.map((post) => {
@@ -110,32 +113,34 @@ export default function AboutUs({ video, team }) {
                 <title>MotionBox | Кто мы такие</title>
                 <meta name='description' content='Это мы' />
             </Head>
-            <Animatin_screen>
-                <div className='upBox'>
-                    <h2>{video.title}</h2>
-                    <div className='creator'>
-                        <p >Мы основаны:</p>
-                        <h4>2021</h4>
-                    </div>
-                </div>
-                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
-                    <source src={`uploads/video/${video.video}`} />
-                </video>
-                <div className='bottomBox'>
-                    <p className='about'>{video.description}</p>
-                    <div className='story'>
-                        <Link href='/projects'>
-                            <a>
-                                <Button lite text='Наши проекты' />
-                            </a>
-                        </Link>
+            <motion.div initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
+                <Animation_screen>
+                    <div className='upBox'>
+                        <div dangerouslySetInnerHTML={{ __html: video.title }} />
                         <div className='creator'>
-                            <p> Основатель:</p>
-                            <h4>Ulugbek Alimov</h4>
+                            <p >Мы основаны:</p>
+                            <h4>2021</h4>
                         </div>
                     </div>
-                </div>
-            </Animatin_screen>
+                    <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
+                        <source src={`uploads/video/${video.video}`} />
+                    </video>
+                    <div className='bottomBox'>
+                        <div dangerouslySetInnerHTML={{ __html: video.description }} />
+                        <div className='story'>
+                            <Link href='/projects'>
+                                <a>
+                                    <Button lite text='Наши проекты' />
+                                </a>
+                            </Link>
+                            <div className='creator'>
+                                <p> Основатель:</p>
+                                <h4>Ulugbek Alimov</h4>
+                            </div>
+                        </div>
+                    </div>
+                </Animation_screen>
+            </motion.div>
             <Title
                 text='Наша семья'
             />
@@ -150,11 +155,12 @@ export async function getServerSideProps() {
     dbConnect();
 
     const video = JSON.parse(JSON.stringify(await Video.find({})));
+
     const team = JSON.parse(JSON.stringify(await Team.find({})));
 
     return {
         props: {
-            video: video[0], team
+            video: video.length ? video[0] : { title: '<h2>Пусто</h2>', description: '<p>Пусто</p>' }, team
         }
     }
 }

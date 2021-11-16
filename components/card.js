@@ -1,7 +1,11 @@
+import { useEffect } from 'react';
 import styled, { css } from 'styled-components';
 import Image from 'next/image';
 import { Strelka, Instagram } from './icons';
 import Link from 'next/link';
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { fadeInSides } from './animations';
 
 const Card_style = styled.div`
     width: 100%;
@@ -9,6 +13,7 @@ const Card_style = styled.div`
     position: relative;
     border-radius: 40px;
     overflow: hidden;
+    cursor: default;
 
     background-color: var(--white50);
     color: var(--black100);
@@ -116,8 +121,7 @@ const Card_style = styled.div`
                         }
                         .strelka{
                             display: none !important;
-                        }import { useEffect } from 'react';
-
+                        }
                     }
                 }
             }
@@ -149,36 +153,67 @@ const Card_style = styled.div`
 
 export default function Card(props) {
     const { data } = props;
+    const controls = useAnimation();
+    const { ref, inView } = useInView();
+
+    useEffect(() => {
+        if (inView) {
+            controls.start('visible');
+        }
+    }, [controls, inView]);
 
     return (
-        <Card_style {...props}>
-            <div className='filter'>
-                <p>{data?.type}</p>
-                <div className='info'>
-                    <div className='textBox'>
-                        <h2 className='title'>{data?.title}</h2>
-                        <div className='correct'>
-                            <p className='descript'>{data.shortDesc || data.description}</p>
-                            <Link href={data?.postType !== 'team' ? `/${data?.postType}/${data?._id}` : `${data?.url}`}>
-                                {data?.postType === 'team'
-                                    ?
-                                    <a aria-label="INSTAGRAM" className='instagram' target="_blank" rel="noopener"><Instagram fill='#fff' /></a>
+        <motion.div
+            ref={ref}
+            initial="hidden"
+            animate={controls}
+            variants={fadeInSides(0, 60)}
+        >
+            <Card_style {...props}>
+                <div className='filter'>
+                    <motion.p variants={fadeInSides(-60)}>{data?.type}</motion.p>
+                    <div className='info'>
+                        <div className='textBox'>
+                            <motion.h2 className='title' variants={fadeInSides(-60)}>{data?.title}</motion.h2>
+                            <div className='correct'>
+                                <motion.p className='descript' variants={fadeInSides(-60)}>{data.shortDesc || data.description}</motion.p>
+                                {data?.postType === 'team' ?
+                                    <motion.a
+                                        href={data.url}
+                                        variants={fadeInSides(60)}
+                                        aria-label='INSTAGRAM'
+                                        className='instagram'
+                                        target='_blank'
+                                        rel='noopener'
+                                    >
+                                        <Instagram fill='#fff' />
+                                    </motion.a>
                                     :
-                                    <a aria-label="INFO" className='strelka' rel="noopener"><Strelka /></a>
+                                    <Link href={`/${data?.postType}/${data?._id}`} scroll={false}>
+                                        <motion.a
+                                            variants={fadeInSides(60)}
+                                            className='strelka'
+                                            rel='noopener'
+                                            role='link'
+                                            aria-label='INFO'
+                                        >
+                                            <Strelka />
+                                        </motion.a>
+                                    </Link>
                                 }
-                            </Link>
+                            </div>
                         </div>
-                    </div>
 
+                    </div>
                 </div>
-            </div>
-            {data?.postType === 'projects' ?
-                <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
-                    <source src={`uploads/projects/${data?.imageOne}`} />
-                </video>
-                :
-                <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
-            }
-        </Card_style>
+                {data?.postType === 'projects' ?
+                    <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
+                        <source src={`uploads/projects/${data?.imageOne}`} />
+                    </video>
+                    :
+                    <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
+                }
+            </Card_style>
+        </motion.div>
     )
 };

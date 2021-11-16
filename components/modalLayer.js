@@ -3,7 +3,6 @@ import { createPortal } from "react-dom"
 import styled from "styled-components";
 
 const BackDrop = styled.div`
-
     z-index: 100;
     position: fixed;
     top: 0;
@@ -15,25 +14,24 @@ const BackDrop = styled.div`
 `
 
 
+
 export default function modalLayer(props) {
- 
-    const {isModal, setModal, children} = props;
+    const { isModal, children } = props;
+    const [mounted, setMounted] = useState(false);
 
-    const [mounted, setMounted] = useState(false)
-    
-    useEffect(()=> {
+    useEffect(() => {
         setMounted(true)
-        return () => setMounted(false) 
-    },[])
+        return () => setMounted(false);
+    }, [])
 
-    if (!isModal) return null
+    if (!isModal) return null;
 
     return mounted
-    ?createPortal(
-        <BackDrop>
-           {children}
-        </BackDrop>
-        ,document.getElementById('__modal')
-    )
-    :null
+        ? createPortal(
+            <BackDrop>
+                {children}
+            </BackDrop>
+            , document.getElementById('__modal')
+        )
+        : null
 }

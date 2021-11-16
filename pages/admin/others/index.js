@@ -41,7 +41,7 @@ export default function Index({ partners, abilities, headings, socials }) {
             headers: { 'Authorization': token }
         }
         if (confirm('Вы уверены что хотите удалить?')) {
-            axios.delete(`api/${type}/${id}`, config).then(res => {
+            axios.delete(`${process.env.URL_BASE}/api/${type}/${id}`, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {

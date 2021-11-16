@@ -27,7 +27,7 @@ export default function Index({ portfolio }) {
         }
 
         if (confirm('Вы уверены что хотите удалить?')) {
-            axios.delete(`api/portfolio/${id}`, config).then(res => {
+            axios.delete(`${process.env.URL_BASE}/api/portfolio/${id}`, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/portfolio`);
                 } else {

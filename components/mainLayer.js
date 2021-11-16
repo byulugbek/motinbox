@@ -2,6 +2,8 @@ import styled from 'styled-components';
 import Footer from './footer';
 import Header from './header';
 
+import { motion } from 'framer-motion';
+
 const Wrap = styled.div`
     display: grid;
     gap: 30px;
@@ -19,9 +21,15 @@ export default function MainLayer({ children }) {
   return (
     <div className='wrapper'>
       <Header />
-      <Wrap>
-        {children}
-      </Wrap>
+      <motion.div
+        exit={{ opacity: 0 }}
+        initial='initial'
+        animate='animate'
+      >
+        <Wrap>
+          {children}
+        </Wrap>
+      </motion.div>
       <Footer />
     </div>
   )

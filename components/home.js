@@ -1,9 +1,8 @@
-import styled from 'styled-components'
-import Card from './card'
-import Title from './title'
-import DoingCard from './doingCard'
-import Image from 'next/image'
-import Link from 'next/link'
+import styled from 'styled-components';
+import Card from './card';
+import Title from './title';
+import DoingCard from './doingCard';
+import PartnerCard from './partnerCard';
 
 const Projects = styled.div`
     display: grid;
@@ -26,32 +25,8 @@ const CanDo = styled(Projects)`
 const InHeard = styled(Projects)`
     grid-template-columns: repeat(4, 1fr);
     justify-items: center;
-    .heardItem{
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        margin: 50px 0;
-        width: fit-content;
-        user-select: none;
-        img {
-            filter: grayscale(100%);
-            transition: 0.3s ease-in-out;
-            
-            :hover {
-                filter: grayscale(0%);
-            }
-        }
-    }
     @media only screen and (max-width: 1000px) {
         grid-template-columns: repeat(2, 1fr);
-    }
-    @media only screen and (max-width: 500px) {
-        .heardItem{
-            svg{
-                width: 100%;
-            }
-            padding: 30px 0;
-        }
     }
 `
 const Portfolio_Style = styled(Projects)`
@@ -98,15 +73,10 @@ export default function HomePage({ data }) {
 
     const mapInHeardCards = main.partners.map((post) => {
         return (
-            <Link key={post._id} href={post.url}>
-                <a
-                    className='heardItem'
-                    target='_blank'
-                    rel="noopener"
-                >
-                    <Image src={`/uploads/partners/${post.imageOne}`} width='250px' height='100px' alt={post.imageOne} />
-                </a>
-            </Link>
+            <PartnerCard
+                key={post._id}
+                data={post}
+            />
         )
     })
 

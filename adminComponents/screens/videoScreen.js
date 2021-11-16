@@ -2,10 +2,10 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 import { useRouter } from 'next/router';
 import axios from 'axios';
-import Input from "../globals/input";
 import VideoImporter from '../globals/videoImporter';
 import Button from '../../components/button';
 import { AuthCheck } from '../../utils/functions/authCheck';
+import TextEditor from '../globals/textEditor';
 
 const Container = styled.div`
     display: grid;
@@ -106,13 +106,14 @@ export default function VideoScreen(props) {
             <form onSubmit={checkData}>
                 <h2>{data ? 'Редактирование' : 'Добавление'} видео</h2>
 
-                <Input
+                <TextEditor
                     title='Введите заглавие видео блока'
                     text={title}
                     setText={setTitle}
                 />
 
-                <Input
+
+                <TextEditor
                     title='Введите описание видео блока'
                     text={description}
                     setText={setDescription}

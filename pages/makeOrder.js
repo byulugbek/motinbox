@@ -10,8 +10,11 @@ import ModalLayer from "../components/modalLayer";
 import Modal from "../components/modal";
 import dbConnect from "../utils/dbConnect";
 import Abilities from "../models/Abilities";
+import { motion, useAnimation } from 'framer-motion';
+import { useInView } from 'react-intersection-observer';
+import { fadeInSides } from '../components/animations';
 
-const FormWrap = styled.form`
+const FormWrap = styled(motion.form)`
     display: grid;
     gap: 30px;
     grid-auto-flow: row;
@@ -114,7 +117,7 @@ const Item = styled.div`
         text-overflow: ellipsis;
         color: ${props => props.selected ? 'var(--white100)' : 'var(--black100) !important'};
     }
-    
+
     div {
         width: 16px;
         height: 16px;
@@ -128,9 +131,7 @@ const Item = styled.div`
 let arrayAdd = [];
 export default function MakeOrder({ data }) {
     const router = useRouter();
-
     const [isModal, setModal] = useState(false);
-
     const [abilities, setAbilities] = useState([]);
     const [selected, setSelected] = useState([]);
     const [organization, setOrganization] = useState();
@@ -138,10 +139,18 @@ export default function MakeOrder({ data }) {
     const [contact, setContact] = useState();
     const [note, setNote] = useState();
     const [phone, setPhone] = useState();
+    const controls = useAnimation();
+    const { ref, inView } = useInView();
 
     useEffect(() => {
         setAbilities(data);
     }, [])
+
+    useEffect(() => {
+        if (inView) {
+            controls.start('visible');
+        }
+    }, [controls, inView]);
 
     const onClick = (id) => {
         const res = data.find(i => i._id === id);
@@ -151,6 +160,7 @@ export default function MakeOrder({ data }) {
         const afterClick = abilities.filter(i => i._id !== id);
         setAbilities(afterClick);
     }
+
     const deleteItem = (id) => {
         const afterClick = selected.filter(i => i._id !== id);
         setSelected(afterClick);
@@ -210,7 +220,7 @@ export default function MakeOrder({ data }) {
             <Head>
                 <title>MotionBox | Быть с нами</title>
             </Head>
-            <FormWrap onSubmit={chekAllData}>
+            <FormWrap onSubmit={chekAllData} ref={ref} initial="hidden" animate={controls} variants={fadeInSides(0, 60)}>
                 <h2 className='theme'>Выбери нужную услугу</h2>
                 <Abilities_style>
                     {abilities.length > 0 ?

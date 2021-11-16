@@ -114,35 +114,34 @@ export default function Header() {
     }
 
     const buttonPressed = () => {
-        setBurger(false)
+        setBurger(false);
     }
 
     return (
         <>
             <Header_style>
-
                 {isMobile && <button aria-label="BURGER" onClick={() => setBurger(true)}><Burger className='burger' /></button>}
 
-                <Link href='/'><a aria-label="LOGO" className='logo'><Logo fill='#000' /></a></Link>
+                <Link href='/' scroll={false}><a aria-label="LOGO" className='logo'><Logo fill='#000' /></a></Link>
 
                 <ul className='navigation'>
                     <li className='navigationItem'>
-                        <Link href='/aboutUs'>
+                        <Link href='/aboutUs' scroll={false}>
                             <a><h3>Кто мы такие</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
-                        <Link href='/projects'>
+                        <Link href='/projects' scroll={false}>
                             <a><h3>Наши проекты</h3></a>
                         </Link>
                     </li>
                     <li className='navigationItem'>
-                        <Link href='/portfolio'>
+                        <Link href='/portfolio' scroll={false}>
                             <a><h3>Портфолио</h3></a>
                         </Link>
                     </li>
                 </ul>
-                <Link href='/makeOrder'>
+                <Link href='/makeOrder' scroll={false}>
                     <a>
                         <Button text='БЫТЬ С НАМИ' />
                     </a>

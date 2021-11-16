@@ -6,6 +6,8 @@ import { Instagram } from '../../components/icons';
 import Button from '../../components/button';
 import MainLayer from '../../components/mainLayer';
 import Link from 'next/link';
+import { motion } from 'framer-motion';
+import { fadeInSides } from '../../components/animations';
 
 const PostWrap = styled.div`
     display: grid;
@@ -14,13 +16,17 @@ const PostWrap = styled.div`
     justify-self: center;
     justify-content: space-between;  
     
-    gap: 50px;
-    top: 30px;   
+    top: 30px; 
     width: 100%;
     max-width: 1000px;
     border-radius: 40px;
     border: 0.5px solid var(--black20);
     padding: 50px;
+
+    div {
+        display: grid;
+        gap: 50px;
+    }
 
     p {
         line-height: 22px;
@@ -86,7 +92,9 @@ const PostWrap = styled.div`
     }
 
     @media only screen and (max-width: 500px) {
-        gap: 30px;
+        div {
+            gap: 30px;
+        }
         border-radius: 20px;
         padding: 20px;
         .imageBox{
@@ -125,31 +133,33 @@ export default function Post({ data, socials }) {
                 <meta name='description' content={metaDescription[1].slice(0, 200)} />
             </Head>
             <PostWrap>
-                <h3 className='theme'>{data.data.type}</h3>
-                <h2 className='Title'>{data.data.title}</h2>
-                <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
-                <div className='imageBox'>
-                    <div className='picture'>
-                        <Image src={`/uploads/projects/${data.data.imageTwo}`} layout='fill' alt={data.data.imageTwo} />
-                    </div>
-                </div>
-                <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.conclusion }} />
-                <div className='bottom'>
-                    <hr className='line' />
-                    <div className='feedback'>
-                        <div className='social'>
-                            {mapSocials}
+                <motion.div initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
+                    <h3 className='theme'>{data.data.type}</h3>
+                    <h2 className='Title'>{data.data.title}</h2>
+                    <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
+                    <div className='imageBox'>
+                        <div className='picture'>
+                            <Image src={`/uploads/projects/${data.data.imageTwo}`} layout='fill' alt={data.data.imageTwo} />
                         </div>
-                        <Link href={data.data.url}>
-                            <a target='_blank' rel='noopener'>
-                                <Button
-                                    text='ПЕРЕЙТИ'
-                                />
-                            </a>
-                        </Link>
                     </div>
-                    <hr className='line' />
-                </div>
+                    <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.conclusion }} />
+                    <div className='bottom'>
+                        <hr className='line' />
+                        <div className='feedback'>
+                            <div className='social'>
+                                {mapSocials}
+                            </div>
+                            <Link href={data.data.url}>
+                                <a target='_blank' rel='noopener'>
+                                    <Button
+                                        text='ПЕРЕЙТИ'
+                                    />
+                                </a>
+                            </Link>
+                        </div>
+                        <hr className='line' />
+                    </div>
+                </motion.div>
             </PostWrap>
         </MainLayer>
     )

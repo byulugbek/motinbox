@@ -7,6 +7,7 @@ import Partners from '../models/Partners';
 import dbConnect from '../utils/dbConnect';
 import Abilities from '../models/Abilities';
 
+
 export default function Index(props) {
     return (
         <MainLayer>
