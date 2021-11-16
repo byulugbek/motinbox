@@ -211,7 +211,7 @@ export default function Card(props) {
                         <source src={`uploads/projects/${data?.imageOne}`} />
                     </video>
                     :
-                    <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority={true} />
+                    <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} />
                 }
             </Card_style>
         </motion.div>
