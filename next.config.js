@@ -1,4 +1,7 @@
 module.exports = {
+    images: {
+        domains: ['motionbox.uz']
+    },
     env: {
         MONGO_URI: 'mongodb+srv://Azamat:ELS3fCj1xVM7hiBr@motionbox.tjf9c.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
         GOOGLE_ANALITICS: 'G-606VR0F2XC',

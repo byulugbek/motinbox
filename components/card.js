@@ -208,10 +208,10 @@ export default function Card(props) {
                 </div>
                 {data?.postType === 'projects' ?
                     <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
-                        <source src={`uploads/projects/${data?.imageOne}`} />
+                        <source src={`/uploads/projects/${data?.imageOne}`} />
                     </video>
                     :
-                    <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} />
+                    <Image src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority='true' />
                 }
             </Card_style>
         </motion.div>

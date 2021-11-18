@@ -145,13 +145,9 @@ export default function VideoBlock(props) {
             {data &&
                 <>
                     <div className='item'>
-                        <h2>
-                            {data.title}
-                        </h2>
+                        <div dangerouslySetInnerHTML={{ __html: data.title }} />
                         <div className='descript'>
-                            <p>
-                                {data.description}
-                            </p>
+                            <div dangerouslySetInnerHTML={{ __html: data.description }} />
                             <Link href={`/admin/team/video`}>
                                 <a className='button1' aria-label="EDIT_VIDEO">
                                     <Button
