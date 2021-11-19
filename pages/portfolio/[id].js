@@ -23,7 +23,7 @@ const PostWrap = styled.div`
     border: 0.5px solid var(--black20);
     padding: 50px;
 
-    div {
+    .animationBox {
         display: grid;
         gap: 50px;
     }
@@ -91,7 +91,7 @@ const PostWrap = styled.div`
     }
 
     @media only screen and (max-width: 500px) {
-        div {
+        .animationBox {
             gap: 30px;
         }
         border-radius: 20px;
@@ -131,23 +131,23 @@ export default function Post({ data, socials }) {
                 <meta name='description' content={metaDescription[1].slice(0, 200)} />
             </Head>
             <PostWrap>
-                <motion.div initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
+                <motion.div className='animationBox' initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
                     <h3 className='theme'>{data.data.type}</h3>
                     <h2>{data.data.title}</h2>
                     <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
                     <div className='imageBox'>
                         <div className='picture'>
-                            <Image src={data.data.imageOneUrl} layout='fill' alt={data.data.imageOneId} priority='true'/>
+                            <Image src={data.data.imageOneUrl} layout='fill' alt={data.data.imageOneId} priority='true' />
                         </div>
                         <div className='calaje'>
                             <div className='picture Litle'>
-                                <Image src={data.data.imageTwoUrl} layout='fill' alt={data.data.imageTwoId} priority='true'/>
+                                <Image src={data.data.imageTwoUrl} layout='fill' alt={data.data.imageTwoId} priority='true' />
                             </div>
                             <div className='picture Litle'>
-                                <Image src={data.data.imageThreeUrl} layout='fill' alt={data.data.imageThreeId} priority='true'/>
+                                <Image src={data.data.imageThreeUrl} layout='fill' alt={data.data.imageThreeId} priority='true' />
                             </div>
                             <div className='picture Litle'>
-                                <Image src={data.data.imageFourUrl} layout='fill' alt={data.data.imageFourId} priority='true'/>
+                                <Image src={data.data.imageFourUrl} layout='fill' alt={data.data.imageFourId} priority='true' />
                             </div>
                         </div>
                     </div>

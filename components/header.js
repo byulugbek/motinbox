@@ -65,6 +65,9 @@ const Header_style = styled.div`
         .logo{ 
             width: 140px;
             margin-left: 10px; 
+            svg {
+                transition: 0.3s ease-in-out;
+            }
         }
         .burger{
             display: block;
@@ -79,12 +82,21 @@ const Header_style = styled.div`
             display: none;
         }
     }
+    @media only screen and (max-width: 600px) {
+        .logo{ 
+            svg {
+                width: 100%;
+                height: 100%;
+            }
+        }
+    }
+
     @media only screen and (max-width: 500px) {
         top: 0px;
         gap: 20px;
         width: 100%;
         border-radius: 0;  
-        margin-bottom: 0;      
+        margin-bottom: 0;
         .logo{ display: none; }
     }
 `

@@ -61,12 +61,15 @@ const Animation_screen = styled.div`
         }
     }
     @media only screen and (max-width: 700px) {
+        height: fit-content;
         border-radius: 20px;
-        padding: 20px;
-        padding-bottom: 30px;
+        padding: 20px 20px 40px 20px;
         .upBox{
             display: grid;
             grid-auto-flow: row;
+        }
+        video {
+            position: relative;
         }
         .bottomBox{
             .story{

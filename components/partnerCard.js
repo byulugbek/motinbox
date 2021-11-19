@@ -10,10 +10,10 @@ const PartnersCard = styled(motion.div)`
     display: grid;
     justify-content: center;
     align-items: center;
-    margin: 50px 0;
     width: fit-content;
     user-select: none;
     img {
+        object-fit: cover;
         filter: grayscale(100%);
         transition: 0.3s ease-in-out;
         
@@ -25,7 +25,6 @@ const PartnersCard = styled(motion.div)`
         svg{
             width: 100%;
         }
-        padding: 30px 0;
     }
 `
 
@@ -49,7 +48,7 @@ export default function PartnerCard(props) {
                     target='_blank'
                     rel="noopener"
                 >
-                    <Image src={data.imageOneUrl} width='250px' height='100px' alt={data.imageOne} priority='true'/>
+                    <Image src={data.imageOneUrl} width='250px' height='100px' alt={data.imageOne} priority='true' />
                 </a>
             </Link>
         </PartnersCard>

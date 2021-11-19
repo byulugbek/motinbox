@@ -13,8 +13,16 @@ const Projects = styled.div`
     }
 `
 const CanDo = styled(Projects)`
-    grid-template-columns: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     gap: 30px;
+
+    @media only screen and (max-width: 1000px) {
+        grid-template-columns: 1fr 1fr;
+    }
+    @media only screen and (max-width: 700px) {
+        grid-template-columns: 1fr;
+    }
+
     .line{
         width:100%;
         height: 0.5px;
@@ -87,7 +95,6 @@ export default function HomePage({ data }) {
             </Projects>
             <Title text='ЧТО МЫ МОЖЕМ СОТВОРИТЬ' />
             <CanDo>
-                <hr className='line' />
                 {mapDoingCards}
             </CanDo>
             <Title text='В НАШИХ СЕРДЦАХ' />

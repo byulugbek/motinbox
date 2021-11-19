@@ -8,9 +8,9 @@ import { fadeInSides } from './animations';
 
 const Card_style = styled(motion.div)`
     display: grid;
-    grid-template-columns: 1fr 3fr;
-    grid-template-rows: auto;
-    grid-template-areas: "title descript";
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: "title" "descript";
     gap: 20px;
     width: 100%;
     cursor: default;
@@ -23,7 +23,8 @@ const Card_style = styled(motion.div)`
         display: grid;
         gap: 20px;
         justify-content: space-between;
-        grid-auto-flow: column;
+        grid-auto-flow: row;
+        grid-template-rows: 1fr;
     }
     @media only screen and (max-width: 700px) {
         grid-template-columns: 1fr;
@@ -66,8 +67,8 @@ export default function DoingCard(props) {
                         </a>
                     </Link>
                 </div>
+                <hr className='line' />
             </Card_style>
-            <hr className='line' />
         </>
     )
 }

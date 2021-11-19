@@ -119,8 +119,8 @@ const Footer_style = styled.div`
             display: none;
         }
         .upBox{
-            padding: 20px;
-            gap: 20px;
+            padding: 40px;
+            gap: 40px;
             .logoBox{
                 gap: 0;
                 span{display: none;}
@@ -139,7 +139,7 @@ const Footer_style = styled.div`
             }
         }
         .bottomBox{
-            padding: 20px;
+            padding: 40px;
             gap: 40px;
             .informationBox{
                 grid-template-columns: repeat(1, 1fr);
