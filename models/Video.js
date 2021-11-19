@@ -8,7 +8,8 @@ const reqString = {
 const VideoSchema = new mongoose.Schema({
     title: reqString,
     description: reqString,
-    video: reqString
+    videoUrl: reqString,
+    videoId: reqString
 })
 
 module.exports = mongoose.models.Video || mongoose.model('Video', VideoSchema);

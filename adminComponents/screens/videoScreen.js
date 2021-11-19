@@ -40,6 +40,7 @@ export default function VideoScreen(props) {
     const [description, setDescription] = useState();
     const [video, setVideo] = useState();
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
         const isLoginned = AuthCheck();
@@ -58,6 +59,8 @@ export default function VideoScreen(props) {
 
     const checkData = (e) => {
         e.preventDefault();
+        if (disabled) return;
+
         if (title && description && video) {
             sendData();
         } else {
@@ -66,6 +69,7 @@ export default function VideoScreen(props) {
     }
 
     const sendData = () => {
+        setDisabled(true);
         const formData = new FormData();
         formData.append('title', title);
         formData.append('description', description);
@@ -83,9 +87,11 @@ export default function VideoScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
@@ -93,9 +99,11 @@ export default function VideoScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         }

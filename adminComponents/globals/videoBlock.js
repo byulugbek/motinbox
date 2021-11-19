@@ -115,7 +115,7 @@ export default function VideoBlock(props) {
             },
         }
         if (confirm('Вы уверены что хотите удалить?')) {
-            axios.delete(`api/video/${data._id}`, config).then(res => {
+            axios.delete(`${process.env.URL_BASE}/api/video/${data._id}`, config).then(res => {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {

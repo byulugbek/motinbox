@@ -123,7 +123,7 @@ export default function AboutUs({ video, team }) {
                         </div>
                     </div>
                     <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
-                        <source src={`uploads/video/${video.video}`} />
+                        <source src={video.videoUrl} />
                     </video>
                     <div className='bottomBox'>
                         <div dangerouslySetInnerHTML={{ __html: video.description }} />
