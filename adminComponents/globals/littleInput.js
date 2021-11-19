@@ -31,7 +31,7 @@ export default function LittleInput(props) {
                 type={type}
                 defaultValue={text}
                 placeholder={ph}
-                onChange={e => setText(e.target.value)}
+                onBlur={e => setText(e.target.value)}
             />
         </Container>
     )

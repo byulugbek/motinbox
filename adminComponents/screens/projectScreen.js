@@ -65,6 +65,7 @@ export default function ProjectScreen(props) {
     const [onMain, setOnMain] = useState(false);
     const [date, setDate] = useState();
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     // get data (abilities/socials)
     useEffect(() => {
@@ -86,8 +87,8 @@ export default function ProjectScreen(props) {
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
-            setImageOne(data.imageOne);
-            setImageTwo(data.imageTwo);
+            setImageOne(data.imageOneUrl);
+            setImageTwo(data.imageTwoUrl);
             setUrl(data.url);
             setOnMain(data.onMain);
             setDate(new Date(data.date));
@@ -115,6 +116,8 @@ export default function ProjectScreen(props) {
 
     const checkAllData = (e) => {
         e.preventDefault();
+        if (disabled) return;
+
         if (data) {
             if (
                 chosenAbility && title && desc && shortDesc &&
@@ -159,6 +162,7 @@ export default function ProjectScreen(props) {
     }
 
     const sendData = (formData) => {
+        setDisabled(true);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -170,9 +174,11 @@ export default function ProjectScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/projects`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
@@ -180,9 +186,11 @@ export default function ProjectScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/projects`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         }

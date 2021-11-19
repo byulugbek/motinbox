@@ -150,15 +150,6 @@ const Card_style = styled.div`
         `}
     }
 `
-const contentfulLoader = ({ src, quality, width }) => {
-    const params = [`w=${width}`];
-
-    if (quality) {
-        params.push(`q=${quality}`);
-    }
-
-    return `${src}?${params.join('&')}`;
-};
 
 export default function Card(props) {
     const { data } = props;
@@ -217,10 +208,10 @@ export default function Card(props) {
                 </div>
                 {data?.postType === 'projects' ?
                     <video autoPlay loop muted playsInline style={{ width: '100%', height: '100%' }}>
-                        <source src={`/uploads/projects/${data?.imageOne}`} />
+                        <source src={data.imageOneUrl} />
                     </video>
                     :
-                    <Image loader={contentfulLoader} src={`/uploads/${data.postType}/${data?.imageOne}`} layout="fill" alt={data?.imageOne} priority='true' />
+                    <Image src={data.imageOneUrl} layout="fill" alt={data?.imageOne} priority='true' />
                 }
             </Card_style>
         </motion.div>

@@ -11,7 +11,8 @@ const reqNumber = {
 
 const PartnersSchema = new mongoose.Schema({
     title: reqString,
-    imageOne: reqString,
+    imageOneUrl: reqString,
+    imageOneId: reqString,
     queue: reqNumber,
     url: reqString,
 });

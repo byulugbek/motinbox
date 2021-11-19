@@ -1,39 +1,50 @@
 import dbConnect from '../../../utils/dbConnect';
 import Partners from '../../../models/Partners';
-import * as fs from 'fs';
-import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
+import {
+    nextConnectonFunction,
+    storeMulter,
+    toBit64,
+    cloudinaryUpload,
+    cloudinaryDelete
+} from '../../../utils/functions/apiHelper';
 import Admins from '../../../models/Admins';
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'partners').single('imageOne');
+const storeMiddleware = storeMulter(2, 'image').single('imageOne');
 
-apiRoute.use(uploadMiddleware);
+apiRoute.use(storeMiddleware);
 
 apiRoute.put(async (req, res) => {
     const { query: { id } } = req;
-    const title = req.body.title;
-    const url = req.body.url;
-    const queue = req.body.queue;
-    const imageOne = req.file ? req.file.filename : req.body.imageOne;
-
-    const body = {
-        title, queue, url, imageOne,
-    }
-
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        req.file && fs.unlinkSync(`./public/uploads/partners/${req.file.filename}`);
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
-    if (req.file) {
-        const partner = await Partners.findById(id);
-        fs.unlinkSync(`./public/uploads/partners/${partner.imageOne}`);
-    }
 
     try {
+        const title = req.body.title;
+        const url = req.body.url;
+        const queue = req.body.queue;
+        const imageOne = req.file ? req.file.filename : req.body.imageOne;
+
+        let imageOneUrl = null;
+        let imageOneId = null;
+
+        if (req.file) {
+            const partner = await Partners.findById(id);
+            await cloudinaryDelete(partner.imageOneId);
+
+            const imageOne = toBit64(req.file);
+            const cloudinaryResult = await cloudinaryUpload(imageOne, 'partners_upload', 'image');
+            imageOneUrl = cloudinaryResult.url;
+            imageOneId = cloudinaryResult.public_id;
+        } else {
+            const memberById = await Partners.findById(id);
+            imageOneUrl = memberById.imageOneUrl;
+            imageOneId = memberById.imageOneId;
+        }
+
+        const body = {
+            title, queue, url, imageOneUrl, imageOneId,
+        }
         const partner = await Partners.findByIdAndUpdate(id, body, {
             new: true,
             runValidators: true,
@@ -46,7 +57,7 @@ apiRoute.put(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: partner })
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 
@@ -70,14 +81,13 @@ apiRoute.delete(async (req, res) => {
         query: { id }
     } = req;
 
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0)
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-
-    const partner = await Partners.findById(id);
-    fs.unlinkSync(`./public/uploads/partners/${partner.imageOne}`);
-
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        const memberById = await Partners.findById(id);
+        await cloudinaryDelete(memberById.imageOneId);
+
         const deletePartner = await Partners.deleteOne({ _id: id });
 
         if (!deletePartner) {
@@ -87,7 +97,7 @@ apiRoute.delete(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: deletePartner });
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400 });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 

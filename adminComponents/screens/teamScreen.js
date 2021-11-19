@@ -38,6 +38,7 @@ export default function TeamScreen(props) {
     const [image, setImage] = useState();
     const [social, setSocial] = useState('');
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
         const isLoginned = AuthCheck();
@@ -50,7 +51,7 @@ export default function TeamScreen(props) {
         if (data) {
             setName(data.title);
             setPosition(data.description);
-            setImage(data.imageOne);
+            setImage(data.imageOneUrl);
             setSocial(data.url);
         }
 
@@ -58,6 +59,7 @@ export default function TeamScreen(props) {
 
     const checkAllData = (e) => {
         e.preventDefault();
+        if (disabled) return;
 
         if (name && position && social && image) {
             collectAllData();
@@ -78,6 +80,7 @@ export default function TeamScreen(props) {
     }
 
     const sendData = (formData) => {
+        setDisabled(true);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -90,6 +93,7 @@ export default function TeamScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
@@ -100,6 +104,7 @@ export default function TeamScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/team`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {

@@ -31,6 +31,7 @@ export default function OtherScreen(props) {
     const [title, setTitle] = useState();
     const [desc, setDesc] = useState();
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
         const isLoginned = AuthCheck();
@@ -47,6 +48,8 @@ export default function OtherScreen(props) {
     }, [])
 
     const checkData = async () => {
+        if (disabled) return;
+
         if (title && desc) {
             const body = {
                 title: title,
@@ -59,6 +62,7 @@ export default function OtherScreen(props) {
     }
 
     const sendData = (body) => {
+        setDisabled(true);
         const config = {
             headers: { 'Authorization': token }
         }
@@ -67,9 +71,11 @@ export default function OtherScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push('/admin/others');
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
@@ -77,9 +83,11 @@ export default function OtherScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push('/admin/others');
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         }

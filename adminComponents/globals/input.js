@@ -36,13 +36,13 @@ export default function Input(props) {
                     type={type}
                     defaultValue={text}
                     placeholder={'Далеко, далеко ...'}
-                    onChange={(text) => setText(text.target.value)}
+                    onBlur={(text) => setText(text.target.value)}
                 />
                 :
                 <textarea
                     defaultValue={text}
                     placeholder={'Далеко, далеко ...'}
-                    onChange={(text) => setText(text.target.value)}
+                    onBlur={(text) => setText(text.target.value)}
                 />
             }
         </Input_style>

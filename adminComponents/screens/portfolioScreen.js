@@ -66,6 +66,7 @@ export default function PortfolioScreen(props) {
     const [onMain, setOnMain] = useState(false);
     const [date, setDate] = useState();
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     // get data (abilities/socials)
     useEffect(() => {
@@ -87,10 +88,10 @@ export default function PortfolioScreen(props) {
             setDesc(data.description);
             setFinal(data.conclusion);
             setChosenSocials(data.socials);
-            setImageOne(data.imageOne);
-            setImageTwo(data.imageTwo);
-            setImageThree(data.imageThree);
-            setImageFour(data.imageFour);
+            setImageOne(data.imageOneUrl);
+            setImageTwo(data.imageTwoUrl);
+            setImageThree(data.imageThreeUrl);
+            setImageFour(data.imageFourUrl);
             setUrl(data.url);
             setOnMain(data.onMain);
             setDate(new Date(data.date));
@@ -118,6 +119,8 @@ export default function PortfolioScreen(props) {
 
     const checkAllData = (e) => {
         e.preventDefault();
+        if (disabled) return;
+
         if (
             chosenAbility && title && desc &&
             shortDesc && final && date && imageOne &&
@@ -151,6 +154,7 @@ export default function PortfolioScreen(props) {
     }
 
     const sendData = (formData) => {
+        setDisabled(true);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -162,9 +166,11 @@ export default function PortfolioScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/portfolio`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
@@ -172,6 +178,7 @@ export default function PortfolioScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/portfolio`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(error => {

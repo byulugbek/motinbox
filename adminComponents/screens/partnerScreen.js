@@ -40,6 +40,7 @@ export default function PartnerScreen(props) {
     const [url, setUrl] = useState();
     const [queue, setQueue] = useState();
     const [token, setToken] = useState();
+    const [disabled, setDisabled] = useState(false);
 
     useEffect(() => {
         const isLoginned = AuthCheck();
@@ -51,7 +52,7 @@ export default function PartnerScreen(props) {
 
         if (data) {
             setTitle(data.title);
-            setImageOne(data.imageOne);
+            setImageOne(data.imageOneUrl);
             setUrl(data.url);
             setQueue(data.queue);
         }
@@ -59,6 +60,7 @@ export default function PartnerScreen(props) {
 
     const checkAllData = (e) => {
         e.preventDefault();
+        if (disabled) return;
 
         if (title && imageOne && url) {
             collectAllData();
@@ -77,6 +79,7 @@ export default function PartnerScreen(props) {
         sendData(formData);
     }
     const sendData = (formData) => {
+        setDisabled(true);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data',
@@ -89,9 +92,11 @@ export default function PartnerScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         } else {
@@ -99,9 +104,11 @@ export default function PartnerScreen(props) {
                 if (res.data.statusCode === 200) {
                     router.push(`/admin/others`);
                 } else {
+                    setDisabled(false);
                     alert('Ошибка: Что-то пошло не так');
                 }
             }).catch(function (error) {
+                setDisabled(false);
                 alert(`Ошибка: ${error.response.data.message}`);
             })
         }

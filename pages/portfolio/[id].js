@@ -137,17 +137,17 @@ export default function Post({ data, socials }) {
                     <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
                     <div className='imageBox'>
                         <div className='picture'>
-                            <Image src={`/uploads/portfolio/${data.data.imageOne}`} layout='fill' alt={data.data.imageOne} />
+                            <Image src={data.data.imageOneUrl} layout='fill' alt={data.data.imageOneId} priority='true'/>
                         </div>
                         <div className='calaje'>
                             <div className='picture Litle'>
-                                <Image src={`/uploads/portfolio/${data.data.imageTwo}`} layout='fill' alt={data.data.imageTwo} />
+                                <Image src={data.data.imageTwoUrl} layout='fill' alt={data.data.imageTwoId} priority='true'/>
                             </div>
                             <div className='picture Litle'>
-                                <Image src={`/uploads/portfolio/${data.data.imageThree}`} layout='fill' alt={data.data.imageThree} />
+                                <Image src={data.data.imageThreeUrl} layout='fill' alt={data.data.imageThreeId} priority='true'/>
                             </div>
                             <div className='picture Litle'>
-                                <Image src={`/uploads/portfolio/${data.data.imageFour}`} layout='fill' alt={data.data.imageFour} />
+                                <Image src={data.data.imageFourUrl} layout='fill' alt={data.data.imageFourId} priority='true'/>
                             </div>
                         </div>
                     </div>

@@ -1,33 +1,39 @@
 import dbConnect from '../../../utils/dbConnect';
 import Partners from '../../../models/Partners';
-import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
-import * as fs from 'fs';
+import {
+    nextConnectonFunction,
+    storeMulter,
+    cloudinaryUpload,
+    toBit64
+} from '../../../utils/functions/apiHelper';
 import Admins from '../../../models/Admins';
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'partners').single('imageOne');
+const storeMiddleware = storeMulter(2).single('imageOne');
 
-apiRoute.use(uploadMiddleware)
+apiRoute.use(storeMiddleware);
 
 apiRoute.post(async (req, res) => {
-    const title = req.body.title;
-    const url = req.body.url;
-    const queue = req.body.queue;
-    const imageOne = req.file.filename;
-
-    const body = {
-        title, url, queue, imageOne
-    }
-
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        req.file && fs.unlinkSync(`./public/uploads/partners/${req.file.filename}`);
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        const imageOne = toBit64(req.file);
+        const imageOneRes = await cloudinaryUpload(imageOne, 'partners_upload', 'image');
+
+        if (!req.file) { throw new Error('Вы не загрузили фотографию!'); }
+        const title = req.body.title;
+        const url = req.body.url;
+        const queue = req.body.queue;
+        const imageOneUrl = imageOneRes.url;
+        const imageOneId = imageOneRes.public_id;
+
+        const body = {
+            title, url, queue, imageOneUrl, imageOneId,
+        }
+
         const partner = await Partners.create(body);
 
         if (!partner) {
@@ -37,7 +43,7 @@ apiRoute.post(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: partner })
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 

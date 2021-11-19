@@ -49,7 +49,7 @@ export default function PartnerCard(props) {
                     target='_blank'
                     rel="noopener"
                 >
-                    <Image src={`/uploads/partners/${data.imageOne}`} width='250px' height='100px' alt={data.imageOne} />
+                    <Image src={data.imageOneUrl} width='250px' height='100px' alt={data.imageOne} priority='true'/>
                 </a>
             </Link>
         </PartnersCard>

@@ -77,7 +77,7 @@ const ImageImporter_style = styled.div`
 
 
 export default function ImageImporter(props) {
-    const { title, folder, content, setContent } = props;
+    const { title, content, setContent } = props;
     const [url, setUrl] = useState();
     const [preImage, setPreImage] = useState();
     const ref = useRef();
@@ -115,7 +115,7 @@ export default function ImageImporter(props) {
             <div>
                 {preImage ?
                     <>
-                        <Image src={`/uploads/${folder}/${preImage}`} layout='fill' />
+                        <Image src={preImage} layout='fill' />
                         <button onClick={clear}>
                             <div>
                                 <Trash />

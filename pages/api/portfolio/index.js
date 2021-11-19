@@ -1,56 +1,70 @@
 import dbConnect from '../../../utils/dbConnect';
 import Portfolio from '../../../models/Portfolio';
-import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
-import * as fs from 'fs';
+import {
+    nextConnectonFunction,
+    storeMulter,
+    cloudinaryUpload,
+    toBit64
+} from '../../../utils/functions/apiHelper';
 import Admins from '../../../models/Admins';
 
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'portfolio').fields([
+const storeMiddleware = storeMulter(2).fields([
     { name: 'imageOne', maxCount: 1 },
     { name: 'imageTwo', maxCount: 1 },
     { name: 'imageThree', maxCount: 1 },
     { name: 'imageFour', maxCount: 1 },
 ])
 
-apiRoute.use(uploadMiddleware);
+apiRoute.use(storeMiddleware);
 
 apiRoute.post(async (req, res) => {
-    const type = req.body.type;
-    const title = req.body.title;
-    const shortDesc = req.body.shortDesc;
-    const description = req.body.description;
-    const conclusion = req.body.conclusion;
-    const socials = req.body.socials.split(',');
-    const url = req.body.url;
-    const onMain = req.body.onMain;
-    const date = req.body.date;
-    const postType = req.body.postType;
-    const imageOne = req.files.imageOne[0].filename;
-    const imageTwo = req.files.imageTwo[0].filename;
-    const imageThree = req.files.imageThree[0].filename;
-    const imageFour = req.files.imageFour[0].filename;
-
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        req.files.imageOne && fs.unlinkSync(`./public/uploads/portfolio/${imageOne}`);
-        req.files.imageTwo && fs.unlinkSync(`./public/uploads/portfolio/${imageTwo}`);
-        req.files.imageThree && fs.unlinkSync(`./public/uploads/portfolio/${imageThree}`);
-        req.files.imageFour && fs.unlinkSync(`./public/uploads/portfolio/${imageFour}`);
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
-    const body = {
-        type, title,
-        shortDesc, description,
-        conclusion, socials, url,
-        onMain, date, imageOne,
-        imageTwo, imageThree, imageFour,
-        postType
-    }
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        const type = req.body.type;
+        const title = req.body.title;
+        const shortDesc = req.body.shortDesc;
+        const description = req.body.description;
+        const conclusion = req.body.conclusion;
+        const socials = req.body.socials.split(',');
+        const url = req.body.url;
+        const onMain = req.body.onMain;
+        const date = req.body.date;
+        const postType = req.body.postType;
+        if (req.files.length < 4) { throw new Error('Вы не загрузили все фотографии!'); }
+
+        const imageOne = toBit64(req.files.imageOne[0]);
+        const imageOneRes = await cloudinaryUpload(imageOne, 'portfolios_upload', 'image');
+        const imageOneUrl = imageOneRes.url;
+        const imageOneId = imageOneRes.public_id;
+
+        const imageTwo = toBit64(req.files.imageTwo[0]);
+        const imageTwoRes = await cloudinaryUpload(imageTwo, 'portfolios_upload', 'image');
+        const imageTwoUrl = imageTwoRes.url;
+        const imageTwoId = imageTwoRes.public_id;
+
+        const imageThree = toBit64(req.files.imageThree[0]);
+        const imageThreeRes = await cloudinaryUpload(imageThree, 'portfolios_upload', 'image');
+        const imageThreeUrl = imageThreeRes.url;
+        const imageThreeId = imageThreeRes.public_id;
+
+        const imageFour = toBit64(req.files.imageFour[0]);
+        const imageFourRes = await cloudinaryUpload(imageFour, 'portfolios_upload', 'image');
+        const imageFourUrl = imageFourRes.url;
+        const imageFourId = imageFourRes.public_id;
+
+        const body = {
+            type, title, shortDesc, description,
+            conclusion, socials, url, onMain, date,
+            postType, imageOneUrl, imageOneId,
+            imageTwoUrl, imageTwoId, imageThreeUrl,
+            imageThreeId, imageFourUrl, imageFourId
+        }
         const portfolio = await Portfolio.create(body);
 
         if (!portfolio) {
@@ -60,7 +74,7 @@ apiRoute.post(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: portfolio });
     }
     catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 });
 
@@ -75,7 +89,7 @@ apiRoute.get(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: portfolio });
     }
     catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 

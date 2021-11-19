@@ -1,44 +1,50 @@
 import dbConnect from '../../../utils/dbConnect';
 import Team from '../../../models/Team';
-import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
-import * as fs from 'fs';
+import {
+    nextConnectonFunction,
+    storeMulter,
+    cloudinaryUpload,
+    toBit64
+} from '../../../utils/functions/apiHelper';
 import Admins from '../../../models/Admins';
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'team').single('imageOne');
+const storeMiddleware = storeMulter(2).single('imageOne');
 
-apiRoute.use(uploadMiddleware)
+apiRoute.use(storeMiddleware);
 
 apiRoute.post(async (req, res) => {
-    const title = req.body.title;
-    const description = req.body.description;
-    const url = req.body.url;
-    const postType = req.body.postType;
-    const imageOne = req.file.filename;
-
-    const body = {
-        title, description, url, imageOne, postType
-    }
-
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        req.file && fs.unlinkSync(`./public/uploads/team/${req.file.filename}`);
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        if (!req.file) { throw new Error('Вы не загрузили фотографию!'); }
+        const imageOne = toBit64(req.file);
+        const cloudinaryResult = await cloudinaryUpload(imageOne, 'team_upload', 'image');
+
+        const title = req.body.title;
+        const description = req.body.description;
+        const url = req.body.url;
+        const postType = req.body.postType;
+        const imageOneId = cloudinaryResult.public_id;
+        const imageOneUrl = cloudinaryResult.url;
+
+        const body = {
+            title, description, url, postType,
+            imageOneId, imageOneUrl
+        }
         const member = await Team.create(body);
 
         if (!member) {
-            return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+            throw new Error('Что то пошло не так...');
         }
 
         res.status(200).json({ statusCode: 200, data: member })
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 

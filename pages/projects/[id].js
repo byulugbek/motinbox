@@ -139,7 +139,7 @@ export default function Post({ data, socials }) {
                     <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.description }} />
                     <div className='imageBox'>
                         <div className='picture'>
-                            <Image src={`/uploads/projects/${data.data.imageTwo}`} layout='fill' alt={data.data.imageTwo} />
+                            <Image src={data.data.imageTwoUrl} layout='fill' alt={data.data.imageTwoId} priority='true'/>
                         </div>
                     </div>
                     <div className='descript' dangerouslySetInnerHTML={{ __html: data.data.conclusion }} />

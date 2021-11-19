@@ -9,7 +9,8 @@ const TeamSchema = new mongoose.Schema({
     title: reqString,
     description: reqString,
     url: reqString,
-    imageOne: reqString,
+    imageOneUrl: reqString,
+    imageOneId: reqString,
     postType: reqString,
 })
 

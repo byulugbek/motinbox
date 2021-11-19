@@ -25,7 +25,7 @@ const fields = {
     title: 1,
     shortDesc: 1,
     type: 1,
-    imageOne: 1,
+    imageOneUrl: 1,
     date: 1,
     postType: 1,
 }

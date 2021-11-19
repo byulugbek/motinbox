@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "axios": "^0.22.0",
+    "cloudinary": "^1.27.1",
+    "datauri": "^4.1.0",
     "framer-motion": "^5.0.2",
     "isomorphic-unfetch": "^3.1.0",
     "jodit-react": "^1.1.1",

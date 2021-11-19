@@ -1,61 +1,84 @@
 import * as fs from 'fs';
 import dbConnect from '../../../utils/dbConnect';
 import Projects from '../../../models/Projects';
-import { muterUpload, nextConnectonFunction } from '../../../utils/functions/apiHelper';
+import {
+    nextConnectonFunction,
+    storeMulter,
+    toBit64,
+    cloudinaryUpload,
+    cloudinaryDelete
+} from '../../../utils/functions/apiHelper';
 import Admins from '../../../models/Admins';
 
 dbConnect();
 
 const apiRoute = nextConnectonFunction();
 
-const uploadMiddleware = muterUpload(2, 'projects').fields([{ name: 'imageOne', maxCount: 1 }, { name: 'imageTwo', maxCount: 1 }]);
+const storeMiddleware = storeMulter(2, 'projects').fields([{ name: 'imageOne', maxCount: 1 }, { name: 'imageTwo', maxCount: 1 }]);
 
-apiRoute.use(uploadMiddleware);
+apiRoute.use(storeMiddleware);
 
 apiRoute.put(async (req, res) => {
     const {
         query: { id },
     } = req;
 
-    // define all new data
-    const type = req.body.type;
-    const title = req.body.title;
-    const shortDesc = req.body.shortDesc;
-    const description = req.body.description;
-    const conclusion = req.body.conclusion;
-    const socials = req.body.socials.split(',');
-    const url = req.body.url;
-    const onMain = req.body.onMain;
-    const date = req.body.date;
-    const postType = req.body.postType;
-    const imageOne = req.files.imageOne ? req.files.imageOne[0].filename : req.body.imageOne;
-    const imageTwo = req.files.imageTwo ? req.files.imageTwo[0].filename : req.body.imageTwo;
-
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        req.files.imageOne && fs.unlinkSync(`./public/uploads/projects/${imageOne}`);
-        req.files.imageTwo && fs.unlinkSync(`./public/uploads/projects/${imageTwo}`);
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
-    // get old imageTwos array of names
-    const projectById = await Projects.findById(id);
-    // if new imageTwos uploaded
-    if (req.files.imageOne) {
-        fs.unlinkSync(`./public/uploads/projects/${projectById.imageOne}`);
-    }
-    if (req.files.imageTwo) {
-        fs.unlinkSync(`./public/uploads/projects/${projectById.imageTwo}`);
-    }
-
-    const body = {
-        type, title, shortDesc,
-        description, conclusion,
-        socials, imageOne, imageTwo,
-        url, onMain, date, postType
-    }
-
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        const type = req.body.type;
+        const title = req.body.title;
+        const shortDesc = req.body.shortDesc;
+        const description = req.body.description;
+        const conclusion = req.body.conclusion;
+        const socials = req.body.socials.split(',');
+        const url = req.body.url;
+        const onMain = req.body.onMain;
+        const date = req.body.date;
+        const postType = req.body.postType;
+        let imageOneUrl = null;
+        let imageOneId = null;
+        let imageTwoUrl = null;
+        let imageTwoId = null;
+
+        if (req.files.imageOne) {
+            const projectById = await Projects.findById(id);
+            console.log(projectById);
+            await cloudinaryDelete(projectById.imageOneId, 'video');
+
+            const imageOne = toBit64(req.files.imageOne[0]);
+            const cloudinaryResult = await cloudinaryUpload(imageOne, 'projects_upload', 'video');
+            imageOneUrl = cloudinaryResult.url;
+            imageOneId = cloudinaryResult.public_id;
+        } else {
+            const projectById = await Projects.findById(id);
+            imageOneUrl = projectById.imageOneUrl;
+            imageOneId = projectById.imageOneId;
+        }
+        if (req.files.imageTwo) {
+            const projectById = await Projects.findById(id);
+            await cloudinaryDelete(projectById.imageTwoId, 'image');
+
+            const imageTwo = toBit64(req.files.imageTwo[0]);
+            const cloudinaryResult = await cloudinaryUpload(imageTwo, 'projects_upload', 'image');
+            imageTwoUrl = cloudinaryResult.url;
+            imageTwoId = cloudinaryResult.public_id;
+        } else {
+            const projectById = await Projects.findById(id);
+            imageTwoUrl = projectById.imageTwoUrl;
+            imageTwoId = projectById.imageTwoId;
+        }
+
+        const body = {
+            type, title, shortDesc,
+            description, conclusion,
+            socials, url, onMain, date,
+            postType,
+            imageOneUrl, imageOneId,
+            imageTwoUrl, imageTwoId,
+        }
+
         const project = await Projects.findByIdAndUpdate(id, body, {
             new: true,
             runValidators: true,
@@ -68,7 +91,7 @@ apiRoute.put(async (req, res) => {
         res.status(200).json({ statusCode: 200, data: project })
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 
@@ -96,27 +119,24 @@ apiRoute.delete(async (req, res) => {
         query: { id }
     } = req;
 
-    const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
-    if (isAdmin.length <= 0) {
-        return res.status(400).json({ statusCode: 400, message: 'Вы не авторизованны' });
-    }
-
-    const projectById = await Projects.findById(id);
-    fs.unlinkSync(`./public/uploads/projects/${projectById.imageOne}`);
-    fs.unlinkSync(`./public/uploads/projects/${projectById.imageTwo}`);
-
-
     try {
+        const isAdmin = await Admins.find({ 'token': req.headers.authorization }).populate('token');
+        if (isAdmin.length <= 0) { throw new Error('Вы не авторизованны'); }
+
+        const project = await Projects.findById(id);
+        await cloudinaryDelete(project.imageOneId, 'video');
+        await cloudinaryDelete(project.imageTwoId, 'image');
+
         const deleteProject = await Projects.deleteOne({ _id: id });
 
         if (!deleteProject) {
-            return res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+            throw new Error({ message: 'Что то пошло не так...' });
         }
 
         res.status(200).json({ statusCode: 200, data: deleteProject });
 
     } catch (error) {
-        res.status(400).json({ statusCode: 400, message: 'Что то пошло не так...' });
+        res.status(400).json({ statusCode: 400, message: error.message });
     }
 })
 
