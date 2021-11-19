@@ -29,7 +29,7 @@ apiRoute.post(async (req, res) => {
         const url = req.body.url;
         const postType = req.body.postType;
         const imageOneId = cloudinaryResult.public_id;
-        const imageOneUrl = cloudinaryResult.url;
+        const imageOneUrl = cloudinaryResult.secure_url;
 
         const body = {
             title, description, url, postType,

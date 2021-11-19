@@ -27,7 +27,7 @@ apiRoute.post(async (req, res) => {
         const title = req.body.title;
         const url = req.body.url;
         const queue = req.body.queue;
-        const imageOneUrl = imageOneRes.url;
+        const imageOneUrl = imageOneRes.secure_url;
         const imageOneId = imageOneRes.public_id;
 
         const body = {

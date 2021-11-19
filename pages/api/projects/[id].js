@@ -49,7 +49,7 @@ apiRoute.put(async (req, res) => {
 
             const imageOne = toBit64(req.files.imageOne[0]);
             const cloudinaryResult = await cloudinaryUpload(imageOne, 'projects_upload', 'video');
-            imageOneUrl = cloudinaryResult.url;
+            imageOneUrl = cloudinaryResult.secure_url;
             imageOneId = cloudinaryResult.public_id;
         } else {
             const projectById = await Projects.findById(id);
@@ -62,7 +62,7 @@ apiRoute.put(async (req, res) => {
 
             const imageTwo = toBit64(req.files.imageTwo[0]);
             const cloudinaryResult = await cloudinaryUpload(imageTwo, 'projects_upload', 'image');
-            imageTwoUrl = cloudinaryResult.url;
+            imageTwoUrl = cloudinaryResult.secure_url;
             imageTwoId = cloudinaryResult.public_id;
         } else {
             const projectById = await Projects.findById(id);

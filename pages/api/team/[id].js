@@ -31,7 +31,7 @@ apiRoute.put(async (req, res) => {
 
             const imageOne = toBit64(req.file);
             const cloudinaryResult = await cloudinaryUpload(imageOne, 'team_upload', 'image');
-            imageOneUrl = cloudinaryResult.url;
+            imageOneUrl = cloudinaryResult.secure_url;
             imageOneId = cloudinaryResult.public_id;
         } else {
             const memberById = await Team.findById(id);

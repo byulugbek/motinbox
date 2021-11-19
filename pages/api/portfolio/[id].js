@@ -55,7 +55,7 @@ apiRoute.put(async (req, res) => {
             await cloudinaryDelete(portfolioById.imageOneId, 'image');
             const imageOne = toBit64(req.files.imageOne[0]);
             const imageOneRes = await cloudinaryUpload(imageOne, 'portfolios_upload', 'image');
-            imageOneUrl = imageOneRes.url;
+            imageOneUrl = imageOneRes.secure_url;
             imageOneId = imageOneRes.public_id;
         } else {
             const portfolioById = await Portfolio.findById(id);
@@ -67,7 +67,7 @@ apiRoute.put(async (req, res) => {
             await cloudinaryDelete(portfolioById.imageTwoId, 'image');
             const imageTwo = toBit64(req.files.imageTwo[0]);
             const imageTwoRes = await cloudinaryUpload(imageTwo, 'portfolios_upload', 'image');
-            imageTwoUrl = imageTwoRes.url;
+            imageTwoUrl = imageTwoRes.secure_url;
             imageTwoId = imageTwoRes.public_id;
         } else {
             const portfolioById = await Portfolio.findById(id);
@@ -79,7 +79,7 @@ apiRoute.put(async (req, res) => {
             await cloudinaryDelete(portfolioById.imageThreeId, 'image');
             const imageThree = toBit64(req.files.imageThree[0]);
             const imageThreeRes = await cloudinaryUpload(imageThree, 'portfolios_upload', 'image');
-            imageThreeUrl = imageThreeRes.url;
+            imageThreeUrl = imageThreeRes.secure_url;
             imageThreeId = imageThreeRes.public_id;
         } else {
             const portfolioById = await Portfolio.findById(id);
@@ -91,7 +91,7 @@ apiRoute.put(async (req, res) => {
             await cloudinaryDelete(portfolioById.imageFourId, 'image');
             const imageFour = toBit64(req.files.imageFour[0]);
             const imageFourRes = await cloudinaryUpload(imageFour, 'portfolios_upload', 'image');
-            imageFourUrl = imageFourRes.url;
+            imageFourUrl = imageFourRes.secure_url;
             imageFourId = imageFourRes.public_id;
         } else {
             const portfolioById = await Portfolio.findById(id);

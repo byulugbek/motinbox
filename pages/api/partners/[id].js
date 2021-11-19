@@ -23,7 +23,6 @@ apiRoute.put(async (req, res) => {
         const title = req.body.title;
         const url = req.body.url;
         const queue = req.body.queue;
-        const imageOne = req.file ? req.file.filename : req.body.imageOne;
 
         let imageOneUrl = null;
         let imageOneId = null;
@@ -34,7 +33,7 @@ apiRoute.put(async (req, res) => {
 
             const imageOne = toBit64(req.file);
             const cloudinaryResult = await cloudinaryUpload(imageOne, 'partners_upload', 'image');
-            imageOneUrl = cloudinaryResult.url;
+            imageOneUrl = cloudinaryResult.secure_url;
             imageOneId = cloudinaryResult.public_id;
         } else {
             const memberById = await Partners.findById(id);

@@ -31,11 +31,11 @@ apiRoute.post(async (req, res) => {
 
         const imageOne = toBit64(req.files.imageOne[0]);
         const imageOneResult = await cloudinaryUpload(imageOne, 'projects_upload', 'video');
-        const imageOneUrl = imageOneResult.url;
+        const imageOneUrl = imageOneResult.secure_url;
         const imageOneId = imageOneResult.public_id;
         const imageTwo = toBit64(req.files.imageTwo[0]);
         const imageTwoResult = await cloudinaryUpload(imageTwo, 'projects_upload', 'image');
-        const imageTwoUrl = imageTwoResult.url;
+        const imageTwoUrl = imageTwoResult.secure_url;
         const imageTwoId = imageTwoResult.public_id;
 
         const body = {

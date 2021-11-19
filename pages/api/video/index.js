@@ -33,7 +33,7 @@ apiRoute.post(async (req, res) => {
 
         const title = req.body.title;
         const description = req.body.description;
-        const videoUrl = videoRes.url;
+        const videoUrl = videoRes.secure_url;
         const videoId = videoRes.public_id;
 
         const body = { title, description, videoUrl, videoId };

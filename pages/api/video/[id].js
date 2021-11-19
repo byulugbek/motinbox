@@ -37,7 +37,7 @@ apiRoute.put(async (req, res) => {
 
             const video = toBit64(req.file);
             const videoRes = await cloudinaryUpload(video, 'video_upload', 'video');
-            videoUrl = videoRes.url;
+            videoUrl = videoRes.secure_url;
             videoId = videoRes.public_id;
         }
         else {
