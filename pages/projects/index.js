@@ -5,6 +5,7 @@ import MainLayer from '../../components/mainLayer';
 import Projects from '../../models/Projects';
 import dbConnect from '../../utils/dbConnect';
 import HeadComponent from '../../components/head';
+import Meta from '../../models/Meta';
 
 const Projects_style = styled.div`
     display: grid;
@@ -15,7 +16,7 @@ const Projects_style = styled.div`
     }
 `
 
-export default function ProjectsPage({ projects }) {
+export default function ProjectsPage({ projects, meta }) {
     const mapProjectCards = projects.map((post) => {
         return (
             <Card
@@ -28,9 +29,9 @@ export default function ProjectsPage({ projects }) {
     return (
         <MainLayer>
             <HeadComponent
-                title={'MotionBox | Наше проекты'}
-                metatitle={'MotionBox | Мы исполняем нечто невероятное, создаем лучший дизайн'}
-                description={'Мы создаем наши проекты не только для вас, но и для себя, мы получаем действительно удовольствие от создания подобных проектов.'}
+                title={'MotionBox | Наши проекты'}
+                metatitle={meta.title}
+                description={meta.description}
             />
             <Title text='ЭТО НАШИ ПРОЕКТЫ' />
             <Projects_style>
@@ -44,10 +45,15 @@ export default function ProjectsPage({ projects }) {
 export async function getServerSideProps() {
     dbConnect();
     const projects = JSON.parse(JSON.stringify(await Projects.find({}).sort({ date: -1 })));
+    const meta = JSON.parse(JSON.stringify(await Meta.find({})));
 
     return {
         props: {
             projects,
+            meta: {
+                title: meta.length ? meta[0].projectsTitle : 'MotionBox | Наши проекты',
+                description: meta.length ? meta[0].projectsDesc : 'MotionBox | Вдохновляйся нашими преоктами...'
+            }
         }
     }
 }

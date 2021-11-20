@@ -4,7 +4,6 @@ import { useRouter } from 'next/router';
 export default function HeadComponent(props) {
     const { title, metatitle, description, image } = props;
     const { asPath } = useRouter();
-    console.log(asPath);
     return (
         <Head>
             <title>{title}</title>

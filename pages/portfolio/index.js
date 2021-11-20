@@ -5,6 +5,7 @@ import MainLayer from '../../components/mainLayer';
 import Portfolio from '../../models/Portfolio';
 import dbConnect from '../../utils/dbConnect';
 import HeadComponent from '../../components/head';
+import Meta from '../../models/Meta';
 
 
 const Portfolio_Style = styled.div`
@@ -18,13 +19,13 @@ const Portfolio_Style = styled.div`
         grid-template-columns: repeat(1, 1fr);
     }
 `
-export default function PortfolioPage({ portfolio }) {
+export default function PortfolioPage({ portfolio, meta }) {
     return (
         <MainLayer>
             <HeadComponent
-                title={'MotionBox | Наше портфолио'}
-                metatitle={'MotionBox | Мы исполняем нечто невероятное, создаем лучший дизайн'}
-                description={'Ваши проеткты, это наши проекты, мы беремся за них не только ради денег, но и для того что бы записать в портфолио такие замечательные проекты.'}
+                title={'MotionBox | Портфолио'}
+                metatitle={meta.title}
+                description={meta.description}
             />
             <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>
@@ -44,10 +45,15 @@ export default function PortfolioPage({ portfolio }) {
 export async function getServerSideProps() {
     dbConnect();
     const portfolio = JSON.parse(JSON.stringify(await Portfolio.find({}).sort({ date: -1 })));
+    const meta = JSON.parse(JSON.stringify(await Meta.find({})));
 
     return {
         props: {
             portfolio,
+            meta: {
+                title: meta.length ? meta[0].portfolioTitle : 'MotionBox | Наши работы',
+                description: meta.length ? meta[0].portfolioDesc : 'MotionBox | Любуйся нашими работами...'
+            }
         }
     }
 }

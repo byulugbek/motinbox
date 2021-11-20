@@ -63,9 +63,9 @@ const Table_style = styled.div`
             .text {
                 grid-area: text;
                 overflow: hidden;
-                line-clamp: 6;
+                line-clamp: ${props => props.noLimt || 6};
                 display: -webkit-box;
-                -webkit-line-clamp: 6;
+                -webkit-line-clamp: ${props => props.noLimt || 6};
                 -webkit-box-orient: vertical;
                 text-overflow: ellipsis;
             }
@@ -103,7 +103,8 @@ export default function Table(props) {
         data,
         editable,
         linkParam,
-        onDelete
+        onDelete,
+        noLimt
     } = props;
 
     const mapItems = data.map(item => {
@@ -141,7 +142,7 @@ export default function Table(props) {
     })
 
     return (
-        <Table_style>
+        <Table_style noLimt={noLimt}>
             <div className='title'>
                 <h2>
                     {title}

@@ -11,11 +11,18 @@ const Container_style = styled.div`
 `
 
 export default function AHome(props) {
+    const { meta } = props;
     const { data } = props.data;
     const { projects, portfolio } = data;
 
     return (
         <Container_style>
+            <Table
+                title={'Все мета данные'}
+                data={meta}
+                linkParam={'meta'}
+                noLimt={100}
+            />
             <Table
                 title={'Проекты на главной'}
                 data={projects}

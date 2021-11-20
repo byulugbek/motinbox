@@ -11,6 +11,7 @@ import dbConnect from '../utils/dbConnect';
 import { motion } from 'framer-motion';
 import { fadeInSides } from '../components/animations';
 import HeadComponent from "../components/head";
+import Meta from '../models/Meta';
 
 const Animation_screen = styled.div`
     position: relative;
@@ -99,7 +100,7 @@ const Team_style = styled.div`
     }
 `
 
-export default function AboutUs({ video, team }) {
+export default function AboutUs({ video, team, meta }) {
 
     const mapTeamCards = team.map((post) => {
         return (
@@ -113,14 +114,10 @@ export default function AboutUs({ video, team }) {
 
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | Кто мы такие</title>
-                <meta name='description' content='Это мы' />
-            </Head>
             <HeadComponent
                 title={'MotionBox | Кто мы такие'}
-                metatitle={'MotionBox | Настоящая команда IT специалистов'}
-                description={'Слаченность, дружба и комуникабельность делат нас такими крутыми'}
+                metatitle={meta.title}
+                description={meta.description}
             />
             <motion.div initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
                 <Animation_screen>
@@ -164,12 +161,17 @@ export async function getServerSideProps() {
     dbConnect();
 
     const video = JSON.parse(JSON.stringify(await Video.find({})));
-
     const team = JSON.parse(JSON.stringify(await Team.find({})));
+    const meta = JSON.parse(JSON.stringify(await Meta.find({})));
 
     return {
         props: {
-            video: video.length ? video[0] : { title: '<h2>Пусто</h2>', description: '<p>Пусто</p>' }, team
+            video: video.length ? video[0] : { title: '<h2>Пусто</h2>', description: '<p>Пусто</p>' },
+            team,
+            meta: {
+                title: meta.length ? meta[0].aboutTitle : 'MotionBox | Кто мы такие',
+                description: meta.length ? meta[0].aboutDesc : 'MotionBox | Описание станицы команды'
+            }
         }
     }
 }

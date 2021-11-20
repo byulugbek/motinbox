@@ -13,6 +13,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { fadeInSides } from '../components/animations';
 import HeadComponent from "../components/head";
+import Meta from "../models/Meta";
 
 const FormWrap = styled(motion.form)`
     display: grid;
@@ -130,7 +131,7 @@ const Item = styled.div`
 `
 
 let arrayAdd = [];
-export default function MakeOrder({ data }) {
+export default function MakeOrder({ data, meta }) {
     const router = useRouter();
     const [isModal, setModal] = useState(false);
     const [abilities, setAbilities] = useState([]);
@@ -220,8 +221,8 @@ export default function MakeOrder({ data }) {
         <MainLayer>
             <HeadComponent
                 title={'MotionBox | Быть с нами'}
-                metatitle={'MotionBox | Обратитесь к нам и мы сделаем класс'}
-                description={'Нпиши нам прямо сейчас.'}
+                metatitle={meta.title}
+                description={meta.description}
             />
             <FormWrap onSubmit={chekAllData} ref={ref} initial="hidden" animate={controls} variants={fadeInSides(0, 60)}>
                 <h2 className='theme'>Выбери нужную услугу</h2>
@@ -309,10 +310,15 @@ export default function MakeOrder({ data }) {
 export async function getServerSideProps() {
     dbConnect();
     const abilities = JSON.parse(JSON.stringify(await Abilities.find({})));
+    const meta = JSON.parse(JSON.stringify(await Meta.find({})));
 
     return {
         props: {
             data: abilities,
+            meta: {
+                title: meta.length ? meta[0].contactTitle : 'MotionBox | Будь с нами',
+                description: meta.length ? meta[0].contactDesc : 'MotionBox | Описание станицы заявки'
+            }
         }
     }
 }
