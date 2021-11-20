@@ -1,10 +1,10 @@
-import Head from 'next/head';
 import styled from 'styled-components';
 import Card from '../../components/card';
 import Title from '../../components/title';
 import MainLayer from '../../components/mainLayer';
 import Projects from '../../models/Projects';
 import dbConnect from '../../utils/dbConnect';
+import HeadComponent from '../../components/head';
 
 const Projects_style = styled.div`
     display: grid;
@@ -27,10 +27,11 @@ export default function ProjectsPage({ projects }) {
 
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | Наши проекты</title>
-                <meta name='description' content='Мы создаем наши проекты не только для вас, но и для себя, мы получаем действительно удовольствие от создания подобных проектов.' />
-            </Head>
+            <HeadComponent
+                title={'MotionBox | Наше проекты'}
+                metatitle={'MotionBox | Мы исполняем нечто невероятное, создаем лучший дизайн'}
+                description={'Мы создаем наши проекты не только для вас, но и для себя, мы получаем действительно удовольствие от создания подобных проектов.'}
+            />
             <Title text='ЭТО НАШИ ПРОЕКТЫ' />
             <Projects_style>
                 {mapProjectCards}

@@ -1,10 +1,10 @@
-import Head from 'next/head';
 import styled from 'styled-components';
 import Card from '../../components/card';
 import Title from '../../components/title';
 import MainLayer from '../../components/mainLayer';
 import Portfolio from '../../models/Portfolio';
 import dbConnect from '../../utils/dbConnect';
+import HeadComponent from '../../components/head';
 
 
 const Portfolio_Style = styled.div`
@@ -21,10 +21,11 @@ const Portfolio_Style = styled.div`
 export default function PortfolioPage({ portfolio }) {
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | Портфолио</title>
-                <meta name='description' content='Ваши проеткты, это наши проекты, мы беремся за них не только ради денег, но и для того что бы записать в портфолио такие замечательные проекты.' />
-            </Head>
+            <HeadComponent
+                title={'MotionBox | Наше портфолио'}
+                metatitle={'MotionBox | Мы исполняем нечто невероятное, создаем лучший дизайн'}
+                description={'Ваши проеткты, это наши проекты, мы беремся за них не только ради денег, но и для того что бы записать в портфолио такие замечательные проекты.'}
+            />
             <Title text='ПОСЛЕДНИЕ РАБОТЫ' />
             <Portfolio_Style>
                 {portfolio.map((post) => {

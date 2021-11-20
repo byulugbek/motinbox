@@ -1,5 +1,13 @@
-import styled from 'styled-components'
-import { Logo, Location, Mail, Phone, Instagram } from './icons'
+import styled from 'styled-components';
+import {
+    Logo,
+    Location,
+    Mail,
+    Phone,
+    Instagram,
+    Facebook,
+    Linkedin
+} from './icons';
 
 const Footer_style = styled.div`
     display: grid; 
@@ -174,16 +182,20 @@ export default function Footer() {
                         <span>Преврвщаем Смелые <br />идеи в Чистый дизайн</span>
                     </div>
                     <div className='projectBox'>
-                        <a href='#' aria-label="PROJECT" className='projectItem'>
+                        <a href='https://www.logistbox.com' target='_blank' aria-label="PROJECT" className='projectItem'>
                             <p>Logist Box</p>
                         </a>
                         <div className='verticalLine' />
-                        <a href='#' aria-label="PROJECT" className='projectItem'>
-                            <p>School Box</p>
+                        <a href='https://www.studybox.uz' target='_blank' aria-label="PROJECT" className='projectItem'>
+                            <p>Study Box</p>
                         </a>
                         <div className='verticalLine' />
-                        <a href='#' aria-label="PROJECT" className='projectItem'>
-                            <p>Market Box</p>
+                        <a href='https://www.orderbox.uz' target='_blank' aria-label="PROJECT" className='projectItem'>
+                            <p>Order Box</p>
+                        </a>
+                        <div className='verticalLine' />
+                        <a href='https://www.meatbox.uz' target='_blank' aria-label="PROJECT" className='projectItem'>
+                            <p>Meat Box</p>
                         </a>
                     </div>
                 </div>
@@ -203,9 +215,9 @@ export default function Footer() {
                         </a>
                     </div>
                     <div className='socialBox'>
-                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
-                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
-                        <a href='#' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
+                        <a href='https://www.linkedin.com/company/motionboxuz' target='_blank' aria-label="SOCIAL" className='coxialItem'><Linkedin fill='#fff' /></a>
+                        <a href='https://www.instagram.com/motionbox.uz' target='_blank' aria-label="SOCIAL" className='coxialItem'><Instagram fill='#fff' /></a>
+                        <a href='https://www.facebook.com/motionbox.uz' target='_blank' aria-label="SOCIAL" className='coxialItem'><Facebook fill='#fff' /></a>
                     </div>
 
                 </div>

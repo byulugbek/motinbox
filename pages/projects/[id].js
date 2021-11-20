@@ -1,4 +1,3 @@
-import Head from 'next/head';
 import styled from 'styled-components';
 import Image from 'next/image';
 import ErrorPage from 'next/error';
@@ -8,6 +7,7 @@ import MainLayer from '../../components/mainLayer';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
 import { fadeInSides } from '../../components/animations';
+import HeadComponent from '../../components/head';
 
 const PostWrap = styled.div`
     display: grid;
@@ -109,7 +109,6 @@ const PostWrap = styled.div`
 
 
 export default function Post({ data, socials }) {
-    const metaDescription = data.data.description.split('<p>');
 
     if (data.statusCode !== 200) {
         return <ErrorPage statusCode={data.statusCode} />
@@ -128,10 +127,11 @@ export default function Post({ data, socials }) {
 
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | {data.data.title}</title>
-                <meta name='description' content={metaDescription[1].slice(0, 200)} />
-            </Head>
+            <HeadComponent
+                title={`MotionBox | ${data.data.title}`}
+                description={data.data.shortDesc.slice(0, 200)}
+                image={data.data.imageTwoUrl}
+            />
             <PostWrap>
                 <motion.div className='animationBox' initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
                     <h3 className='theme'>{data.data.type}</h3>

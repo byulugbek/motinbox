@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import Head from 'next/head';
 import styled from "styled-components";
 import axios from 'axios';
 import { useRouter } from 'next/router';
@@ -13,6 +12,7 @@ import Abilities from "../models/Abilities";
 import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import { fadeInSides } from '../components/animations';
+import HeadComponent from "../components/head";
 
 const FormWrap = styled(motion.form)`
     display: grid;
@@ -118,6 +118,7 @@ const Item = styled.div`
         color: ${props => props.selected ? 'var(--white100)' : 'var(--black100) !important'};
     }
 
+
     div {
         width: 16px;
         height: 16px;
@@ -217,9 +218,11 @@ export default function MakeOrder({ data }) {
 
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | Быть с нами</title>
-            </Head>
+            <HeadComponent
+                title={'MotionBox | Быть с нами'}
+                metatitle={'MotionBox | Обратитесь к нам и мы сделаем класс'}
+                description={'Нпиши нам прямо сейчас.'}
+            />
             <FormWrap onSubmit={chekAllData} ref={ref} initial="hidden" animate={controls} variants={fadeInSides(0, 60)}>
                 <h2 className='theme'>Выбери нужную услугу</h2>
                 <Abilities_style>

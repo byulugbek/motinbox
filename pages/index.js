@@ -6,15 +6,17 @@ import Portfolio from '../models/Portfolio';
 import Partners from '../models/Partners';
 import dbConnect from '../utils/dbConnect';
 import Abilities from '../models/Abilities';
+import HeadComponent from '../components/head';
 
 
 export default function Index(props) {
     return (
         <MainLayer>
-            <Head>
-                <title>MotionBox | Главная</title>
-                <meta name='description' content='На главной странице собранны все информации' />
-            </Head>
+            <HeadComponent
+                title={'MotionBox | Главная'}
+                metatitle={'MotionBox | Мы вам покажем что мы можем'}
+                description={'Проекты и портфолио на этой странице'}
+            />
             <HomePage data={{ main: props.main, }} />
         </MainLayer>
     )

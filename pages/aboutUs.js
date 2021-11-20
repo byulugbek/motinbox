@@ -10,6 +10,7 @@ import Team from '../models/Team';
 import dbConnect from '../utils/dbConnect';
 import { motion } from 'framer-motion';
 import { fadeInSides } from '../components/animations';
+import HeadComponent from "../components/head";
 
 const Animation_screen = styled.div`
     position: relative;
@@ -116,6 +117,11 @@ export default function AboutUs({ video, team }) {
                 <title>MotionBox | Кто мы такие</title>
                 <meta name='description' content='Это мы' />
             </Head>
+            <HeadComponent
+                title={'MotionBox | Кто мы такие'}
+                metatitle={'MotionBox | Настоящая команда IT специалистов'}
+                description={'Слаченность, дружба и комуникабельность делат нас такими крутыми'}
+            />
             <motion.div initial='hidden' animate='visible' variants={fadeInSides(0, 60)}>
                 <Animation_screen>
                     <div className='upBox'>
