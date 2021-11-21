@@ -49,17 +49,3 @@ export function nextConnectonFunction() {
     });
     return apiRoute;
 }
-
-export function muterUpload(fileSize, destionation) {
-    const oneMegabyteInBytes = 1000000;
-
-    const upload = multer({
-        limits: { fileSize: oneMegabyteInBytes * fileSize },
-        storage: multer.diskStorage({
-            destination: `./public/uploads/${destionation}`,
-            filename: (req, file, cb) => cb(null, new Date().toISOString().replace(/:/g, '-') + "-" + file.originalname),
-        }),
-    });
-
-    return upload;
-}

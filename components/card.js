@@ -31,7 +31,6 @@ const Card_style = styled.div`
         top: 0;
         width: 100%;
         height: 100%;
-        background: linear-gradient(90deg, rgba(255, 255, 255, 0.6) 20%, rgba(255, 255, 255, 0.1) 100%);
         align-content: space-between;
         padding: 50px;
         .info{
